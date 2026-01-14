@@ -1,0 +1,112 @@
+import { Link } from 'react-router-dom';
+import { ArrowRight, FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+
+export function HeroSection() {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return (
+    <section className="min-h-screen flex flex-col items-center justify-center px-6 relative">
+      {/* Animated timeline pulse - top */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-40">
+        <div className="w-full h-full bg-gradient-to-b from-transparent via-primary/60 to-transparent animate-pulse-subtle" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary/80 blur-sm animate-pulse" />
+      </div>
+      
+      <main className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+        {/* Tagline */}
+        <div 
+          className={`mb-12 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border/50 bg-card/30 backdrop-blur-sm">
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-sm font-mono tracking-[0.3em] text-muted-foreground uppercase">
+              Where agent behavior becomes obvious
+            </span>
+          </div>
+        </div>
+        
+        {/* Main Headline */}
+        <h1 
+          className={`text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium tracking-tight leading-[1.05] transition-all duration-700 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          <span className="block">Same agent.</span>
+          <span className="block">Same world.</span>
+          <span className="block text-primary bg-gradient-to-r from-primary to-primary/60 bg-clip-text">
+            Different rules.
+          </span>
+        </h1>
+        
+        {/* Subhead */}
+        <div 
+          className={`max-w-2xl mx-auto space-y-4 transition-all duration-700 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+            Autonomous systems don't fail because they're unintelligent.
+            <br />
+            <span className="text-foreground/90">They fail because their behavior is undefined.</span>
+          </p>
+          <p className="text-lg text-foreground/80">
+            POLICYLAB lets you see what rules actually do — before the consequences are real.
+          </p>
+        </div>
+        
+        {/* Animated divider */}
+        <div 
+          className={`flex items-center justify-center gap-3 py-8 transition-all duration-700 delay-300 ${mounted ? 'opacity-100' : 'opacity-0'}`}
+        >
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+          <div className="relative">
+            <div className="w-3 h-3 rounded-full bg-primary/80 animate-pulse-subtle" />
+            <div className="absolute inset-0 w-3 h-3 rounded-full bg-primary blur-md animate-pulse-subtle" />
+          </div>
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        </div>
+        
+        {/* CTAs */}
+        <div 
+          className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-700 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          <Button asChild size="lg" className="group text-lg px-8 py-6 relative overflow-hidden">
+            <Link to="/scenarios">
+              <span className="relative z-10 flex items-center">
+                Run a simulation
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
+          </Button>
+          
+          <Button asChild variant="ghost" size="lg" className="text-muted-foreground hover:text-foreground text-lg px-8 py-6 group">
+            <Link to="/spec">
+              <FileText className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+              View the standard
+            </Link>
+          </Button>
+        </div>
+      </main>
+      
+      {/* Bottom pulse */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-40">
+        <div className="w-full h-full bg-gradient-to-t from-transparent via-primary/40 to-transparent animate-pulse-subtle" style={{ animationDelay: '0.5s' }} />
+      </div>
+      
+      {/* Corner accents */}
+      <div className="absolute top-8 left-8 w-16 h-16 border-l border-t border-border/30 rounded-tl-lg opacity-50" />
+      <div className="absolute top-8 right-8 w-16 h-16 border-r border-t border-border/30 rounded-tr-lg opacity-50" />
+      <div className="absolute bottom-8 left-8 w-16 h-16 border-l border-b border-border/30 rounded-bl-lg opacity-50" />
+      <div className="absolute bottom-8 right-8 w-16 h-16 border-r border-b border-border/30 rounded-br-lg opacity-50" />
+      
+      {/* Scroll indicator */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
+        <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-muted-foreground/50 to-transparent animate-pulse-subtle" />
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,14 @@
+export { HeroSection } from './HeroSection';
+export { ProblemSection } from './ProblemSection';
+export { InsightSection } from './InsightSection';
+export { WhatIsSection } from './WhatIsSection';
+export { HowItWorksSection } from './HowItWorksSection';
+export { TheMomentSection } from './TheMomentSection';
+export { WhyMattersSection } from './WhyMattersSection';
+export { WhoIsForSection } from './WhoIsForSection';
+export { DifferentSection } from './DifferentSection';
+export { StandardSection } from './StandardSection';
+export { NotSection } from './NotSection';
+export { WhyNowSection } from './WhyNowSection';
+export { FinalCTASection } from './FinalCTASection';
+export { Footer } from './Footer';
