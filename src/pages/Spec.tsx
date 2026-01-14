@@ -1,20 +1,14 @@
-import { Link } from 'react-router-dom';
-import { ArrowLeft, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { AnimatedBackground } from '@/components/effects';
 
 export default function Spec() {
   return (
-    <div className="min-h-screen py-20 px-6 relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-20 px-6 relative overflow-hidden">
       <AnimatedBackground variant="subtle" />
       
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <header className="mb-16 animate-fade-in">
-          <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group">
-            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Back to home
-          </Link>
-          
           <div className="flex items-center gap-4 mb-4">
             <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
               <BookOpen className="h-6 w-6 text-primary" />

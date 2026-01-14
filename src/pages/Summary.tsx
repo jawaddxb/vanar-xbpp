@@ -47,7 +47,7 @@ export default function Summary() {
   const { consequence_summary } = diff;
 
   return (
-    <div className="min-h-screen py-20 px-6 relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-20 px-6 relative overflow-hidden">
       <AnimatedBackground variant="subtle" />
       
       <div className="max-w-5xl mx-auto relative z-10">

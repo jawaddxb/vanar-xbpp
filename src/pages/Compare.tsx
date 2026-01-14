@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, ChevronDown, ChevronUp, Copy, Check } from 'lucide-react';
+import { ArrowRight, ChevronDown, ChevronUp, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePolicyLabStore } from '@/lib/store';
 import { getScenarioById } from '@/lib/data/scenarios';
@@ -36,17 +36,12 @@ export default function Compare() {
   };
 
   return (
-    <div className="min-h-screen py-20 px-6 relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-20 px-6 relative overflow-hidden">
       <AnimatedBackground variant="subtle" />
       
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <header className="mb-16 animate-fade-in">
-          <Link to="/scenarios" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group">
-            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Back to scenarios
-          </Link>
-          
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div>
               <p className="text-sm font-mono text-primary uppercase tracking-wider mb-3 flex items-center gap-2">

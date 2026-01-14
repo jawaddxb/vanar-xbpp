@@ -91,7 +91,7 @@ export default function Run() {
   if (!selectedScenario) return null;
 
   return (
-    <div className="min-h-screen py-20 px-6 pb-40 relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-40 px-6 relative overflow-hidden">
       <AnimatedBackground variant="subtle" />
       
       <div className="max-w-4xl mx-auto relative z-10">

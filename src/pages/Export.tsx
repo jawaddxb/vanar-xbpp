@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Download, FileJson, FileText, ArrowLeft, Check, Sparkles } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Download, FileJson, FileText, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePolicyLabStore } from '@/lib/store';
 import { permissivePolicy, restrictivePolicy } from '@/lib/data/policies';
-import { AnimatedBackground, GlowCard } from '@/components/effects';
+import { AnimatedBackground } from '@/components/effects';
 
 export default function Export() {
   const [searchParams] = useSearchParams();
@@ -118,17 +118,12 @@ ${diff.consequence_summary.tradeoff}
   };
 
   return (
-    <div className="min-h-screen py-20 px-6 relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-20 px-6 relative overflow-hidden">
       <AnimatedBackground variant="subtle" />
       
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <header className="mb-16 animate-fade-in">
-          <Link to={`/summary?scenario=${scenarioId}`} className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group">
-            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Back to summary
-          </Link>
-          
           <h1 className="text-4xl md:text-5xl font-medium">Export Results</h1>
           <p className="text-lg text-muted-foreground mt-4">
             Download policy definitions and reports for <span className="text-foreground">{selectedScenario.name}</span>
