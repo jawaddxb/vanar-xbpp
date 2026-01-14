@@ -1,11 +1,12 @@
 import { useEffect, useCallback, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Play, Pause, RotateCcw } from 'lucide-react';
+import { useSearchParams, useNavigate, Link } from 'react-router-dom';
+import { Play, Pause, RotateCcw, ArrowRight, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { usePolicyLabStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 import { Event } from '@/lib/types';
+import { AnimatedBackground } from '@/components/effects';
 
 export default function Run() {
   const [searchParams] = useSearchParams();
@@ -48,7 +49,7 @@ export default function Run() {
     
     const timer = setTimeout(() => {
       setCurrentEventIndex(currentEventIndex + 1);
-    }, 1500); // Deliberate pacing
+    }, 1800); // Deliberate, theatrical pacing
     
     return () => clearTimeout(timer);
   }, [isPlaying, currentEventIndex, totalEvents, setCurrentEventIndex, setIsPlaying]);
@@ -57,7 +58,7 @@ export default function Run() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsPlaying(true);
-    }, 800);
+    }, 1000);
     return () => clearTimeout(timer);
   }, [setIsPlaying]);
   
@@ -90,20 +91,39 @@ export default function Run() {
   if (!selectedScenario) return null;
 
   return (
-    <div className="min-h-screen py-16 px-6">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen py-20 px-6 pb-40 relative overflow-hidden">
+      <AnimatedBackground variant="subtle" />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
-        <header className="text-center mb-12 animate-fade-in">
-          <p className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-2">
-            Simulation
-          </p>
-          <h1 className="text-2xl md:text-3xl font-medium">{selectedScenario.name}</h1>
+        <header className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/30 backdrop-blur-sm mb-6 animate-fade-in">
+            <div className={cn(
+              "w-2 h-2 rounded-full",
+              isPlaying ? "bg-allow animate-pulse" : "bg-muted-foreground"
+            )} />
+            <p className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
+              {isPlaying ? 'Simulation Running' : hasReachedEnd ? 'Complete' : 'Paused'}
+            </p>
+          </div>
+          <h1 
+            className="text-3xl md:text-4xl font-medium animate-fade-in"
+            style={{ animationDelay: '100ms' }}
+          >
+            {selectedScenario.name}
+          </h1>
         </header>
         
         {/* Timeline */}
         <div className="relative mb-12">
-          {/* Timeline line */}
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
+          {/* Timeline track */}
+          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/50 via-border to-transparent" />
+          
+          {/* Progress indicator */}
+          <div 
+            className="absolute left-6 top-0 w-0.5 bg-gradient-to-b from-primary to-primary/80 transition-all duration-500"
+            style={{ height: `${((currentEventIndex + 1) / totalEvents) * 100}%` }}
+          />
           
           {/* Events */}
           <div className="space-y-6">
@@ -115,19 +135,22 @@ export default function Run() {
                 isVisible={index <= currentEventIndex}
                 isCurrent={index === currentEventIndex}
                 isPending={event.pending && index === currentEventIndex}
+                totalEvents={totalEvents}
               />
             ))}
           </div>
         </div>
-        
-        {/* Controls */}
-        <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur border-t border-border p-6">
-          <div className="max-w-3xl mx-auto space-y-4">
-            {/* Scrubber */}
-            <div className="flex items-center gap-4">
-              <span className="text-xs font-mono text-muted-foreground w-8">
-                {currentEventIndex + 1}
-              </span>
+      </div>
+      
+      {/* Controls - Fixed at bottom */}
+      <div className="fixed bottom-0 left-0 right-0 bg-background/90 backdrop-blur-md border-t border-border p-6 z-50">
+        <div className="max-w-4xl mx-auto">
+          {/* Progress bar */}
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-sm font-mono text-muted-foreground w-12 text-right">
+              {currentEventIndex + 1}/{totalEvents}
+            </span>
+            <div className="flex-1 relative">
               <Slider
                 value={[currentEventIndex]}
                 max={totalEvents - 1}
@@ -135,30 +158,38 @@ export default function Run() {
                 onValueChange={handleSliderChange}
                 className="flex-1"
               />
-              <span className="text-xs font-mono text-muted-foreground w-8">
-                {totalEvents}
-              </span>
             </div>
-            
-            {/* Buttons */}
-            <div className="flex items-center justify-center gap-4">
-              <Button variant="outline" size="icon" onClick={handleReset}>
-                <RotateCcw className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" onClick={handleTogglePlay}>
-                {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-              </Button>
-              {hasReachedEnd && (
-                <Button onClick={handleProceedToDiff} className="ml-4">
-                  View divergence
-                </Button>
+            <span className="text-sm font-mono text-muted-foreground w-20 text-right">
+              {Math.round(((currentEventIndex + 1) / totalEvents) * 100)}%
+            </span>
+          </div>
+          
+          {/* Buttons */}
+          <div className="flex items-center justify-center gap-3">
+            <Button variant="outline" size="icon" onClick={handleReset} className="h-10 w-10">
+              <RotateCcw className="h-4 w-4" />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="icon" 
+              onClick={handleTogglePlay}
+              className={cn(
+                "h-12 w-12 rounded-full",
+                isPlaying && "border-allow text-allow"
               )}
-            </div>
+            >
+              {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 ml-0.5" />}
+            </Button>
+            
+            {hasReachedEnd && (
+              <Button onClick={handleProceedToDiff} className="ml-4 group">
+                <Eye className="mr-2 h-4 w-4" />
+                View divergence
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            )}
           </div>
         </div>
-        
-        {/* Spacer for fixed controls */}
-        <div className="h-32" />
       </div>
     </div>
   );
@@ -170,47 +201,74 @@ interface TimelineEventProps {
   isVisible: boolean;
   isCurrent: boolean;
   isPending: boolean;
+  totalEvents: number;
 }
 
-function TimelineEvent({ event, isVisible, isCurrent, isPending }: TimelineEventProps) {
-  const typeColors = {
-    action: 'bg-primary',
-    request: 'bg-escalate',
-    evaluation: 'bg-muted-foreground',
-    decision: 'bg-allow',
+function TimelineEvent({ event, index, isVisible, isCurrent, isPending, totalEvents }: TimelineEventProps) {
+  const typeConfig = {
+    action: { color: 'bg-primary', label: 'Action', border: 'border-primary/30' },
+    request: { color: 'bg-escalate', label: 'Request', border: 'border-escalate/30' },
+    evaluation: { color: 'bg-muted-foreground', label: 'Eval', border: 'border-muted-foreground/30' },
+    decision: { color: 'bg-allow', label: 'Decision', border: 'border-allow/30' },
   };
+  
+  const config = typeConfig[event.type];
   
   return (
     <div
       className={cn(
-        "relative pl-10 transition-all duration-500",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+        "relative pl-16 transition-all duration-700",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
       )}
+      style={{ transitionDelay: isVisible ? `${index * 50}ms` : '0ms' }}
     >
-      {/* Dot */}
-      <div
-        className={cn(
-          "absolute left-2.5 top-1.5 w-3 h-3 rounded-full border-2 border-background transition-all",
-          typeColors[event.type],
-          isCurrent && "ring-2 ring-primary ring-offset-2 ring-offset-background",
-          isPending && "animate-pulse"
+      {/* Timeline node */}
+      <div className="absolute left-4 top-4">
+        <div
+          className={cn(
+            "w-4 h-4 rounded-full border-2 border-background transition-all duration-300",
+            config.color,
+            isCurrent && "ring-4 ring-primary/30 scale-125",
+            isPending && "animate-pulse"
+          )}
+        />
+        {isCurrent && (
+          <div className={cn(
+            "absolute inset-0 w-4 h-4 rounded-full blur-md",
+            config.color
+          )} />
         )}
-      />
+      </div>
+      
+      {/* Event number */}
+      <span className="absolute left-0 top-4 text-xs font-mono text-muted-foreground/50">
+        {String(index + 1).padStart(2, '0')}
+      </span>
       
       {/* Content */}
       <div className={cn(
-        "p-4 rounded-lg border bg-card transition-all",
-        isCurrent && "border-primary/50",
-        isPending && "border-escalate/50 bg-escalate/5"
+        "p-6 rounded-lg border bg-card/50 backdrop-blur-sm transition-all duration-300",
+        isCurrent && "border-primary/50 bg-card/80 shadow-lg shadow-primary/5",
+        isPending && "border-escalate/50 bg-escalate/5",
+        config.border
       )}>
         {/* Type badge */}
-        <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-          {event.type}
-        </span>
+        <div className="flex items-center justify-between mb-3">
+          <span className={cn(
+            "inline-flex items-center gap-2 px-2 py-1 rounded text-xs font-mono uppercase tracking-wider",
+            `bg-${event.type === 'action' ? 'primary' : event.type === 'request' ? 'escalate' : event.type === 'decision' ? 'allow' : 'muted'}/10`
+          )}>
+            <span className={cn("w-1.5 h-1.5 rounded-full", config.color)} />
+            {config.label}
+          </span>
+          {isCurrent && !isPending && (
+            <span className="text-xs text-muted-foreground/50 font-mono">now</span>
+          )}
+        </div>
         
         {/* Narrative */}
         <p className={cn(
-          "mt-1 font-medium",
+          "text-lg font-medium leading-relaxed",
           isPending && "text-escalate"
         )}>
           {event.narrative}
@@ -218,16 +276,20 @@ function TimelineEvent({ event, isVisible, isCurrent, isPending }: TimelineEvent
         
         {/* Details */}
         {event.details && (
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
             {event.details}
           </p>
         )}
         
         {/* Pending indicator */}
         {isPending && (
-          <div className="mt-3 flex items-center gap-2 text-sm text-escalate">
-            <div className="w-2 h-2 rounded-full bg-escalate animate-pulse" />
-            Decision pending...
+          <div className="mt-4 flex items-center gap-3 text-sm text-escalate font-medium">
+            <div className="flex gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-escalate animate-pulse" />
+              <div className="w-1.5 h-1.5 rounded-full bg-escalate animate-pulse" style={{ animationDelay: '200ms' }} />
+              <div className="w-1.5 h-1.5 rounded-full bg-escalate animate-pulse" style={{ animationDelay: '400ms' }} />
+            </div>
+            Decision pending — policies will diverge
           </div>
         )}
       </div>

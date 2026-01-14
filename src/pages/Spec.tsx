@@ -1,19 +1,27 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, BookOpen } from 'lucide-react';
+import { AnimatedBackground } from '@/components/effects';
 
 export default function Spec() {
   return (
-    <div className="min-h-screen py-16 px-6">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen py-20 px-6 relative overflow-hidden">
+      <AnimatedBackground variant="subtle" />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
-        <header className="mb-12 animate-fade-in">
-          <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
-            <ArrowLeft className="mr-2 h-4 w-4" />
+        <header className="mb-16 animate-fade-in">
+          <Link to="/" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group">
+            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Back to home
           </Link>
           
-          <h1 className="text-3xl md:text-4xl font-medium">The Standard</h1>
-          <p className="text-muted-foreground mt-2 text-lg">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+              <BookOpen className="h-6 w-6 text-primary" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-medium">The Standard</h1>
+          </div>
+          <p className="text-xl text-muted-foreground leading-relaxed">
             Policy specification for autonomous agent behavior
           </p>
         </header>

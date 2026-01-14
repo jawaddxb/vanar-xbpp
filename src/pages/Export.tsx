@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Download, FileJson, FileText, ArrowLeft, Check } from 'lucide-react';
+import { Download, FileJson, FileText, ArrowLeft, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePolicyLabStore } from '@/lib/store';
 import { permissivePolicy, restrictivePolicy } from '@/lib/data/policies';
+import { AnimatedBackground, GlowCard } from '@/components/effects';
 
 export default function Export() {
   const [searchParams] = useSearchParams();
@@ -117,18 +118,20 @@ ${diff.consequence_summary.tradeoff}
   };
 
   return (
-    <div className="min-h-screen py-16 px-6">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen py-20 px-6 relative overflow-hidden">
+      <AnimatedBackground variant="subtle" />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
-        <header className="mb-12 animate-fade-in">
-          <Link to={`/summary?scenario=${scenarioId}`} className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
-            <ArrowLeft className="mr-2 h-4 w-4" />
+        <header className="mb-16 animate-fade-in">
+          <Link to={`/summary?scenario=${scenarioId}`} className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group">
+            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Back to summary
           </Link>
           
-          <h1 className="text-3xl font-medium">Export Results</h1>
-          <p className="text-muted-foreground mt-2">
-            Download policy definitions and reports for {selectedScenario.name}
+          <h1 className="text-4xl md:text-5xl font-medium">Export Results</h1>
+          <p className="text-lg text-muted-foreground mt-4">
+            Download policy definitions and reports for <span className="text-foreground">{selectedScenario.name}</span>
           </p>
         </header>
         
