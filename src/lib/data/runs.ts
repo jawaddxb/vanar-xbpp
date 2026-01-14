@@ -128,6 +128,192 @@ const poisonedRunRestrictive: Run = {
   ],
 };
 
+// THE PHANTOM APPROVAL
+const phantomRunPermissive: Run = {
+  id: 'run-pha-permissive',
+  scenario_id: 'scenario-phantom-approval',
+  policy_id: permissivePolicy.id,
+  decisions: [
+    {
+      event_id: 'pha-6',
+      decision: 'ALLOW',
+      reason_codes: ['ALL_SIGNATURES_VALID', 'THRESHOLD_MET', 'KEYS_NOT_REVOKED'],
+      narrative: 'All three signatures cryptographically valid. Required threshold met. Transfer approved.',
+      timestamp: 12500,
+    },
+  ],
+};
+
+const phantomRunRestrictive: Run = {
+  id: 'run-pha-restrictive',
+  scenario_id: 'scenario-phantom-approval',
+  policy_id: restrictivePolicy.id,
+  decisions: [
+    {
+      event_id: 'pha-6',
+      decision: 'BLOCK',
+      reason_codes: ['SIGNER_EMPLOYMENT_TERMINATED', 'STALE_AUTHORIZATION', 'HR_STATUS_MISMATCH'],
+      narrative: 'Signer finance-lead-3 no longer employed. Authorization stale. Transfer blocked.',
+      timestamp: 12500,
+    },
+  ],
+};
+
+// THE TRUSTED INSIDER
+const insiderRunPermissive: Run = {
+  id: 'run-ti-permissive',
+  scenario_id: 'scenario-trusted-insider',
+  policy_id: permissivePolicy.id,
+  decisions: [
+    {
+      event_id: 'ti-7',
+      decision: 'ALLOW',
+      reason_codes: ['VALID_PERMISSIONS', 'AUTHENTICATED_SESSION', 'NO_POLICY_VIOLATION'],
+      narrative: 'User has valid read permissions for all repositories. Access continues.',
+      timestamp: 18000,
+    },
+  ],
+};
+
+const insiderRunRestrictive: Run = {
+  id: 'run-ti-restrictive',
+  scenario_id: 'scenario-trusted-insider',
+  policy_id: restrictivePolicy.id,
+  decisions: [
+    {
+      event_id: 'ti-7',
+      decision: 'ESCALATE',
+      reason_codes: ['BEHAVIORAL_ANOMALY', 'BULK_DOWNLOAD_PATTERN', 'DEPARTURE_CORRELATION'],
+      narrative: 'Unusual bulk download pattern detected near departure date. Session flagged for security review.',
+      timestamp: 18000,
+    },
+  ],
+};
+
+// THE URGENT OVERRIDE
+const overrideRunPermissive: Run = {
+  id: 'run-uo-permissive',
+  scenario_id: 'scenario-urgent-override',
+  policy_id: permissivePolicy.id,
+  decisions: [
+    {
+      event_id: 'uo-5',
+      decision: 'ALLOW',
+      reason_codes: ['CEO_AUTHORITY', 'IDENTITY_VERIFIED', 'BUSINESS_CRITICAL'],
+      narrative: 'CEO identity verified. Executive override authority accepted. Transfer initiated.',
+      timestamp: 8000,
+    },
+  ],
+};
+
+const overrideRunRestrictive: Run = {
+  id: 'run-uo-restrictive',
+  scenario_id: 'scenario-urgent-override',
+  policy_id: restrictivePolicy.id,
+  decisions: [
+    {
+      event_id: 'uo-5',
+      decision: 'ESCALATE',
+      reason_codes: ['EXCEEDS_SINGLE_AUTHORITY', 'STRESS_INDICATORS_DETECTED', 'APPROVAL_CHAIN_REQUIRED'],
+      narrative: 'Amount exceeds single-authority limit. Urgency language flagged as potential duress. Escalating to board.',
+      timestamp: 8000,
+    },
+  ],
+};
+
+// THE COPY-PASTE ERROR
+const copyPasteRunPermissive: Run = {
+  id: 'run-cpe-permissive',
+  scenario_id: 'scenario-copy-paste-error',
+  policy_id: permissivePolicy.id,
+  decisions: [
+    {
+      event_id: 'cpe-6',
+      decision: 'ALLOW',
+      reason_codes: ['CODE_MATCHES_TEMPLATE', 'VALID_DEPLOYER', 'SYNTAX_VERIFIED'],
+      narrative: 'Contract code matches approved template. Deployment authorized.',
+      timestamp: 12500,
+    },
+  ],
+};
+
+const copyPasteRunRestrictive: Run = {
+  id: 'run-cpe-restrictive',
+  scenario_id: 'scenario-copy-paste-error',
+  policy_id: restrictivePolicy.id,
+  decisions: [
+    {
+      event_id: 'cpe-6',
+      decision: 'BLOCK',
+      reason_codes: ['PARAMETER_DEVIATION', 'UNKNOWN_ADDRESS', 'APPROVAL_STALE'],
+      narrative: 'Beneficiary address differs from template and is unknown. Human verification required.',
+      timestamp: 12500,
+    },
+  ],
+};
+
+// THE SILENT LISTENER
+const listenerRunPermissive: Run = {
+  id: 'run-sl-permissive',
+  scenario_id: 'scenario-silent-listener',
+  policy_id: permissivePolicy.id,
+  decisions: [
+    {
+      event_id: 'sl-7',
+      decision: 'ALLOW',
+      reason_codes: ['VALID_API_KEY', 'READ_ONLY_ACCESS', 'WITHIN_RATE_LIMITS'],
+      narrative: 'API key has valid read permissions. Rate limits not exceeded. Access continues.',
+      timestamp: 12000,
+    },
+  ],
+};
+
+const listenerRunRestrictive: Run = {
+  id: 'run-sl-restrictive',
+  scenario_id: 'scenario-silent-listener',
+  policy_id: restrictivePolicy.id,
+  decisions: [
+    {
+      event_id: 'sl-7',
+      decision: 'BLOCK',
+      reason_codes: ['ENUMERATION_PATTERN', 'STALE_KEY_OWNER', 'RECONNAISSANCE_DETECTED'],
+      narrative: 'Systematic enumeration pattern detected. Key owner no longer active. Access revoked.',
+      timestamp: 12000,
+    },
+  ],
+};
+
+// THE HELPFUL SUGGESTION
+const suggestionRunPermissive: Run = {
+  id: 'run-hs-permissive',
+  scenario_id: 'scenario-helpful-suggestion',
+  policy_id: permissivePolicy.id,
+  decisions: [
+    {
+      event_id: 'hs-5',
+      decision: 'ALLOW',
+      reason_codes: ['TRUSTED_SOURCE', 'CODE_VALID', 'SAVINGS_CONFIRMED'],
+      narrative: 'Suggestion from trusted oracle. Code analysis shows no vulnerabilities. Implementing optimization.',
+      timestamp: 10000,
+    },
+  ],
+};
+
+const suggestionRunRestrictive: Run = {
+  id: 'run-hs-restrictive',
+  scenario_id: 'scenario-helpful-suggestion',
+  policy_id: restrictivePolicy.id,
+  decisions: [
+    {
+      event_id: 'hs-5',
+      decision: 'ESCALATE',
+      reason_codes: ['EXTERNAL_DEPENDENCY_ADDED', 'UNKNOWN_CONTRACT_OWNER', 'MUTABLE_PROXY_PATTERN'],
+      narrative: 'New external dependency on unknown mutable contract. Requires security team review.',
+      timestamp: 10000,
+    },
+  ],
+};
+
 // All runs indexed
 export const runs: Record<string, Run> = {
   'scenario-new-vendor-permissive': newVendorRunPermissive,
@@ -138,6 +324,18 @@ export const runs: Record<string, Run> = {
   'scenario-convincing-signature-restrictive': signatureRunRestrictive,
   'scenario-poisoned-address-permissive': poisonedRunPermissive,
   'scenario-poisoned-address-restrictive': poisonedRunRestrictive,
+  'scenario-phantom-approval-permissive': phantomRunPermissive,
+  'scenario-phantom-approval-restrictive': phantomRunRestrictive,
+  'scenario-trusted-insider-permissive': insiderRunPermissive,
+  'scenario-trusted-insider-restrictive': insiderRunRestrictive,
+  'scenario-urgent-override-permissive': overrideRunPermissive,
+  'scenario-urgent-override-restrictive': overrideRunRestrictive,
+  'scenario-copy-paste-error-permissive': copyPasteRunPermissive,
+  'scenario-copy-paste-error-restrictive': copyPasteRunRestrictive,
+  'scenario-silent-listener-permissive': listenerRunPermissive,
+  'scenario-silent-listener-restrictive': listenerRunRestrictive,
+  'scenario-helpful-suggestion-permissive': suggestionRunPermissive,
+  'scenario-helpful-suggestion-restrictive': suggestionRunRestrictive,
 };
 
 export function getRunsForScenario(scenarioId: string): { permissive: Run; restrictive: Run } {
@@ -191,6 +389,72 @@ const diffSummaries: Record<string, Summary> = {
       human_escalation_count: 1,
       autonomy_change: '-35%',
       risk_avoided: 'Address poisoning attack',
+    },
+  },
+  'scenario-phantom-approval': {
+    what_happened: 'A $180,000 treasury transfer had three valid signatures, but one signer was terminated 28 days ago. The permissive policy approved based on cryptographic validity. The restrictive policy blocked due to stale authorization.',
+    what_was_prevented: 'The restrictive policy prevented unauthorized access via orphaned credentials. The permissive policy would have completed a potentially fraudulent transfer.',
+    tradeoff: 'Cryptographic trust vs. organizational state awareness.',
+    metrics: {
+      spend_exposure_delta: '$180,000',
+      human_escalation_count: 0,
+      autonomy_change: '-100%',
+      risk_avoided: 'Credential misuse post-termination',
+    },
+  },
+  'scenario-trusted-insider': {
+    what_happened: 'A departing senior engineer downloaded three proprietary repositories at 2 AM. Each action was individually authorized. The permissive policy allowed continued access. The restrictive policy flagged the behavioral anomaly.',
+    what_was_prevented: 'The restrictive policy potentially prevented intellectual property theft. The permissive policy avoided disrupting a legitimate employee.',
+    tradeoff: 'Employee trust vs. departure risk monitoring.',
+    metrics: {
+      spend_exposure_delta: 'IP Value: Unquantified',
+      human_escalation_count: 1,
+      autonomy_change: '-50%',
+      risk_avoided: 'Data exfiltration',
+    },
+  },
+  'scenario-urgent-override': {
+    what_happened: 'CEO requested immediate $2.4M transfer, bypassing normal approval chains. The permissive policy honored executive authority. The restrictive policy detected stress indicators and required board approval.',
+    what_was_prevented: 'The restrictive policy potentially prevented a CEO fraud or duress scenario. The permissive policy risked enabling a social engineering attack.',
+    tradeoff: 'Executive agility vs. duress detection.',
+    metrics: {
+      spend_exposure_delta: '$2,400,000',
+      human_escalation_count: 1,
+      autonomy_change: '-80%',
+      risk_avoided: 'Executive impersonation or duress',
+    },
+  },
+  'scenario-copy-paste-error': {
+    what_happened: 'A smart contract deployment had a single-character difference in the beneficiary address. The permissive policy approved based on template match. The restrictive policy blocked due to unknown destination.',
+    what_was_prevented: 'The restrictive policy prevented funds from being locked to an unknown address. The permissive policy would have deployed to a potentially malicious wallet.',
+    tradeoff: 'Deployment velocity vs. parameter verification depth.',
+    metrics: {
+      spend_exposure_delta: 'Contract value at risk',
+      human_escalation_count: 0,
+      autonomy_change: '-100%',
+      risk_avoided: 'Misdirected contract deployment',
+    },
+  },
+  'scenario-silent-listener': {
+    what_happened: 'An API key systematically enumerated customer records alphabetically. The permissive policy allowed access within rate limits. The restrictive policy detected the reconnaissance pattern and revoked access.',
+    what_was_prevented: 'The restrictive policy prevented potential data mapping for future attack. The permissive policy avoided disrupting legitimate analytics.',
+    tradeoff: 'API availability vs. access pattern monitoring.',
+    metrics: {
+      spend_exposure_delta: 'Customer data exposure',
+      human_escalation_count: 0,
+      autonomy_change: '-100%',
+      risk_avoided: 'Data reconnaissance',
+    },
+  },
+  'scenario-helpful-suggestion': {
+    what_happened: 'A trusted oracle suggested gas optimization introducing external dependency. The permissive policy implemented the optimization. The restrictive policy flagged the unknown mutable contract.',
+    what_was_prevented: 'The restrictive policy prevented dependency on an upgradeable external contract. The permissive policy gained 40% gas savings but introduced supply chain risk.',
+    tradeoff: 'Gas optimization vs. dependency trust boundaries.',
+    metrics: {
+      spend_exposure_delta: '40% gas savings vs. unknown risk',
+      human_escalation_count: 1,
+      autonomy_change: '-45%',
+      risk_avoided: 'Supply chain compromise',
     },
   },
 };
