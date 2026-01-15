@@ -120,7 +120,7 @@ export interface ExtendedPolicyConfig extends Omit<PolicyConfig, 'maxWeekly'> {
 }
 
 // Get posture-specific defaults
-function getPostureDefaults(posture: Posture) {
+export function getPostureDefaults(posture: Posture) {
   switch (posture) {
     case 'AGGRESSIVE':
       return {
