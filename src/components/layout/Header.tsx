@@ -18,6 +18,7 @@ const routeConfig: Record<string, { label: string; order: number }> = {
   '/summary': { label: 'Summary', order: 5 },
   '/export': { label: 'Export', order: 6 },
   '/spec': { label: 'Specification', order: 0 },
+  '/test-suite': { label: 'Test Suite', order: 0 },
 };
 
 export function Header() {

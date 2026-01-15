@@ -15,6 +15,7 @@ import Summary from "./pages/Summary";
 import Export from "./pages/Export";
 import Spec from "./pages/Spec";
 import PolicyBank from "./pages/PolicyBank";
+import TestSuite from "./pages/TestSuite";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -66,6 +67,7 @@ function AnimatedRoutes() {
           <Route path="/summary" element={<Summary />} />
           <Route path="/export" element={<Export />} />
           <Route path="/spec" element={<Spec />} />
+          <Route path="/test-suite" element={<TestSuite />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
