@@ -50,3 +50,47 @@ export function getPolicyById(id: string): SavedPolicy | null {
   const policies = getSavedPolicies();
   return policies.find(p => p.id === id) || null;
 }
+
+export function exportPolicies(): string {
+  const policies = getSavedPolicies();
+  return JSON.stringify({
+    version: '1.0',
+    exported: new Date().toISOString(),
+    policies,
+  }, null, 2);
+}
+
+export function importPolicies(jsonString: string): { imported: number; skipped: number } {
+  const data = JSON.parse(jsonString);
+  
+  if (!data.policies || !Array.isArray(data.policies)) {
+    throw new Error('Invalid policy file format');
+  }
+  
+  const existing = getSavedPolicies();
+  const existingIds = new Set(existing.map(p => p.id));
+  
+  let imported = 0;
+  let skipped = 0;
+  
+  for (const policy of data.policies) {
+    // Validate policy structure
+    if (!policy.id || !policy.name || !policy.config) {
+      skipped++;
+      continue;
+    }
+    
+    // Skip duplicates by ID
+    if (existingIds.has(policy.id)) {
+      // Generate new ID for imported policy
+      policy.id = generatePolicyId();
+    }
+    
+    existing.unshift(policy);
+    imported++;
+  }
+  
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+  
+  return { imported, skipped };
+}

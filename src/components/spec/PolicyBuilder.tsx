@@ -77,7 +77,11 @@ const defaultConfig: PolicyConfig = {
   logLevel: 'STANDARD',
 };
 
-export function PolicyBuilder() {
+interface PolicyBuilderProps {
+  onConfigChange?: (config: PolicyConfig) => void;
+}
+
+export function PolicyBuilder({ onConfigChange }: PolicyBuilderProps = {}) {
   const navigate = useNavigate();
   const { setCustomPolicy } = usePolicyLabStore();
   const [config, setConfig] = useState<PolicyConfig>(defaultConfig);
@@ -90,6 +94,10 @@ export function PolicyBuilder() {
   useEffect(() => {
     setSavedCount(getSavedPolicies().length);
   }, [libraryOpen, saveDialogOpen]);
+
+  useEffect(() => {
+    onConfigChange?.(config);
+  }, [config, onConfigChange]);
 
   // Generate the xBPP policy object
   const xbppPolicy = useMemo((): XBPPPolicy => {

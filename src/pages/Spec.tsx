@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink, Sparkles } from 'lucide-react';
+import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink, Sparkles, Play } from 'lucide-react';
 import { AnimatedBackground } from '@/components/effects';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { PolicyBuilder } from '@/components/spec/PolicyBuilder';
+import { VerdictSimulator } from '@/components/spec/VerdictSimulator';
+import { PolicyConfig } from '@/lib/types';
 
 const tocSections = [
   { id: 'overview', title: 'Overview', icon: BookOpen },
   { id: 'how-it-works', title: 'How It Works', icon: Zap },
   { id: 'key-concepts', title: 'Key Concepts', icon: FileJson },
   { id: 'policy-builder', title: 'Policy Builder', icon: Sparkles },
+  { id: 'verdict-simulator', title: 'Verdict Simulator', icon: Play },
   { id: 'policy-structure', title: 'Policy Structure', icon: Shield },
   { id: 'postures', title: 'Postures', icon: AlertTriangle },
   { id: 'reason-codes', title: 'Reason Codes', icon: FileJson },
@@ -106,6 +109,18 @@ function CollapsibleSection({ title, children, defaultOpen = false }: { title: s
 
 export default function Spec() {
   const [activeSection, setActiveSection] = useState('overview');
+  const [simulatorConfig, setSimulatorConfig] = useState<PolicyConfig>({
+    posture: 'BALANCED',
+    maxSingle: 100,
+    maxDaily: 1000,
+    maxWeekly: 5000,
+    requireHumanAbove: 500,
+    newCounterpartyAction: 'ESCALATE',
+    requireVerified: false,
+    burstDetection: false,
+    minConfidence: 0.7,
+    logLevel: 'STANDARD',
+  });
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
@@ -349,7 +364,21 @@ export default function Spec() {
                 Build your own xBPP policy in real-time. Adjust the controls to see how different settings affect the policy JSON.
               </p>
               
-              <PolicyBuilder />
+              <PolicyBuilder onConfigChange={setSimulatorConfig} />
+            </section>
+
+            {/* Verdict Simulator */}
+            <section id="verdict-simulator" className="mb-16 scroll-mt-28">
+              <h2 className="text-2xl font-medium mb-6 flex items-center gap-3">
+                <Play className="h-6 w-6 text-primary" />
+                Verdict Simulator
+              </h2>
+              
+              <p className="text-muted-foreground mb-6">
+                Test how your policy evaluates transactions in real-time. Enter transaction details to see the verdict and reason codes.
+              </p>
+              
+              <VerdictSimulator config={simulatorConfig} />
             </section>
 
             {/* Policy Structure */}

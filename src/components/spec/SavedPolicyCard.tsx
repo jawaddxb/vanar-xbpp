@@ -1,5 +1,6 @@
-import { Trash2, Upload, Zap, Shield, AlertTriangle } from 'lucide-react';
+import { Trash2, Upload, Zap, Shield, AlertTriangle, GitCompare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { SavedPolicy, Posture } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
@@ -7,6 +8,9 @@ interface SavedPolicyCardProps {
   policy: SavedPolicy;
   onLoad: () => void;
   onDelete: () => void;
+  isCompareMode?: boolean;
+  isSelected?: boolean;
+  onToggleSelect?: () => void;
 }
 
 const getPostureConfig = (posture: Posture) => {
@@ -20,7 +24,14 @@ const getPostureConfig = (posture: Posture) => {
   }
 };
 
-export function SavedPolicyCard({ policy, onLoad, onDelete }: SavedPolicyCardProps) {
+export function SavedPolicyCard({ 
+  policy, 
+  onLoad, 
+  onDelete, 
+  isCompareMode = false,
+  isSelected = false,
+  onToggleSelect 
+}: SavedPolicyCardProps) {
   const postureConfig = getPostureConfig(policy.config.posture);
   const PostureIcon = postureConfig.icon;
   
@@ -30,8 +41,21 @@ export function SavedPolicyCard({ policy, onLoad, onDelete }: SavedPolicyCardPro
   };
 
   return (
-    <div className="group p-4 rounded-lg bg-muted/30 border border-border hover:border-primary/30 transition-all">
+    <div className={cn(
+      "group p-4 rounded-lg bg-muted/30 border transition-all",
+      isSelected ? "border-primary bg-primary/10" : "border-border hover:border-primary/30"
+    )}>
       <div className="flex items-start justify-between gap-3">
+        {isCompareMode && (
+          <div className="pt-1">
+            <Checkbox 
+              checked={isSelected}
+              onCheckedChange={onToggleSelect}
+              className="data-[state=checked]:bg-primary"
+            />
+          </div>
+        )}
+        
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <h4 className="font-medium truncate">{policy.name}</h4>
@@ -59,25 +83,27 @@ export function SavedPolicyCard({ policy, onLoad, onDelete }: SavedPolicyCardPro
           </div>
         </div>
         
-        <div className="flex items-center gap-1 shrink-0">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onLoad}
-            className="h-8 px-2 text-primary hover:text-primary hover:bg-primary/10"
-          >
-            <Upload className="h-4 w-4 mr-1" />
-            Load
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onDelete}
-            className="h-8 px-2 text-muted-foreground hover:text-block hover:bg-block/10"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
+        {!isCompareMode && (
+          <div className="flex items-center gap-1 shrink-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onLoad}
+              className="h-8 px-2 text-primary hover:text-primary hover:bg-primary/10"
+            >
+              <Upload className="h-4 w-4 mr-1" />
+              Load
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onDelete}
+              className="h-8 px-2 text-muted-foreground hover:text-block hover:bg-block/10"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
