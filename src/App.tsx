@@ -68,8 +68,6 @@ function AnimatedRoutes() {
           <Route path="/spec" element={<Spec />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
       </motion.div>
     </AnimatePresence>
   );
