@@ -129,50 +129,49 @@ export default function Spec() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative">
       <AnimatedBackground variant="subtle" />
       
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex">
-          {/* Fixed Sidebar TOC */}
-          <aside className="hidden lg:block w-64 shrink-0 fixed top-0 left-0 h-screen pt-28 pb-8 pl-6 overflow-y-auto" style={{ width: 'calc((100vw - 64rem) / 2 + 16rem)', paddingLeft: 'max(1.5rem, calc((100vw - 64rem) / 2))' }}>
-            <div className="w-64 space-y-1">
-              <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-4">On this page</p>
-              {tocSections.map(({ id, title, icon: Icon }) => (
-                <button
-                  key={id}
-                  onClick={() => scrollToSection(id)}
-                  className={cn(
-                    "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors text-left",
-                    activeSection === id 
-                      ? "bg-primary/10 text-primary" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                  )}
-                >
-                  <Icon className="h-4 w-4" />
-                  {title}
-                </button>
-              ))}
-              
-              <div className="pt-6 border-t border-border mt-6 space-y-2">
-                <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
-                  <Link to="/test-suite">
-                    <FlaskConical className="h-4 w-4" />
-                    Test Suite
-                  </Link>
-                </Button>
-                <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
-                  <Link to="/policies">
-                    <Shield className="h-4 w-4" />
-                    Policy Bank
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </aside>
+      {/* Fixed Sidebar TOC */}
+      <aside className="hidden lg:flex fixed top-0 left-0 w-64 h-screen pt-28 pb-8 px-6 flex-col z-20">
+        <div className="space-y-1">
+          <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-4">On this page</p>
+          {tocSections.map(({ id, title, icon: Icon }) => (
+            <button
+              key={id}
+              onClick={() => scrollToSection(id)}
+              className={cn(
+                "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors text-left",
+                activeSection === id 
+                  ? "bg-primary/10 text-primary" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              <Icon className="h-4 w-4" />
+              {title}
+            </button>
+          ))}
           
-          {/* Scrollable Main Content */}
-          <main className="flex-1 min-w-0 lg:ml-64 pt-28 pb-20 px-6">
+          <div className="pt-6 border-t border-border mt-6 space-y-2">
+            <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
+              <Link to="/test-suite">
+                <FlaskConical className="h-4 w-4" />
+                Test Suite
+              </Link>
+            </Button>
+            <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
+              <Link to="/policies">
+                <Shield className="h-4 w-4" />
+                Policy Bank
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </aside>
+      
+      {/* Scrollable Main Content */}
+      <main className="lg:pl-64 pt-28 pb-20 px-6">
+        <div className="max-w-4xl mx-auto relative z-10">
             {/* Header */}
             <header className="mb-16 animate-fade-in">
               <div className="flex items-center gap-2 text-sm font-mono text-muted-foreground mb-4">
@@ -673,9 +672,8 @@ try {
                 </div>
               </div>
             </footer>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
-    </div>
-  );
-}
+    );
+  }
