@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink } from 'lucide-react';
+import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink, Sparkles } from 'lucide-react';
 import { AnimatedBackground } from '@/components/effects';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { PolicyBuilder } from '@/components/spec/PolicyBuilder';
 
 const tocSections = [
   { id: 'overview', title: 'Overview', icon: BookOpen },
   { id: 'how-it-works', title: 'How It Works', icon: Zap },
   { id: 'key-concepts', title: 'Key Concepts', icon: FileJson },
+  { id: 'policy-builder', title: 'Policy Builder', icon: Sparkles },
   { id: 'policy-structure', title: 'Policy Structure', icon: Shield },
   { id: 'postures', title: 'Postures', icon: AlertTriangle },
   { id: 'reason-codes', title: 'Reason Codes', icon: FileJson },
@@ -334,6 +336,20 @@ export default function Spec() {
                   </tbody>
                 </table>
               </div>
+            </section>
+
+            {/* Interactive Policy Builder */}
+            <section id="policy-builder" className="mb-16 scroll-mt-28">
+              <h2 className="text-2xl font-medium mb-6 flex items-center gap-3">
+                <Sparkles className="h-6 w-6 text-primary" />
+                Interactive Policy Builder
+              </h2>
+              
+              <p className="text-muted-foreground mb-6">
+                Build your own xBPP policy in real-time. Adjust the controls to see how different settings affect the policy JSON.
+              </p>
+              
+              <PolicyBuilder />
             </section>
 
             {/* Policy Structure */}
