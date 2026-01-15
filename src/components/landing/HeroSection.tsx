@@ -162,9 +162,9 @@ export function HeroSection() {
           <p className="text-xl md:text-2xl text-foreground font-medium">
             xBPP changes that.
           </p>
-          <p className="text-lg md:text-xl text-muted-foreground">
-            The open standard for Agentic Governance.
-            <span className="block text-foreground/80 mt-1">A programmable CFO for your AI agents.</span>
+        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+            Define your rules once. Every transaction follows them.
+            <span className="block text-foreground/80 mt-2">A programmable CFO that says yes, no, or "ask me first."</span>
           </p>
         </div>
         
