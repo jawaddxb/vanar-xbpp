@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { PolicyConfig } from '@/lib/types';
+import { EvaluationVisualizer } from '@/components/playground';
 
 const agentTemplates = [
   { id: 'travel', name: 'Travel Assistant', icon: Plane, maxSingle: 800, maxDaily: 2000, description: 'Books flights, hotels, rentals' },
@@ -412,109 +413,20 @@ export default function Playground() {
               <h2 className="font-medium">9-Phase Evaluation</h2>
             </div>
 
-            {selectedTx ? (
-              <div className="space-y-4">
-                {/* Transaction Summary */}
-                <div className="p-3 rounded-lg bg-muted/50 border border-border mb-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Evaluating</span>
-                    <span className="font-mono font-bold">${selectedTx.amount}</span>
-                  </div>
-                </div>
-
-                {/* Phase List */}
-                <div className="space-y-2">
-                  {evaluationPhases.map((phase, index) => {
-                    const status = evaluationState.results[phase.id];
-                    const isActive = evaluationState.currentPhase === index;
-                    const isPast = evaluationState.currentPhase > index;
-                    
-                    return (
-                      <div
-                        key={phase.id}
-                        className={cn(
-                          "flex items-center gap-3 p-3 rounded-lg transition-all",
-                          isActive && "bg-primary/10 border border-primary/30",
-                          isPast && status === 'fail' && "bg-block/10 border border-block/30",
-                          isPast && status === 'pass' && "bg-muted/30",
-                          !isActive && !isPast && "opacity-50"
-                        )}
-                      >
-                        <div className="flex-shrink-0">
-                          {isPast ? getPhaseIcon(status) : isActive ? (
-                            <div className="h-4 w-4 rounded-full border-2 border-primary animate-spin border-t-transparent" />
-                          ) : (
-                            <div className="h-4 w-4 rounded-full border-2 border-muted-foreground/30" />
-                          )}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium">{phase.name}</p>
-                          <p className="text-xs text-muted-foreground truncate">{phase.description}</p>
-                        </div>
-                        {isPast && status === 'fail' && (
-                          <Badge variant="outline" className="text-block border-block shrink-0">
-                            FAIL
-                          </Badge>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Final Verdict */}
-                {evaluationState.verdict && (
-                  <div className={cn(
-                    "mt-6 p-6 rounded-xl border-2 text-center animate-fade-in",
-                    evaluationState.verdict === 'ALLOW' && "bg-allow/10 border-allow",
-                    evaluationState.verdict === 'BLOCK' && "bg-block/10 border-block",
-                    evaluationState.verdict === 'ESCALATE' && "bg-escalate/10 border-escalate"
-                  )}>
-                    <p className={cn("text-3xl font-mono font-bold", getVerdictColor(evaluationState.verdict))}>
-                      {evaluationState.verdict}
-                    </p>
-                    {evaluationState.reasons.length > 0 && (
-                      <div className="mt-3 flex flex-wrap justify-center gap-2">
-                        {evaluationState.reasons.map(reason => (
-                          <Badge key={reason} variant="outline" className="font-mono text-xs">
-                            {reason}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Reset Button */}
-                {evaluationState.verdict && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-full mt-4"
-                    onClick={() => {
-                      setSelectedTx(null);
-                      setEvaluationState({
-                        currentPhase: -1,
-                        results: {},
-                        verdict: null,
-                        reasons: [],
-                      });
-                    }}
-                  >
-                    <RotateCcw className="h-4 w-4 mr-2" />
-                    Reset
-                  </Button>
-                )}
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-[400px] text-center">
-                <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mb-4">
-                  <Play className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <p className="text-muted-foreground">
-                  Select a transaction to begin evaluation
-                </p>
-              </div>
-            )}
+            <EvaluationVisualizer 
+              selectedTx={selectedTx}
+              evaluationState={evaluationState}
+              isEvaluating={isEvaluating}
+              onReset={() => {
+                setSelectedTx(null);
+                setEvaluationState({
+                  currentPhase: -1,
+                  results: {},
+                  verdict: null,
+                  reasons: [],
+                });
+              }}
+            />
           </div>
         </div>
       </div>
