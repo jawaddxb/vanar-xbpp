@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react';
-import { Copy, Check, RotateCcw, Sparkles, Shield, Zap, AlertTriangle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Copy, Check, RotateCcw, Sparkles, Shield, Zap, AlertTriangle, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
-import { Posture } from '@/lib/types';
+import { Posture, XBPPPolicy } from '@/lib/types';
+import { usePolicyLabStore } from '@/lib/store';
 
 interface PolicyConfig {
   posture: Posture;
@@ -85,13 +87,17 @@ const defaultConfig: PolicyConfig = {
 };
 
 export function PolicyBuilder() {
+  const navigate = useNavigate();
+  const { setCustomPolicy } = usePolicyLabStore();
   const [config, setConfig] = useState<PolicyConfig>(defaultConfig);
   const [copied, setCopied] = useState(false);
   const [activePreset, setActivePreset] = useState<string | null>('starter');
 
-  const generatedPolicy = useMemo(() => {
-    const policy: Record<string, unknown> = {
+  // Generate the xBPP policy object
+  const xbppPolicy = useMemo((): XBPPPolicy => {
+    const policy: XBPPPolicy = {
       schema: 'xbpp-pay/v1.0',
+      version: '1',
       posture: config.posture,
       limits: {
         max_single: config.maxSingle,
@@ -134,8 +140,12 @@ export function PolicyBuilder() {
       };
     }
 
-    return JSON.stringify(policy, null, 2);
+    return policy;
   }, [config]);
+
+  const generatedPolicy = useMemo(() => {
+    return JSON.stringify(xbppPolicy, null, 2);
+  }, [xbppPolicy]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(generatedPolicy);
@@ -151,6 +161,11 @@ export function PolicyBuilder() {
   const handleReset = () => {
     setActivePreset('starter');
     setConfig(defaultConfig);
+  };
+
+  const handleTestPolicy = () => {
+    setCustomPolicy(xbppPolicy);
+    navigate('/scenarios');
   };
 
   const updateConfig = <K extends keyof PolicyConfig>(key: K, value: PolicyConfig[K]) => {
@@ -424,6 +439,22 @@ export function PolicyBuilder() {
             {config.requireVerified && <li>• Only <span className="text-foreground">verified recipients</span></li>}
           </ul>
         </div>
+
+        {/* Test This Policy Button */}
+        <Button 
+          onClick={handleTestPolicy} 
+          className="w-full group text-base py-6 relative overflow-hidden"
+          size="lg"
+        >
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            <Play className="h-5 w-5" />
+            Test This Policy
+          </span>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity" />
+        </Button>
+        <p className="text-xs text-center text-muted-foreground">
+          Run your custom policy against real-world scenarios
+        </p>
       </div>
     </div>
   );
