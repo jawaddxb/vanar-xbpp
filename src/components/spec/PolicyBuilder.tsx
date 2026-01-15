@@ -1,26 +1,17 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Copy, Check, RotateCcw, Sparkles, Shield, Zap, AlertTriangle, Play } from 'lucide-react';
+import { Copy, Check, RotateCcw, Sparkles, Shield, Zap, AlertTriangle, Play, Library, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { Posture, XBPPPolicy } from '@/lib/types';
+import { Posture, XBPPPolicy, PolicyConfig, SavedPolicy } from '@/lib/types';
 import { usePolicyLabStore } from '@/lib/store';
-
-interface PolicyConfig {
-  posture: Posture;
-  maxSingle: number;
-  maxDaily: number;
-  maxWeekly: number;
-  requireHumanAbove: number;
-  newCounterpartyAction: 'ALLOW' | 'ESCALATE' | 'BLOCK';
-  requireVerified: boolean;
-  burstDetection: boolean;
-  minConfidence: number;
-  logLevel: 'MINIMAL' | 'STANDARD' | 'VERBOSE';
-}
+import { getSavedPolicies, savePolicy, generatePolicyId } from '@/lib/policyStorage';
+import { PolicyLibraryDrawer } from './PolicyLibraryDrawer';
+import { SavePolicyDialog } from './SavePolicyDialog';
 
 const presets: Record<string, Partial<PolicyConfig>> = {
   starter: {
@@ -92,6 +83,13 @@ export function PolicyBuilder() {
   const [config, setConfig] = useState<PolicyConfig>(defaultConfig);
   const [copied, setCopied] = useState(false);
   const [activePreset, setActivePreset] = useState<string | null>('starter');
+  const [libraryOpen, setLibraryOpen] = useState(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const [savedCount, setSavedCount] = useState(0);
+
+  useEffect(() => {
+    setSavedCount(getSavedPolicies().length);
+  }, [libraryOpen, saveDialogOpen]);
 
   // Generate the xBPP policy object
   const xbppPolicy = useMemo((): XBPPPolicy => {
@@ -166,6 +164,24 @@ export function PolicyBuilder() {
   const handleTestPolicy = () => {
     setCustomPolicy(xbppPolicy);
     navigate('/scenarios');
+  };
+
+  const handleLoadPolicy = (loadedConfig: PolicyConfig) => {
+    setConfig(loadedConfig);
+    setActivePreset(null);
+  };
+
+  const handleSavePolicy = (name: string, description?: string) => {
+    const policy: SavedPolicy = {
+      id: generatePolicyId(),
+      name,
+      description,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      config,
+    };
+    savePolicy(policy);
+    setSaveDialogOpen(false);
   };
 
   const updateConfig = <K extends keyof PolicyConfig>(key: K, value: PolicyConfig[K]) => {
@@ -398,6 +414,29 @@ export function PolicyBuilder() {
             Generated xBPP Policy
           </Label>
           <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setLibraryOpen(true)} 
+              className="h-8 px-2 relative"
+            >
+              <Library className="h-3 w-3 mr-1" />
+              Library
+              {savedCount > 0 && (
+                <Badge variant="secondary" className="ml-1 h-5 px-1.5 text-xs">
+                  {savedCount}
+                </Badge>
+              )}
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setSaveDialogOpen(true)} 
+              className="h-8 px-2"
+            >
+              <Save className="h-3 w-3 mr-1" />
+              Save
+            </Button>
             <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 px-2">
               <RotateCcw className="h-3 w-3 mr-1" />
               Reset
@@ -456,6 +495,19 @@ export function PolicyBuilder() {
           Run your custom policy against real-world scenarios
         </p>
       </div>
+
+      <PolicyLibraryDrawer
+        open={libraryOpen}
+        onOpenChange={setLibraryOpen}
+        onLoadPolicy={handleLoadPolicy}
+      />
+
+      <SavePolicyDialog
+        open={saveDialogOpen}
+        onOpenChange={setSaveDialogOpen}
+        onSave={handleSavePolicy}
+        config={config}
+      />
     </div>
   );
 }

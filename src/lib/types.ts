@@ -284,3 +284,27 @@ export interface ComparisonState {
   runB: Run | null;
   diff: Diff | null;
 }
+
+// Policy Builder Config (for saved policies)
+export interface PolicyConfig {
+  posture: Posture;
+  maxSingle: number;
+  maxDaily: number;
+  maxWeekly: number;
+  requireHumanAbove: number;
+  newCounterpartyAction: 'ALLOW' | 'ESCALATE' | 'BLOCK';
+  requireVerified: boolean;
+  burstDetection: boolean;
+  minConfidence: number;
+  logLevel: 'MINIMAL' | 'STANDARD' | 'VERBOSE';
+}
+
+// Saved Policy (for Policy Library)
+export interface SavedPolicy {
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: number;
+  updatedAt: number;
+  config: PolicyConfig;
+}
