@@ -129,14 +129,14 @@ export default function Spec() {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-20 px-6 relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
       <AnimatedBackground variant="subtle" />
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex gap-8">
-          {/* Sidebar TOC */}
-          <aside className="hidden lg:block w-64 shrink-0">
-            <div className="sticky top-28 space-y-1">
+        <div className="flex">
+          {/* Fixed Sidebar TOC */}
+          <aside className="hidden lg:block w-64 shrink-0 fixed top-0 left-0 h-screen pt-28 pb-8 pl-6 overflow-y-auto" style={{ width: 'calc((100vw - 64rem) / 2 + 16rem)', paddingLeft: 'max(1.5rem, calc((100vw - 64rem) / 2))' }}>
+            <div className="w-64 space-y-1">
               <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-4">On this page</p>
               {tocSections.map(({ id, title, icon: Icon }) => (
                 <button
@@ -171,8 +171,8 @@ export default function Spec() {
             </div>
           </aside>
           
-          {/* Main Content */}
-          <main className="flex-1 min-w-0">
+          {/* Scrollable Main Content */}
+          <main className="flex-1 min-w-0 lg:ml-64 pt-28 pb-20 px-6">
             {/* Header */}
             <header className="mb-16 animate-fade-in">
               <div className="flex items-center gap-2 text-sm font-mono text-muted-foreground mb-4">
