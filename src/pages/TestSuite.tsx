@@ -451,6 +451,114 @@ export default function TestSuite() {
           </CardContent>
         </Card>
 
+        {/* Summary Dashboard */}
+        {results.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          >
+            {/* Overall Stats */}
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-primary mb-1">
+                    {Math.round(
+                      (results.reduce((acc, r) => acc + r.passedCount, 0) /
+                        results.reduce((acc, r) => acc + r.results.length, 0)) *
+                        100
+                    )}%
+                  </div>
+                  <p className="text-sm text-muted-foreground">Overall Pass Rate</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Verdict Distribution */}
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3 text-center">
+                  Verdict Distribution
+                </p>
+                <div className="flex justify-center gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-400">
+                      {results.reduce((acc, r) => acc + r.results.filter(x => x.verdict === 'ALLOW').length, 0)}
+                    </div>
+                    <p className="text-xs text-muted-foreground">ALLOW</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-red-400">
+                      {results.reduce((acc, r) => acc + r.results.filter(x => x.verdict === 'BLOCK').length, 0)}
+                    </div>
+                    <p className="text-xs text-muted-foreground">BLOCK</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-amber-400">
+                      {results.reduce((acc, r) => acc + r.results.filter(x => x.verdict === 'ESCALATE').length, 0)}
+                    </div>
+                    <p className="text-xs text-muted-foreground">ESCALATE</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Category Breakdown */}
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3 text-center">
+                  By Category
+                </p>
+                <div className="flex justify-center gap-4">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <Zap className="h-4 w-4 text-primary" />
+                      <span className="text-lg font-bold">
+                        {results.reduce((acc, r) => acc + r.results.filter(x => x.category === 'SPEND').length, 0)}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">SPEND</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <PenTool className="h-4 w-4 text-primary" />
+                      <span className="text-lg font-bold">
+                        {results.reduce((acc, r) => acc + r.results.filter(x => x.category === 'SIGN').length, 0)}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">SIGN</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <Shield className="h-4 w-4 text-primary" />
+                      <span className="text-lg font-bold">
+                        {results.reduce((acc, r) => acc + r.results.filter(x => x.category === 'DEFENSE').length, 0)}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">DEFENSE</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Total Runtime */}
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-muted-foreground mb-1">
+                    {results.reduce((acc, r) => acc + r.runTime, 0).toFixed(0)}
+                    <span className="text-lg">ms</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Total Runtime</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {results.reduce((acc, r) => acc + r.results.length, 0)} tests across {results.length} posture{results.length > 1 ? 's' : ''}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+
         {/* Results */}
         {filteredResults.length > 0 && (
           <div className="space-y-6">
