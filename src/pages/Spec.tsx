@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink, Sparkles, Play, List, FlaskConical } from 'lucide-react';
+import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink, Sparkles, Play, List, FlaskConical, Menu } from 'lucide-react';
 import { AnimatedBackground } from '@/components/effects';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { PolicyBuilder } from '@/components/spec/PolicyBuilder';
 import { AdvancedVerdictSimulator } from '@/components/spec/AdvancedVerdictSimulator';
 import { ReasonCodeReference } from '@/components/spec/ReasonCodeReference';
@@ -110,6 +111,7 @@ function CollapsibleSection({ title, children, defaultOpen = false }: { title: s
 
 export default function Spec() {
   const [activeSection, setActiveSection] = useState('overview');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [simulatorConfig, setSimulatorConfig] = useState<PolicyConfig>({
     posture: 'BALANCED',
     maxSingle: 100,
@@ -157,48 +159,67 @@ export default function Spec() {
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
+    setMobileMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const TocContent = () => (
+    <div className="space-y-1">
+      <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-4">On this page</p>
+      {tocSections.map(({ id, title, icon: Icon }) => (
+        <button
+          key={id}
+          onClick={() => scrollToSection(id)}
+          className={cn(
+            "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors text-left",
+            activeSection === id 
+              ? "bg-primary/10 text-primary" 
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+          )}
+        >
+          <Icon className="h-4 w-4" />
+          {title}
+        </button>
+      ))}
+      
+      <div className="pt-6 border-t border-border mt-6 space-y-2">
+        <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
+          <Link to="/test-suite">
+            <FlaskConical className="h-4 w-4" />
+            Test Suite
+          </Link>
+        </Button>
+        <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
+          <Link to="/policies">
+            <Shield className="h-4 w-4" />
+            Policy Bank
+          </Link>
+        </Button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen relative">
       <AnimatedBackground variant="subtle" />
       
-      {/* Fixed Sidebar TOC */}
+      {/* Mobile TOC Trigger */}
+      <div className="lg:hidden fixed bottom-6 right-6 z-30">
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <Button size="lg" className="rounded-full h-14 w-14 shadow-lg">
+              <Menu className="h-6 w-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-72 pt-12">
+            <TocContent />
+          </SheetContent>
+        </Sheet>
+      </div>
+      
+      {/* Fixed Sidebar TOC - Desktop */}
       <aside className="hidden lg:flex fixed top-0 left-0 w-64 h-screen pt-28 pb-8 px-6 flex-col z-20">
-        <div className="space-y-1">
-          <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-4">On this page</p>
-          {tocSections.map(({ id, title, icon: Icon }) => (
-            <button
-              key={id}
-              onClick={() => scrollToSection(id)}
-              className={cn(
-                "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors text-left",
-                activeSection === id 
-                  ? "bg-primary/10 text-primary" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-              )}
-            >
-              <Icon className="h-4 w-4" />
-              {title}
-            </button>
-          ))}
-          
-          <div className="pt-6 border-t border-border mt-6 space-y-2">
-            <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
-              <Link to="/test-suite">
-                <FlaskConical className="h-4 w-4" />
-                Test Suite
-              </Link>
-            </Button>
-            <Button variant="outline" size="sm" className="w-full justify-start gap-2" asChild>
-              <Link to="/policies">
-                <Shield className="h-4 w-4" />
-                Policy Bank
-              </Link>
-            </Button>
-          </div>
-        </div>
+        <TocContent />
       </aside>
       
       {/* Scrollable Main Content */}
