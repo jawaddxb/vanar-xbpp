@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, FileText, Terminal } from 'lucide-react';
+import { ArrowRight, FileText, Terminal, BookOpen, Library, PlayCircle, FlaskConical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 
@@ -10,8 +10,58 @@ export function HeroSection() {
     setMounted(true);
   }, []);
 
+  const navLinks = [
+    { to: '/learn', label: 'Learn', icon: BookOpen },
+    { to: '/library', label: 'Library', icon: Library },
+    { to: '/playground', label: 'Playground', icon: PlayCircle },
+    { to: '/spec', label: 'Spec', icon: FileText },
+    { to: '/test-suite', label: 'Test Suite', icon: FlaskConical },
+  ];
+
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-6 relative">
+      {/* Top Navigation Bar */}
+      <nav 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="w-2 h-2 rounded-full bg-primary group-hover:scale-125 transition-transform" />
+              <span className="text-sm font-mono tracking-[0.2em] uppercase text-muted-foreground group-hover:text-foreground transition-colors">
+                PolicyLab
+              </span>
+            </Link>
+
+            {/* Nav Links */}
+            <div className="hidden md:flex items-center gap-1 px-3 py-2 rounded-full border border-border/30 bg-card/30 backdrop-blur-md">
+              {navLinks.map(({ to, label, icon: Icon }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                >
+                  <Icon className="h-3.5 w-3.5" />
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Mobile Menu Trigger */}
+            <div className="md:hidden flex items-center gap-2">
+              <Link
+                to="/playground"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm border border-border/30 bg-card/30 backdrop-blur-md text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <PlayCircle className="h-3.5 w-3.5" />
+                Playground
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Animated timeline pulse - top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-40">
         <div className="w-full h-full bg-gradient-to-b from-transparent via-primary/60 to-transparent animate-pulse-subtle" />
@@ -85,9 +135,10 @@ export function HeroSection() {
           className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-700 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
           <Button asChild size="lg" className="group text-lg px-8 py-6 relative overflow-hidden">
-            <Link to="/scenarios">
+            <Link to="/playground">
               <span className="relative z-10 flex items-center">
-                Run a simulation
+                <PlayCircle className="mr-2 h-5 w-5" />
+                Try the Playground
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity" />
