@@ -15,7 +15,8 @@ import {
   Download,
   FileJson,
   FileSpreadsheet,
-  TrendingUp
+  TrendingUp,
+  Grid3X3
 } from 'lucide-react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Button } from '@/components/ui/button';
@@ -479,6 +480,10 @@ export default function TestSuite() {
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="verdicts">Verdict Analysis</TabsTrigger>
                 <TabsTrigger value="postures">Posture Comparison</TabsTrigger>
+                <TabsTrigger value="divergence" className="gap-1">
+                  <Grid3X3 className="h-3.5 w-3.5" />
+                  Divergence Heatmap
+                </TabsTrigger>
               </TabsList>
               
               <TabsContent value="overview">
@@ -680,6 +685,153 @@ export default function TestSuite() {
                     </CardContent>
                   </Card>
                 </div>
+              </TabsContent>
+              
+              <TabsContent value="divergence">
+                {results.length >= 2 ? (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Grid3X3 className="h-5 w-5" />
+                        Policy Divergence Heatmap
+                      </CardTitle>
+                      <p className="text-sm text-muted-foreground">
+                        Scenarios where different postures produce different verdicts are highlighted. 
+                        Red cells indicate divergent outcomes.
+                      </p>
+                    </CardHeader>
+                    <CardContent>
+                      <ScrollArea className="w-full">
+                        <div className="min-w-[600px]">
+                          {/* Header Row */}
+                          <div className="grid gap-2 mb-3" style={{ 
+                            gridTemplateColumns: `200px repeat(${results.length}, 1fr)` 
+                          }}>
+                            <div className="text-sm font-medium text-muted-foreground">Scenario</div>
+                            {results.map(r => (
+                              <div key={r.posture} className="text-sm font-medium text-center">
+                                <Badge 
+                                  variant="outline" 
+                                  className="font-mono"
+                                  style={{ borderColor: POSTURE_COLORS[r.posture], color: POSTURE_COLORS[r.posture] }}
+                                >
+                                  {r.posture}
+                                </Badge>
+                              </div>
+                            ))}
+                          </div>
+                          
+                          {/* Scenario Rows */}
+                          <div className="space-y-1">
+                            {filteredScenarios.map(scenario => {
+                              const scenarioResults = results.map(r => 
+                                r.results.find(res => res.scenarioId === scenario.id)
+                              );
+                              
+                              const verdicts = scenarioResults.map(r => r?.verdict).filter(Boolean);
+                              const hasDivergence = new Set(verdicts).size > 1;
+                              
+                              return (
+                                <div 
+                                  key={scenario.id}
+                                  className={cn(
+                                    "grid gap-2 py-2 px-2 rounded-lg transition-colors",
+                                    hasDivergence 
+                                      ? "bg-red-500/10 border border-red-500/20" 
+                                      : "hover:bg-muted/30"
+                                  )}
+                                  style={{ 
+                                    gridTemplateColumns: `200px repeat(${results.length}, 1fr)` 
+                                  }}
+                                >
+                                  <div className="flex items-center gap-2 text-sm truncate">
+                                    {categoryIcons[scenario.category]}
+                                    <span className={cn(
+                                      "truncate",
+                                      hasDivergence && "font-medium text-red-300"
+                                    )}>
+                                      {scenario.name}
+                                    </span>
+                                    {hasDivergence && (
+                                      <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0" />
+                                    )}
+                                  </div>
+                                  
+                                  {scenarioResults.map((result, idx) => (
+                                    <div key={idx} className="flex justify-center">
+                                      {result ? (
+                                        <Badge 
+                                          className={cn(
+                                            "font-mono text-xs",
+                                            getVerdictBg(result.verdict)
+                                          )}
+                                        >
+                                          <span className={getVerdictColor(result.verdict)}>
+                                            {result.verdict}
+                                          </span>
+                                        </Badge>
+                                      ) : (
+                                        <span className="text-muted-foreground text-xs">—</span>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              );
+                            })}
+                          </div>
+                          
+                          {/* Summary */}
+                          <div className="mt-6 pt-4 border-t border-border/50">
+                            <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <AlertTriangle className="h-4 w-4 text-red-400" />
+                                <span className="text-muted-foreground">Divergent scenarios:</span>
+                                <span className="font-bold text-red-400">
+                                  {filteredScenarios.filter(scenario => {
+                                    const verdicts = results.map(r => 
+                                      r.results.find(res => res.scenarioId === scenario.id)?.verdict
+                                    ).filter(Boolean);
+                                    return new Set(verdicts).size > 1;
+                                  }).length}
+                                </span>
+                                <span className="text-muted-foreground">
+                                  / {filteredScenarios.length}
+                                </span>
+                              </div>
+                              
+                              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                <div className="flex items-center gap-1">
+                                  <div className="w-3 h-3 rounded bg-green-500/30"></div>
+                                  ALLOW
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <div className="w-3 h-3 rounded bg-red-500/30"></div>
+                                  BLOCK
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <div className="w-3 h-3 rounded bg-amber-500/30"></div>
+                                  ESCALATE
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ScrollArea>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <Card>
+                    <CardContent className="py-12">
+                      <div className="text-center text-muted-foreground">
+                        <Grid3X3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                        <p className="font-medium">Select at least 2 postures</p>
+                        <p className="text-sm mt-1">
+                          The divergence heatmap requires multiple postures to compare.
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
               </TabsContent>
             </Tabs>
           </motion.div>
