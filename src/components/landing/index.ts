@@ -2,6 +2,7 @@ export { HeroSection } from './HeroSection';
 export { ProblemSection } from './ProblemSection';
 export { InsightSection } from './InsightSection';
 export { WhatIsSection } from './WhatIsSection';
+export { ParadigmShiftSection } from './ParadigmShiftSection';
 export { HowItWorksSection } from './HowItWorksSection';
 export { TheMomentSection } from './TheMomentSection';
 export { WhyMattersSection } from './WhyMattersSection';
