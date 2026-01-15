@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Play, 
@@ -16,7 +16,8 @@ import {
   FileJson,
   FileSpreadsheet,
   TrendingUp,
-  Grid3X3
+  Grid3X3,
+  ExternalLink
 } from 'lucide-react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Button } from '@/components/ui/button';
@@ -29,9 +30,10 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { scenarios } from '@/lib/data/scenarios';
-import { evaluateTransaction, getDefaultTransactionInput, getPostureDefaults, ExtendedPolicyConfig } from '@/lib/xbppEvaluator';
+import { evaluateTransaction, getDefaultTransactionInput, getPostureDefaults, ExtendedPolicyConfig, TransactionInput } from '@/lib/xbppEvaluator';
 import { Posture, Category, ReasonCode } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { ScenarioDivergenceModal } from '@/components/spec/ScenarioDivergenceModal';
 
 const VERDICT_COLORS = {
   ALLOW: '#4ade80',
@@ -159,6 +161,18 @@ export default function TestSuite() {
   const [expandedResults, setExpandedResults] = useState<Set<string>>(new Set());
   const [categoryFilter, setCategoryFilter] = useState<Category | 'ALL'>('ALL');
   const [verdictFilter, setVerdictFilter] = useState<'ALL' | 'ALLOW' | 'BLOCK' | 'ESCALATE'>('ALL');
+  const [selectedScenarioForModal, setSelectedScenarioForModal] = useState<typeof scenarios[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Memoize the scenario to transaction input function for the modal
+  const memoizedScenarioToTransactionInput = useCallback((scenario: typeof scenarios[0]): TransactionInput => {
+    return scenarioToTransactionInput(scenario);
+  }, []);
+
+  const handleScenarioClick = (scenario: typeof scenarios[0]) => {
+    setSelectedScenarioForModal(scenario);
+    setIsModalOpen(true);
+  };
 
   const filteredScenarios = useMemo(() => {
     return scenarios.filter(s => categoryFilter === 'ALL' || s.category === categoryFilter);
@@ -734,14 +748,15 @@ export default function TestSuite() {
                               return (
                                 <div 
                                   key={scenario.id}
+                                  onClick={() => handleScenarioClick(scenario)}
                                   className={cn(
-                                    "grid gap-2 py-2 px-2 rounded-lg transition-colors",
+                                    "grid gap-2 py-2 px-2 rounded-lg transition-colors cursor-pointer group",
                                     hasDivergence 
-                                      ? "bg-red-500/10 border border-red-500/20" 
-                                      : "hover:bg-muted/30"
+                                      ? "bg-red-500/10 border border-red-500/20 hover:bg-red-500/20" 
+                                      : "hover:bg-muted/30 border border-transparent"
                                   )}
                                   style={{ 
-                                    gridTemplateColumns: `200px repeat(${results.length}, 1fr)` 
+                                    gridTemplateColumns: `200px repeat(${results.length}, 1fr) 24px` 
                                   }}
                                 >
                                   <div className="flex items-center gap-2 text-sm truncate">
@@ -775,6 +790,11 @@ export default function TestSuite() {
                                       )}
                                     </div>
                                   ))}
+                                  
+                                  {/* Click indicator */}
+                                  <div className="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                                  </div>
                                 </div>
                               );
                             })}
@@ -989,6 +1009,15 @@ export default function TestSuite() {
           </Card>
         )}
       </div>
+
+      {/* Divergence Modal */}
+      <ScenarioDivergenceModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        scenario={selectedScenarioForModal}
+        postures={selectedPostures}
+        scenarioToTransactionInput={memoizedScenarioToTransactionInput}
+      />
     </div>
   );
 }
