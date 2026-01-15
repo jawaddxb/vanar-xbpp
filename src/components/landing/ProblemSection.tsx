@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MessageSquare, Code2, AlertTriangle, Laptop } from 'lucide-react';
+import { MessageSquare, Code2, AlertTriangle, Laptop, CreditCard, ShieldAlert, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const controlMethods = [
@@ -15,6 +15,18 @@ const controlMethods = [
     example: 'if (amount > 100) { reject(); }',
     problems: ['Unscalable', 'Rigid silos', 'Breaks across jurisdictions'],
   },
+];
+
+const dangers = [
+  { icon: CreditCard, text: 'An agent with access to a credit card could drain it in seconds' },
+  { icon: ShieldAlert, text: 'A compromised agent could send funds to attackers' },
+  { icon: Zap, text: 'Even well-intentioned agents make mistakes' },
+];
+
+const traditionalProblems = [
+  { label: 'Manual approval', problem: 'destroys the value of automation' },
+  { label: 'Fixed limits', problem: 'are too blunt ($100 blocks both legitimate and fraud)' },
+  { label: 'No limits', problem: '= unacceptable risk' },
 ];
 
 export function ProblemSection() {
@@ -70,12 +82,37 @@ export function ProblemSection() {
           </p>
         </div>
 
-        {/* Control Methods */}
+        {/* Dangers */}
         <div className={cn(
-          "mb-16 transition-all duration-500 delay-300",
+          "mb-12 transition-all duration-500 delay-250",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <p className="text-center text-muted-foreground mb-8 text-lg">
+          <p className="text-center text-muted-foreground mb-6 text-lg">
+            Capability without constraint is <span className="text-block">dangerous</span>:
+          </p>
+          <div className="grid md:grid-cols-3 gap-4">
+            {dangers.map(({ icon: Icon, text }, index) => (
+              <div
+                key={text}
+                className={cn(
+                  "p-4 rounded-xl border border-block/20 bg-block/5 flex items-start gap-3 transition-all duration-500",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                )}
+                style={{ transitionDelay: `${300 + index * 100}ms` }}
+              >
+                <Icon className="h-5 w-5 text-block shrink-0 mt-0.5" />
+                <p className="text-sm text-muted-foreground">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Control Methods */}
+        <div className={cn(
+          "mb-12 transition-all duration-500 delay-300",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <p className="text-center text-muted-foreground mb-6 text-lg">
             Currently, there are only <span className="text-foreground">two ways</span> to control an agent:
           </p>
           <div className="grid md:grid-cols-2 gap-6">
@@ -108,6 +145,24 @@ export function ProblemSection() {
                     </span>
                   ))}
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Traditional Solutions */}
+        <div className={cn(
+          "mb-12 transition-all duration-500 delay-400",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <p className="text-center text-muted-foreground mb-4 text-lg">
+            Traditional solutions don't work:
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {traditionalProblems.map(({ label, problem }) => (
+              <div key={label} className="px-4 py-2 rounded-lg bg-muted/30 border border-border/50">
+                <span className="text-foreground font-medium">{label}</span>
+                <span className="text-muted-foreground"> {problem}</span>
               </div>
             ))}
           </div>

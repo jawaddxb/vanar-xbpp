@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { FileJson, Globe, Eye } from 'lucide-react';
+import { FileJson, Globe, Eye, XCircle } from 'lucide-react';
 
 const features = [
   {
@@ -18,6 +18,13 @@ const features = [
     title: 'Transparent Verdicts',
     description: 'Every decision is deterministic, auditable, and provable.',
   },
+];
+
+const whatItDoesNot = [
+  { action: 'Execute payments', explanation: "That's x402's job" },
+  { action: 'Custody funds', explanation: 'xBPP is policy, not a wallet' },
+  { action: 'Guarantee counterparty behavior', explanation: "Can't prevent a vendor from being malicious" },
+  { action: 'Replace legal contracts', explanation: 'xBPP is technical enforcement, not legal agreement' },
 ];
 
 export function WhatIsSection() {
@@ -66,6 +73,31 @@ export function WhatIsSection() {
           </p>
         </div>
 
+        {/* Core Question */}
+        <div className={cn(
+          "text-center mb-12 transition-all duration-500 delay-250",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <div className="inline-block p-6 rounded-xl border border-primary/30 bg-primary/5">
+            <p className="text-sm font-mono text-primary uppercase tracking-wider mb-2">The core question</p>
+            <p className="text-xl md:text-2xl font-medium text-foreground">
+              "Should this agent be allowed to spend this money?"
+            </p>
+          </div>
+        </div>
+
+        {/* Programmable CFO */}
+        <div className={cn(
+          "text-center mb-12 transition-all duration-500 delay-300",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <p className="text-lg text-muted-foreground">
+            Think of xBPP as a <span className="text-primary font-medium">programmable CFO</span> for your AI agents.
+            <br />
+            You set the rules once (budgets, approved vendors, risk tolerance), and xBPP enforces them on every transaction.
+          </p>
+        </div>
+
         {/* Features Grid */}
         <div className={cn(
           "grid md:grid-cols-3 gap-6 mb-16 transition-all duration-700 delay-300",
@@ -84,6 +116,25 @@ export function WhatIsSection() {
               <p className="text-muted-foreground text-sm">{description}</p>
             </div>
           ))}
+        </div>
+
+        {/* What xBPP Does NOT Do */}
+        <div className={cn(
+          "mb-16 transition-all duration-700 delay-400",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <h3 className="text-lg font-medium text-center mb-6">What xBPP Does <span className="text-block">NOT</span> Do</h3>
+          <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {whatItDoesNot.map(({ action, explanation }) => (
+              <div key={action} className="flex items-start gap-3 p-4 rounded-lg bg-muted/30 border border-border/50">
+                <XCircle className="h-5 w-5 text-block shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-medium text-foreground">{action}</p>
+                  <p className="text-sm text-muted-foreground">{explanation}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* POLICYLAB Connection */}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, FileText } from 'lucide-react';
+import { ArrowRight, FileText, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 
@@ -52,8 +52,20 @@ export function HeroSection() {
           <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
             The open standard for Agentic Governance.
             <br />
-            <span className="text-foreground/80">See what your policies actually do — before the consequences are real.</span>
+            <span className="text-foreground/80">A programmable CFO for your AI agents.</span>
           </p>
+        </div>
+        
+        {/* SDK Install Preview */}
+        <div 
+          className={`transition-all duration-700 delay-250 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          <div className="inline-flex items-center gap-3 px-5 py-3 rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm">
+            <Terminal className="h-4 w-4 text-primary" />
+            <code className="text-sm font-mono text-muted-foreground">
+              npm install <span className="text-primary">@anthropic/xbpp</span>
+            </code>
+          </div>
         </div>
         
         {/* Animated divider */}

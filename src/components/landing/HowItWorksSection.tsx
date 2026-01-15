@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { MessageSquare, Shield, CheckCircle, XCircle, AlertCircle, TrendingUp } from 'lucide-react';
+import { MessageSquare, Shield, CheckCircle, XCircle, AlertCircle, TrendingUp, FileJson } from 'lucide-react';
 
 const steps = [
   {
     number: 1,
     title: 'Intent',
     description: 'Agent generates an action request',
-    example: '"I want to pay 500 USDC to Vendor X"',
+    example: '"Pay $50 USDC to 0xABC on Base"',
     icon: MessageSquare,
   },
   {
@@ -20,16 +20,24 @@ const steps = [
 ];
 
 const verdicts = [
-  { type: 'ALLOW', description: 'Transaction proceeds via x402', icon: CheckCircle, color: 'allow' },
-  { type: 'BLOCK', description: 'Transaction killed before network', icon: XCircle, color: 'block' },
-  { type: 'ESCALATE', description: 'Paused for human approval', icon: AlertCircle, color: 'escalate' },
+  { type: 'ALLOW', description: 'Proceed with the payment', icon: CheckCircle, color: 'allow' },
+  { type: 'BLOCK', description: 'Stop; this violates policy', icon: XCircle, color: 'block' },
+  { type: 'ESCALATE', description: 'Ask a human to approve', icon: AlertCircle, color: 'escalate' },
+];
+
+const keyConcepts = [
+  { concept: 'Action', description: 'A proposed payment to evaluate', example: '"Pay $50 USDC to 0xABC"' },
+  { concept: 'Policy', description: 'Rules defining what\'s allowed', example: '"Max $100/tx, $1000/day"' },
+  { concept: 'Verdict', description: 'The evaluation result', example: 'ALLOW, BLOCK, or ESCALATE' },
+  { concept: 'State', description: 'Running totals and history', example: '"$340 spent today"' },
+  { concept: 'Posture', description: 'Default risk tolerance', example: 'AGGRESSIVE, BALANCED, CAUTIOUS' },
 ];
 
 export function HowItWorksSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeStep, setActiveStep] = useState(-1);
   const [showVerdicts, setShowVerdicts] = useState(false);
-  const [showGraduation, setShowGraduation] = useState(false);
+  const [showConcepts, setShowConcepts] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -41,7 +49,7 @@ export function HowItWorksSection() {
             setTimeout(() => setActiveStep(index), 300 + index * 400);
           });
           setTimeout(() => setShowVerdicts(true), 1200);
-          setTimeout(() => setShowGraduation(true), 2000);
+          setTimeout(() => setShowConcepts(true), 2000);
         }
       },
       { threshold: 0.2 }
@@ -81,6 +89,29 @@ export function HowItWorksSection() {
 
         {/* Flow Diagram */}
         <div className="mb-16">
+          {/* Visual Flow */}
+          <div className={cn(
+            "p-6 rounded-xl border border-border bg-card/50 mb-8 transition-all duration-500 delay-200",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}>
+            <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+              <div className="p-4 rounded-lg bg-muted/50 border border-border flex-1 w-full md:w-auto">
+                <p className="text-xs font-mono text-muted-foreground mb-2">YOUR APPLICATION</p>
+                <p className="font-medium">Agent wants to pay $50 to 0xABC...</p>
+              </div>
+              <div className="text-2xl text-muted-foreground">→</div>
+              <div className="p-4 rounded-lg bg-primary/10 border border-primary/30 flex-1 w-full md:w-auto">
+                <p className="text-xs font-mono text-primary mb-2">XBPP INTERPRETER</p>
+                <p className="font-medium">Action + Policy → Verdict</p>
+              </div>
+              <div className="text-2xl text-muted-foreground">→</div>
+              <div className="p-4 rounded-lg bg-muted/50 border border-border flex-1 w-full md:w-auto">
+                <p className="text-xs font-mono text-muted-foreground mb-2">RESULT</p>
+                <p className="font-mono font-bold">ALLOW | BLOCK | ESCALATE</p>
+              </div>
+            </div>
+          </div>
+          
           {/* Steps */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             {steps.map((step, index) => {
@@ -162,10 +193,41 @@ export function HowItWorksSection() {
           </div>
         </div>
 
+        {/* Key Concepts Table */}
+        <div className={cn(
+          "mb-16 transition-all duration-700",
+          showConcepts ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <div className="flex items-center gap-3 mb-6">
+            <FileJson className="h-5 w-5 text-primary" />
+            <h3 className="text-lg font-medium">Key Concepts</h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-3 pr-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">Concept</th>
+                  <th className="text-left py-3 pr-4 font-mono text-xs uppercase tracking-wider text-muted-foreground">What It Is</th>
+                  <th className="text-left py-3 font-mono text-xs uppercase tracking-wider text-muted-foreground">Example</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {keyConcepts.map(({ concept, description, example }) => (
+                  <tr key={concept}>
+                    <td className="py-3 pr-4 font-mono text-primary">{concept}</td>
+                    <td className="py-3 pr-4">{description}</td>
+                    <td className="py-3 text-muted-foreground font-mono text-xs">{example}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         {/* Graduated Autonomy */}
         <div className={cn(
           "transition-all duration-700",
-          showGraduation ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          showConcepts ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
           <div className="p-8 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur-sm">
             <div className="flex items-center gap-4 mb-4">
