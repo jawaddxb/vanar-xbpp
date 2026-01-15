@@ -140,8 +140,8 @@ export function HeroSection() {
         >
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-mono tracking-wider text-muted-foreground">
-              The missing layer for autonomous agents
+          <span className="text-sm font-mono tracking-wider text-muted-foreground">
+              The policy standard for agent transactions
             </span>
           </div>
         </div>
@@ -166,6 +166,57 @@ export function HeroSection() {
             Define your rules once. Every transaction follows them.
             <span className="block text-foreground/80 mt-2">A programmable CFO that says yes, no, or "ask me first."</span>
           </p>
+        </div>
+        
+        {/* Architecture Flow Diagram */}
+        <div 
+          className={`transition-all duration-500 delay-250 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        >
+          <div className="inline-flex items-center gap-3 md:gap-4 px-5 py-4 rounded-xl border border-border/30 bg-card/30 backdrop-blur-sm">
+            {/* Intent */}
+            <div className="flex flex-col items-center gap-1.5">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-muted/50 border border-border/50 flex items-center justify-center">
+                <span className="text-lg md:text-xl">💬</span>
+              </div>
+              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wide">Intent</span>
+            </div>
+            
+            {/* Arrow */}
+            <div className="flex items-center text-muted-foreground/50">
+              <div className="w-6 md:w-10 h-px bg-gradient-to-r from-muted-foreground/20 to-muted-foreground/40" />
+              <ArrowRight className="h-4 w-4 -ml-1" />
+            </div>
+            
+            {/* Interpret */}
+            <div className="flex flex-col items-center gap-1.5">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
+                <span className="text-lg md:text-xl">⚙️</span>
+              </div>
+              <span className="text-xs font-mono text-primary uppercase tracking-wide">xBPP</span>
+            </div>
+            
+            {/* Arrow */}
+            <div className="flex items-center text-muted-foreground/50">
+              <div className="w-6 md:w-10 h-px bg-gradient-to-r from-muted-foreground/40 to-muted-foreground/20" />
+              <ArrowRight className="h-4 w-4 -ml-1" />
+            </div>
+            
+            {/* Verdict */}
+            <div className="flex flex-col items-center gap-1.5">
+              <div className="flex gap-1">
+                <div className="w-5 h-5 md:w-6 md:h-6 rounded bg-[hsl(var(--decision-allow))]/20 border border-[hsl(var(--decision-allow))]/40 flex items-center justify-center">
+                  <span className="text-[10px] md:text-xs">✓</span>
+                </div>
+                <div className="w-5 h-5 md:w-6 md:h-6 rounded bg-[hsl(var(--decision-block))]/20 border border-[hsl(var(--decision-block))]/40 flex items-center justify-center">
+                  <span className="text-[10px] md:text-xs">✗</span>
+                </div>
+                <div className="w-5 h-5 md:w-6 md:h-6 rounded bg-[hsl(var(--decision-escalate))]/20 border border-[hsl(var(--decision-escalate))]/40 flex items-center justify-center">
+                  <span className="text-[10px] md:text-xs">?</span>
+                </div>
+              </div>
+              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wide">Verdict</span>
+            </div>
+          </div>
         </div>
         
         {/* SDK Install Preview */}
