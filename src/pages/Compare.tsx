@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronDown, ChevronUp, Copy, Check, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { usePolicyLabStore } from '@/lib/store';
+import { useBPPLabStore } from '@/lib/store';
 import { getScenarioById } from '@/lib/data/scenarios';
 import { permissivePolicy, restrictivePolicy, getConstraintsForCategory, getPostureBadgeClass } from '@/lib/data/policies';
 import { Category, Posture } from '@/lib/types';
@@ -13,7 +13,7 @@ export default function Compare() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const scenarioId = searchParams.get('scenario');
-  const { setSelectedScenario, loadScenarioData } = usePolicyLabStore();
+  const { setSelectedScenario, loadScenarioData } = useBPPLabStore();
   
   const [expandedA, setExpandedA] = useState(false);
   const [expandedB, setExpandedB] = useState(false);

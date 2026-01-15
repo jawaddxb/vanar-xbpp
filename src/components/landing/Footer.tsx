@@ -9,7 +9,7 @@ export function Footer() {
           <div className="text-center md:text-left">
             <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
               <div className="w-2 h-2 rounded-full bg-primary" />
-              <span className="text-sm font-mono tracking-[0.2em] uppercase">PolicyLab</span>
+              <span className="text-sm font-mono tracking-[0.2em] uppercase">BPPLAB</span>
             </div>
             <p className="text-sm text-muted-foreground">Behavior under constraint</p>
           </div>

@@ -4,7 +4,7 @@ import { getScenarioById } from './data/scenarios';
 import { permissivePolicy, restrictivePolicy } from './data/policies';
 import { getRunsForScenario, getDiffForScenario } from './data/runs';
 
-interface PolicyLabState {
+interface BPPLabState {
   // Selected scenario
   selectedScenario: Scenario | null;
   setSelectedScenario: (scenarioId: string) => void;
@@ -45,7 +45,7 @@ function generateHash(): string {
   return 'xbpp-cust-' + Math.random().toString(36).substring(2, 6);
 }
 
-export const usePolicyLabStore = create<PolicyLabState>((set, get) => ({
+export const useBPPLabStore = create<BPPLabState>((set, get) => ({
   selectedScenario: null,
   policyA: permissivePolicy,
   policyB: restrictivePolicy,

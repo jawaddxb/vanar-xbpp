@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowRight, RotateCcw, Download, TrendingDown, TrendingUp, Users, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { usePolicyLabStore } from '@/lib/store';
+import { useBPPLabStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 import { AnimatedBackground, MetricCounter } from '@/components/effects';
 
@@ -11,7 +11,7 @@ export default function Summary() {
   const navigate = useNavigate();
   const scenarioId = searchParams.get('scenario');
   
-  const { selectedScenario, diff, loadScenarioData, reset } = usePolicyLabStore();
+  const { selectedScenario, diff, loadScenarioData, reset } = useBPPLabStore();
   const [visibleSections, setVisibleSections] = useState<number[]>([]);
   
   useEffect(() => {

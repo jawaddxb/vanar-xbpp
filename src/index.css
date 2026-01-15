@@ -4,14 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* POLICYLAB Design System
+/* BPPLAB Design System
    Cold logic. Warm presentation.
    All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* POLICYLAB is dark-first, but we define light for completeness */
+    /* BPPLAB is dark-first, but we define light for completeness */
     --background: 220 9% 5%;
     --foreground: 0 0% 96%;
 
@@ -81,7 +81,7 @@
   }
 
   .dark {
-    /* Same as root - POLICYLAB is dark-first */
+    /* Same as root - BPPLAB is dark-first */
     --background: 220 9% 5%;
     --foreground: 0 0% 96%;
     --card: 220 9% 8%;

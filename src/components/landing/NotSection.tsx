@@ -36,7 +36,7 @@ export function NotSection() {
       <div className="max-w-3xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8">
-          <p className="text-sm font-mono tracking-widest text-muted-foreground/60 uppercase">What PolicyLab Is NOT</p>
+          <p className="text-sm font-mono tracking-widest text-muted-foreground/60 uppercase">What BPPLAB Is NOT</p>
         </div>
 
         {/* Not items */}

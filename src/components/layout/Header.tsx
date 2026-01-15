@@ -117,7 +117,7 @@ export function Header() {
           >
             <div className="w-2 h-2 rounded-full bg-primary group-hover:scale-125 transition-transform" />
             <span className="text-sm font-mono tracking-[0.2em] uppercase text-muted-foreground group-hover:text-foreground transition-colors">
-              PolicyLab
+              BPPLAB
             </span>
           </Link>
           

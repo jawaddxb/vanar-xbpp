@@ -1,4 +1,4 @@
-// POLICYLAB Core Object Model
+// BPPLAB Core Object Model
 // Aligned with xBPP (Behavioral Policy Protocol) Master Specification v1.0
 
 export type Category = 'SPEND' | 'SIGN' | 'DEFENSE';

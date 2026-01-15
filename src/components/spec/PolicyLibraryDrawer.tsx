@@ -101,7 +101,7 @@ export function PolicyLibraryDrawer({ open, onOpenChange, onLoadPolicy }: Policy
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `policylab-policies-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `bpplab-policies-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

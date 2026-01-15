@@ -145,7 +145,7 @@ export function WhatIsSection() {
           <div className="inline-block p-8 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur-sm">
             <p className="text-sm font-mono tracking-widest text-primary uppercase mb-3">Where xBPP comes alive</p>
             <h3 className="text-2xl md:text-3xl font-medium mb-4">
-              POLICYLAB is a <span className="text-primary">theatre of consequences</span>.
+              BPPLAB is a <span className="text-primary">theatre of consequences</span>.
             </h3>
             <p className="text-muted-foreground max-w-xl mx-auto">
               Watch identical agents, identical worlds — with one rule changed. 

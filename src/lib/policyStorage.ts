@@ -1,6 +1,6 @@
 import { SavedPolicy, PolicyConfig } from './types';
 
-const STORAGE_KEY = 'policylab-saved-policies';
+const STORAGE_KEY = 'bpplab-saved-policies';
 
 export function generatePolicyId(): string {
   return `pol_${Date.now().toString(36)}_${Math.random().toString(36).substr(2, 6)}`;

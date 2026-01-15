@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { Posture, XBPPPolicy, PolicyConfig, SavedPolicy } from '@/lib/types';
-import { usePolicyLabStore } from '@/lib/store';
+import { useBPPLabStore } from '@/lib/store';
 import { getSavedPolicies, savePolicy, generatePolicyId } from '@/lib/policyStorage';
 import { PolicyLibraryDrawer } from './PolicyLibraryDrawer';
 import { SavePolicyDialog } from './SavePolicyDialog';
@@ -83,7 +83,7 @@ interface PolicyBuilderProps {
 
 export function PolicyBuilder({ onConfigChange }: PolicyBuilderProps = {}) {
   const navigate = useNavigate();
-  const { setCustomPolicy } = usePolicyLabStore();
+  const { setCustomPolicy } = useBPPLabStore();
   const [config, setConfig] = useState<PolicyConfig>(defaultConfig);
   const [copied, setCopied] = useState(false);
   const [activePreset, setActivePreset] = useState<string | null>('starter');

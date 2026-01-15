@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { Play, Pause, RotateCcw, ArrowRight, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { usePolicyLabStore } from '@/lib/store';
+import { useBPPLabStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 import { Event } from '@/lib/types';
 import { AnimatedBackground } from '@/components/effects';
@@ -20,7 +20,7 @@ export default function Run() {
     setCurrentEventIndex,
     isPlaying,
     setIsPlaying,
-  } = usePolicyLabStore();
+  } = useBPPLabStore();
   
   const [hasReachedEnd, setHasReachedEnd] = useState(false);
   
