@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Scenario, Policy, Run, Diff } from './types';
+import { Scenario, Policy, Run, Diff, XBPPPolicy } from './types';
 import { getScenarioById } from './data/scenarios';
 import { permissivePolicy, restrictivePolicy } from './data/policies';
 import { getRunsForScenario, getDiffForScenario } from './data/runs';
@@ -12,6 +12,13 @@ interface PolicyLabState {
   // Policies (always permissive vs restrictive for v0)
   policyA: Policy;
   policyB: Policy;
+  
+  // Custom policy from builder
+  customPolicy: Policy | null;
+  setCustomPolicy: (xbpp: XBPPPolicy) => void;
+  clearCustomPolicy: () => void;
+  useCustomPolicy: boolean;
+  setUseCustomPolicy: (use: boolean) => void;
   
   // Runs
   runA: Run | null;
@@ -33,10 +40,17 @@ interface PolicyLabState {
   reset: () => void;
 }
 
+// Generate a short hash for custom policies
+function generateHash(): string {
+  return 'xbpp-cust-' + Math.random().toString(36).substring(2, 6);
+}
+
 export const usePolicyLabStore = create<PolicyLabState>((set, get) => ({
   selectedScenario: null,
   policyA: permissivePolicy,
   policyB: restrictivePolicy,
+  customPolicy: null,
+  useCustomPolicy: false,
   runA: null,
   runB: null,
   diff: null,
@@ -51,6 +65,30 @@ export const usePolicyLabStore = create<PolicyLabState>((set, get) => ({
     }
   },
   
+  setCustomPolicy: (xbpp: XBPPPolicy) => {
+    const customPolicy: Policy = {
+      id: 'policy-custom',
+      name: 'Your Custom Policy',
+      type: 'xBPP',
+      version: '1.0.0',
+      description: `Custom ${xbpp.posture} policy created in the Policy Builder`,
+      posture_summary: xbpp.posture === 'AGGRESSIVE' 
+        ? 'Trust efficiency. Escalate only when necessary.'
+        : xbpp.posture === 'CAUTIOUS'
+        ? 'Verify everything. Ask when uncertain.'
+        : 'Balance autonomy and safety.',
+      constraints: [],
+      raw_json: xbpp,
+      xbpp: xbpp,
+      hash: generateHash(),
+    };
+    set({ customPolicy, useCustomPolicy: true });
+  },
+  
+  clearCustomPolicy: () => set({ customPolicy: null, useCustomPolicy: false }),
+  
+  setUseCustomPolicy: (use: boolean) => set({ useCustomPolicy: use }),
+  
   setCurrentEventIndex: (index: number) => set({ currentEventIndex: index }),
   setIsPlaying: (playing: boolean) => set({ isPlaying: playing }),
   setShowDivergence: (show: boolean) => set({ showDivergence: show }),
@@ -62,8 +100,12 @@ export const usePolicyLabStore = create<PolicyLabState>((set, get) => ({
     const { permissive, restrictive } = getRunsForScenario(scenarioId);
     const diff = getDiffForScenario(scenarioId);
     
+    // If using custom policy, swap it in as policyA
+    const { customPolicy, useCustomPolicy } = get();
+    
     set({
       selectedScenario: scenario,
+      policyA: useCustomPolicy && customPolicy ? customPolicy : permissivePolicy,
       runA: permissive,
       runB: restrictive,
       diff,

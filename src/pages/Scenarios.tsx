@@ -1,15 +1,19 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { LayoutGrid } from 'lucide-react';
+import { LayoutGrid, Sparkles, X } from 'lucide-react';
 import { scenarios } from '@/lib/data/scenarios';
 import { Category } from '@/lib/types';
 import { AnimatedBackground } from '@/components/effects';
 import { CategoryFilter, ScenarioCard } from '@/components/scenarios';
+import { usePolicyLabStore } from '@/lib/store';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type FilterOption = 'ALL' | Category;
 
 export default function Scenarios() {
   const [selectedCategory, setSelectedCategory] = useState<FilterOption>('ALL');
+  const { customPolicy, useCustomPolicy, clearCustomPolicy } = usePolicyLabStore();
 
   const filteredScenarios = useMemo(() => {
     if (selectedCategory === 'ALL') return scenarios;
@@ -31,6 +35,41 @@ export default function Scenarios() {
       <AnimatedBackground variant="subtle" />
       
       <div className="max-w-7xl mx-auto relative z-10">
+        {/* Custom Policy Banner */}
+        {useCustomPolicy && customPolicy && (
+          <div className="mb-8 animate-fade-in">
+            <div className="p-4 rounded-xl border border-primary/50 bg-primary/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-primary/20">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium flex items-center gap-2">
+                    Testing Your Custom Policy
+                    <span className={cn(
+                      "px-2 py-0.5 rounded text-xs font-mono",
+                      customPolicy.xbpp?.posture === 'AGGRESSIVE' ? 'bg-escalate/20 text-escalate' :
+                      customPolicy.xbpp?.posture === 'CAUTIOUS' ? 'bg-allow/20 text-allow' :
+                      'bg-primary/20 text-primary'
+                    )}>
+                      {customPolicy.xbpp?.posture}
+                    </span>
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Max ${customPolicy.xbpp?.limits.max_single?.toLocaleString()}/tx • 
+                    ${customPolicy.xbpp?.limits.max_daily?.toLocaleString()}/day • 
+                    Human above ${customPolicy.xbpp?.limits.require_human_above?.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+              <Button variant="ghost" size="sm" onClick={clearCustomPolicy} className="shrink-0">
+                <X className="h-4 w-4 mr-1" />
+                Clear
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <header className="text-center mb-16">
           <Link 
@@ -44,15 +83,25 @@ export default function Scenarios() {
             className="text-4xl md:text-5xl lg:text-6xl font-medium mt-6 mb-6 animate-fade-in"
             style={{ animationDelay: '100ms' }}
           >
-            Choose a scenario
+            {useCustomPolicy ? 'Test your policy' : 'Choose a scenario'}
           </h1>
           <p 
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-fade-in"
             style={{ animationDelay: '200ms' }}
           >
-            Each scenario presents a decision point where policy constraints diverge.
-            <br />
-            <span className="text-foreground/80">Same situation. Different outcomes.</span>
+            {useCustomPolicy ? (
+              <>
+                Select a scenario to see how your custom policy handles real-world situations.
+                <br />
+                <span className="text-foreground/80">Your policy vs. Cautious Standard.</span>
+              </>
+            ) : (
+              <>
+                Each scenario presents a decision point where policy constraints diverge.
+                <br />
+                <span className="text-foreground/80">Same situation. Different outcomes.</span>
+              </>
+            )}
           </p>
         </header>
         
