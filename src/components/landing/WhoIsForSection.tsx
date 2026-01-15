@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Cpu, Shield, Building2, Blocks, Brain } from 'lucide-react';
+import { Code, Shield, Building2, Blocks, Brain } from 'lucide-react';
 
 const personas = [
-  { icon: Cpu, title: 'Agent platform engineers', description: 'Building the systems that agents run on' },
-  { icon: Blocks, title: 'Protocol builders', description: 'Designing the rules of interaction' },
-  { icon: Shield, title: 'Security architects', description: 'Protecting systems from misuse' },
-  { icon: Building2, title: 'Infrastructure founders', description: 'Creating the foundations' },
-  { icon: Brain, title: 'AI systems leads', description: 'Directing intelligent systems' },
+  { icon: Code, title: 'Base Developers', description: 'Building autonomous agents on-chain' },
+  { icon: Shield, title: 'Enterprise CTOs', description: 'Governing agent fleets at scale' },
+  { icon: Blocks, title: 'Protocol Builders', description: 'Designing the rules of interaction' },
+  { icon: Building2, title: 'Security Architects', description: 'Protecting systems from misuse' },
+  { icon: Brain, title: 'AI Systems Leads', description: 'Directing intelligent systems' },
 ];
 
 export function WhoIsForSection() {
@@ -34,22 +34,18 @@ export function WhoIsForSection() {
   return (
     <section ref={sectionRef} className="min-h-screen flex flex-col items-center justify-center px-6 py-24 relative">
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono tracking-widest text-muted-foreground uppercase mb-4">Who This Is For</p>
-          <h2 
-            className={cn(
-              "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}
-          >
+          <h2 className={cn(
+            "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          )}>
             Built for people who decide
             <br />
             how systems behave.
           </h2>
         </div>
 
-        {/* Personas grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
           {personas.map((persona, index) => {
             const Icon = persona.icon;
@@ -64,21 +60,16 @@ export function WhoIsForSection() {
               >
                 <Icon className="h-8 w-8 text-primary mb-4 transition-transform group-hover:scale-110" />
                 <h3 className="font-medium mb-2 text-sm">{persona.title}</h3>
-                <p className="text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-                  {persona.description}
-                </p>
+                <p className="text-xs text-muted-foreground">{persona.description}</p>
               </div>
             );
           })}
         </div>
 
-        {/* Closing */}
-        <div 
-          className={cn(
-            "text-center transition-all duration-700 delay-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          )}
-        >
+        <div className={cn(
+          "text-center transition-all duration-700 delay-700",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
           <p className="text-xl md:text-2xl text-muted-foreground">
             If you are responsible for outcomes —
           </p>

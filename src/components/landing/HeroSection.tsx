@@ -26,7 +26,7 @@ export function HeroSection() {
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border/50 bg-card/30 backdrop-blur-sm">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm font-mono tracking-[0.3em] text-muted-foreground uppercase">
-              Where agent behavior becomes obvious
+              The missing layer for autonomous agents
             </span>
           </div>
         </div>
@@ -35,10 +35,10 @@ export function HeroSection() {
         <h1 
           className={`text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium tracking-tight leading-[1.05] transition-all duration-700 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
-          <span className="block">Same agent.</span>
-          <span className="block">Same world.</span>
+          <span className="block text-muted-foreground/90">Agents can spend money.</span>
+          <span className="block">They just can't prove</span>
           <span className="block text-primary bg-gradient-to-r from-primary to-primary/60 bg-clip-text">
-            Different rules.
+            they should.
           </span>
         </h1>
         
@@ -46,13 +46,13 @@ export function HeroSection() {
         <div 
           className={`max-w-2xl mx-auto space-y-4 transition-all duration-700 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
-          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-            Autonomous systems don't fail because they're unintelligent.
-            <br />
-            <span className="text-foreground/90">They fail because their behavior is undefined.</span>
+          <p className="text-2xl md:text-3xl text-foreground font-medium">
+            xBPP changes that.
           </p>
-          <p className="text-lg text-foreground/80">
-            POLICYLAB lets you see what rules actually do — before the consequences are real.
+          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+            The open standard for Agentic Governance.
+            <br />
+            <span className="text-foreground/80">See what your policies actually do — before the consequences are real.</span>
           </p>
         </div>
         
@@ -85,7 +85,7 @@ export function HeroSection() {
           <Button asChild variant="ghost" size="lg" className="text-muted-foreground hover:text-foreground text-lg px-8 py-6 group">
             <Link to="/spec">
               <FileText className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-              View the standard
+              Read the xBPP spec
             </Link>
           </Button>
         </div>

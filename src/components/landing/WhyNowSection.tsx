@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Wallet, PenTool, Shield } from 'lucide-react';
-
-const actions = [
-  { icon: Wallet, label: 'They spend money.' },
-  { icon: PenTool, label: 'They sign things.' },
-  { icon: Shield, label: 'They respond to threats.' },
-];
+import { Lock, Globe } from 'lucide-react';
 
 export function WhyNowSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,55 +24,53 @@ export function WhyNowSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 relative">
+    <section ref={sectionRef} className="py-32 px-6 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px]" />
+      </div>
+      
       <div className="max-w-4xl mx-auto relative z-10">
-        {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-sm font-mono tracking-widest text-muted-foreground uppercase mb-4">Why Now</p>
-          <h2 
-            className={cn(
-              "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}
-          >
-            Autonomous systems are no longer theoretical.
+          <p className="text-sm font-mono tracking-widest text-primary uppercase mb-4">The Vision</p>
+          <h2 className={cn(
+            "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          )}>
+            In the near future, no autonomous agent
+            <br />
+            will execute without a <span className="text-primary">signed Verdict</span>.
           </h2>
         </div>
 
-        {/* Actions */}
-        <div 
-          className={cn(
-            "flex flex-wrap justify-center gap-6 mb-12 transition-all duration-700 delay-300",
-            isVisible ? "opacity-100" : "opacity-0"
-          )}
-        >
-          {actions.map(({ icon: Icon, label }, index) => (
-            <div
-              key={label}
-              className="flex items-center gap-3 px-5 py-3 rounded-lg border border-border/50 bg-card/30"
-              style={{ transitionDelay: `${400 + index * 100}ms` }}
-            >
-              <Icon className="h-5 w-5 text-primary" />
-              <span className="font-medium">{label}</span>
+        <div className={cn(
+          "flex justify-center gap-8 mb-12 transition-all duration-700 delay-300",
+          isVisible ? "opacity-100" : "opacity-0"
+        )}>
+          <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-border/50 bg-card/30">
+            <Lock className="h-6 w-6 text-muted-foreground" />
+            <div>
+              <p className="text-sm text-muted-foreground">SSL</p>
+              <p className="font-medium">Standard for moving data</p>
             </div>
-          ))}
+          </div>
+          <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-primary/30 bg-primary/5">
+            <Globe className="h-6 w-6 text-primary" />
+            <div>
+              <p className="text-sm text-primary">xBPP</p>
+              <p className="font-medium">Standard for moving value</p>
+            </div>
+          </div>
         </div>
 
-        {/* Pivot */}
-        <div 
-          className={cn(
-            "text-center space-y-4 transition-all duration-700 delay-600",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          )}
-        >
-          <p className="text-xl text-muted-foreground">
-            The question isn't <span className="text-foreground">if</span> they act —
+        <div className={cn(
+          "text-center transition-all duration-700 delay-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        )}>
+          <p className="text-xl text-muted-foreground mb-4">
+            xBPP transforms the "Wild West" of on-chain agents into a
           </p>
           <p className="text-2xl md:text-3xl font-medium">
-            it's <span className="text-primary">under what constraints</span>.
-          </p>
-          <p className="text-xl text-foreground pt-4">
-            POLICYLAB exists because that question finally matters.
+            reliable, <span className="text-allow">insurable</span>, and <span className="text-primary">scalable</span> economy.
           </p>
         </div>
       </div>

@@ -1,17 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { X } from 'lucide-react';
+import { FileJson, Globe, Eye } from 'lucide-react';
 
-const notItems = [
-  'a training environment',
-  'a prompt lab',
-  'a personality engine',
-  'a dashboard',
+const features = [
+  {
+    icon: FileJson,
+    title: 'Declarative Policies',
+    description: 'Define behavior in external policy files, not buried in code.',
+  },
+  {
+    icon: Globe,
+    title: 'Open Standard',
+    description: 'Interoperable across agents, platforms, and jurisdictions.',
+  },
+  {
+    icon: Eye,
+    title: 'Transparent Verdicts',
+    description: 'Every decision is deterministic, auditable, and provable.',
+  },
 ];
 
 export function WhatIsSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [crossedItems, setCrossedItems] = useState<number[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -19,11 +29,6 @@ export function WhatIsSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          notItems.forEach((_, index) => {
-            setTimeout(() => {
-              setCrossedItems(prev => [...prev, index]);
-            }, 800 + index * 200);
-          });
         }
       },
       { threshold: 0.3 }
@@ -38,97 +43,63 @@ export function WhatIsSection() {
 
   return (
     <section ref={sectionRef} className="min-h-screen flex flex-col items-center justify-center px-6 py-24 relative">
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-sm font-mono tracking-widest text-muted-foreground uppercase mb-4">What PolicyLab Is</p>
-          <h2 
-            className={cn(
-              "text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}
-          >
-            A demonstration platform
-            <br />
-            <span className="text-primary">for behavior under constraint.</span>
+          <p className={cn(
+            "text-sm font-mono tracking-widest text-primary uppercase mb-4 transition-all duration-500",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}>
+            The Solution
+          </p>
+          <h2 className={cn(
+            "text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 transition-all duration-500 delay-100",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}>
+            <span className="text-primary">xBPP</span>: Behavioral Policy Protocol
           </h2>
+          <p className={cn(
+            "text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto transition-all duration-500 delay-200",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}>
+            The open standard for <span className="text-foreground font-medium">Agentic Governance</span>.
+          </p>
         </div>
 
-        {/* Not list */}
-        <div 
-          className={cn(
-            "mb-16 transition-all duration-700 delay-300",
-            isVisible ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <p className="text-center text-muted-foreground mb-6 text-lg">POLICYLAB is not:</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            {notItems.map((item, index) => (
-              <div
-                key={item}
-                className={cn(
-                  "relative px-4 py-2 rounded-lg border border-border/50 bg-card/30 transition-all duration-300",
-                  crossedItems.includes(index) && "border-block/30 bg-block/5"
-                )}
-              >
-                <span className={cn(
-                  "font-mono text-sm transition-all duration-300",
-                  crossedItems.includes(index) && "text-muted-foreground/50 line-through"
-                )}>
-                  {item}
-                </span>
-                {crossedItems.includes(index) && (
-                  <X className="absolute -top-1 -right-1 h-4 w-4 text-block" />
-                )}
+        {/* Features Grid */}
+        <div className={cn(
+          "grid md:grid-cols-3 gap-6 mb-16 transition-all duration-700 delay-300",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          {features.map(({ icon: Icon, title, description }, index) => (
+            <div
+              key={title}
+              className="p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm text-center"
+              style={{ transitionDelay: `${400 + index * 100}ms` }}
+            >
+              <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center mx-auto mb-4">
+                <Icon className="h-6 w-6 text-primary" />
               </div>
-            ))}
-          </div>
+              <h3 className="text-lg font-medium mb-2">{title}</h3>
+              <p className="text-muted-foreground text-sm">{description}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Theatre of consequences */}
-        <div 
-          className={cn(
-            "text-center mb-16 transition-all duration-700 delay-600",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          )}
-        >
-          <p className="text-3xl md:text-4xl font-medium mb-2">
-            It is a{' '}
-            <span className="relative inline-block">
-              <span className="relative z-10 text-primary">theatre of consequences</span>
-              <span className="absolute inset-0 bg-primary/10 blur-lg -z-0" />
-            </span>
-            .
-          </p>
-        </div>
-
-        {/* Description */}
-        <div 
-          className={cn(
-            "text-center space-y-6 transition-all duration-700 delay-800",
-            isVisible ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <p className="text-lg text-muted-foreground">You choose:</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="px-5 py-3 rounded-lg border border-primary/30 bg-primary/5">
-              <span className="font-mono text-sm text-primary">a real-world scenario</span>
-            </div>
-            <div className="px-5 py-3 rounded-lg border border-primary/30 bg-primary/5">
-              <span className="font-mono text-sm text-primary">two different policies</span>
-            </div>
-          </div>
-          
-          <p className="text-xl md:text-2xl text-foreground leading-relaxed max-w-2xl mx-auto pt-4">
-            POLICYLAB shows you — step by step —
-            <br />
-            how the same agent behaves under each.
-          </p>
-          
-          <div className="pt-6 space-y-2">
-            <p className="text-lg text-muted-foreground">Nothing hypothetical.</p>
-            <p className="text-lg text-muted-foreground">Nothing optimized.</p>
-            <p className="text-xl font-medium text-foreground">Just outcomes.</p>
+        {/* POLICYLAB Connection */}
+        <div className={cn(
+          "text-center transition-all duration-700 delay-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <div className="inline-block p-8 rounded-2xl border border-primary/30 bg-primary/5 backdrop-blur-sm">
+            <p className="text-sm font-mono tracking-widest text-primary uppercase mb-3">Where xBPP comes alive</p>
+            <h3 className="text-2xl md:text-3xl font-medium mb-4">
+              POLICYLAB is a <span className="text-primary">theatre of consequences</span>.
+            </h3>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Watch identical agents, identical worlds — with one rule changed. 
+              See exactly where behavior diverges. Understand what policies actually do.
+            </p>
           </div>
         </div>
       </div>

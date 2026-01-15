@@ -4,6 +4,7 @@ import {
   ProblemSection,
   InsightSection,
   WhatIsSection,
+  ParadigmShiftSection,
   HowItWorksSection,
   TheMomentSection,
   WhyMattersSection,
@@ -25,6 +26,7 @@ export default function Landing() {
       <ProblemSection />
       <InsightSection />
       <WhatIsSection />
+      <ParadigmShiftSection />
       <HowItWorksSection />
       <TheMomentSection />
       <WhyMattersSection />
