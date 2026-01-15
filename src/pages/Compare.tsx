@@ -64,7 +64,7 @@ export default function Compare() {
         </div>
         
         {/* Policy Comparison */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-8 mb-16 items-start">
           {/* Policy A - Permissive */}
           <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
             <PolicyPanel
