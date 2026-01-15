@@ -1,4 +1,4 @@
-import { Trash2, Upload, Zap, Shield, AlertTriangle, GitCompare } from 'lucide-react';
+import { Trash2, Upload, Zap, Shield, AlertTriangle, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { SavedPolicy, Posture } from '@/lib/types';
@@ -8,6 +8,7 @@ interface SavedPolicyCardProps {
   policy: SavedPolicy;
   onLoad: () => void;
   onDelete: () => void;
+  onDuplicate: () => void;
   isCompareMode?: boolean;
   isSelected?: boolean;
   onToggleSelect?: () => void;
@@ -27,7 +28,8 @@ const getPostureConfig = (posture: Posture) => {
 export function SavedPolicyCard({ 
   policy, 
   onLoad, 
-  onDelete, 
+  onDelete,
+  onDuplicate,
   isCompareMode = false,
   isSelected = false,
   onToggleSelect 
@@ -97,8 +99,18 @@ export function SavedPolicyCard({
             <Button
               variant="ghost"
               size="sm"
+              onClick={onDuplicate}
+              className="h-8 px-2 text-muted-foreground hover:text-foreground hover:bg-muted"
+              title="Duplicate policy"
+            >
+              <Copy className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onDelete}
               className="h-8 px-2 text-muted-foreground hover:text-block hover:bg-block/10"
+              title="Delete policy"
             >
               <Trash2 className="h-4 w-4" />
             </Button>

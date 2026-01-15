@@ -20,7 +20,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { SavedPolicy, PolicyConfig } from '@/lib/types';
-import { getSavedPolicies, deletePolicy, exportPolicies, importPolicies } from '@/lib/policyStorage';
+import { getSavedPolicies, deletePolicy, exportPolicies, importPolicies, savePolicy } from '@/lib/policyStorage';
 import { SavedPolicyCard } from './SavedPolicyCard';
 import { PolicyCompareView } from './PolicyCompareView';
 import { useToast } from '@/hooks/use-toast';
@@ -60,6 +60,23 @@ export function PolicyLibraryDrawer({ open, onOpenChange, onLoadPolicy }: Policy
       setPolicies(getSavedPolicies());
       setDeleteTarget(null);
     }
+  };
+
+  const handleDuplicate = (policy: SavedPolicy) => {
+    const duplicated: SavedPolicy = {
+      id: `pol_${Date.now().toString(36)}_${Math.random().toString(36).substr(2, 6)}`,
+      name: `${policy.name} (Copy)`,
+      description: policy.description,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      config: { ...policy.config },
+    };
+    savePolicy(duplicated);
+    setPolicies(getSavedPolicies());
+    toast({
+      title: 'Policy duplicated',
+      description: `Created "${duplicated.name}"`,
+    });
   };
 
   const handleToggleSelect = (policyId: string) => {
@@ -238,6 +255,7 @@ export function PolicyLibraryDrawer({ open, onOpenChange, onLoadPolicy }: Policy
                     policy={policy}
                     onLoad={() => handleLoad(policy)}
                     onDelete={() => setDeleteTarget(policy)}
+                    onDuplicate={() => handleDuplicate(policy)}
                     isCompareMode={isCompareMode}
                     isSelected={selectedForCompare.has(policy.id)}
                     onToggleSelect={() => handleToggleSelect(policy.id)}
