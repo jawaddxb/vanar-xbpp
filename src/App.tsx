@@ -14,6 +14,7 @@ import Diff from "./pages/Diff";
 import Summary from "./pages/Summary";
 import Export from "./pages/Export";
 import Spec from "./pages/Spec";
+import PolicyBank from "./pages/PolicyBank";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ function AnimatedRoutes() {
         <Routes location={location}>
           <Route path="/" element={<Landing />} />
           <Route path="/scenarios" element={<Scenarios />} />
+          <Route path="/policies" element={<PolicyBank />} />
           <Route path="/matrix" element={<Matrix />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/run" element={<Run />} />
@@ -64,6 +66,8 @@ function AnimatedRoutes() {
           <Route path="/summary" element={<Summary />} />
           <Route path="/export" element={<Export />} />
           <Route path="/spec" element={<Spec />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
