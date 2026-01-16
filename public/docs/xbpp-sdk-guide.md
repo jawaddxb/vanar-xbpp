@@ -1,5 +1,7 @@
 # xBPP SDK Implementation Guide
 
+**Execution Boundary Permission Protocol (xBPP)**
+
 **Version:** 1.0  
 **Date:** January 2025  
 **Companion to:** xBPP Master Specification v1.0
@@ -795,6 +797,20 @@ class PolicyError extends Error {
 
 ---
 
+# Glossary
+
+| Term | Definition |
+|------|------------|
+| **xBPP** | Execution Boundary Permission Protocol - an open standard for autonomous agent governance |
+| **Execution Boundary** | The set of constraints defining what actions an agent is permitted to take |
+| **Verdict** | The signed decision (ALLOW, BLOCK, ESCALATE) returned after policy evaluation |
+| **Posture** | Risk tolerance preset (AGGRESSIVE, BALANCED, CAUTIOUS) |
+| **Principal** | The human/organization responsible for an agent's actions |
+| **Escalation** | A pause requesting human decision-making |
+| **Reason Code** | Standardized identifier explaining why a verdict was reached |
+
+---
+
 # Changelog
 
 ## v1.0.0 (January 2025)
@@ -807,4 +823,4 @@ class PolicyError extends Error {
 
 ---
 
-*End of xBPP SDK Implementation Guide*
+*End of xBPP SDK Implementation Guide - Execution Boundary Permission Protocol*
