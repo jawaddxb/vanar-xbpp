@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink, Sparkles, Play, List, FlaskConical, Menu } from 'lucide-react';
+import { BookOpen, Copy, Check, ChevronDown, ChevronRight, Download, FileJson, Shield, Zap, AlertTriangle, ExternalLink, Sparkles, Play, List, FlaskConical, Menu, ArrowUp } from 'lucide-react';
 import { AnimatedBackground } from '@/components/effects';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -224,6 +224,17 @@ export default function Spec() {
       </div>
       
       <AnimatedBackground variant="subtle" />
+      
+      {/* Back to Top Button */}
+      {scrollProgress > 10 && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 right-24 lg:right-6 z-30 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-primary/90 hover:scale-105"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </button>
+      )}
       
       {/* Mobile TOC Trigger */}
       <div className="lg:hidden fixed bottom-6 right-6 z-30">
