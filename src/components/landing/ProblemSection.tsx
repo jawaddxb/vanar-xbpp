@@ -3,14 +3,14 @@ import { MessageSquare, Code2, AlertTriangle, Laptop, CreditCard, ShieldAlert, Z
 import { cn } from '@/lib/utils';
 
 const controlMethods = [
-  { 
-    icon: MessageSquare, 
+  {
+    icon: MessageSquare,
     label: 'Prompt Engineering',
     example: '"Please don\'t spend more than $100"',
     problems: ['Fragile', 'Non-deterministic', 'Injection attacks'],
   },
-  { 
-    icon: Code2, 
+  {
+    icon: Code2,
     label: 'Hard-Coded Logic',
     example: 'if (amount > 100) { reject(); }',
     problems: ['Unscalable', 'Rigid silos', 'Breaks across jurisdictions'],
@@ -53,32 +53,42 @@ export function ProblemSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="flex flex-col items-center justify-center px-6 py-20 md:py-28 relative">
-      {/* Subtle warning undertone */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-escalate/[0.02] to-transparent pointer-events-none" />
-      
-      <div className="max-w-5xl mx-auto relative z-10">
+    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className={cn(
-            "text-sm font-mono tracking-widest text-escalate uppercase mb-4 transition-all duration-500",
+          <div className={cn(
+            "section-label justify-center mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}>
-            The Problem
-          </p>
-          <h2 className={cn(
-            "text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 transition-all duration-500 delay-100",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}>
-            The Agentic Gap
+          )} style={{ color: '#F87171' }}>
+            <span style={{ color: '#F87171' }}>THE PROBLEM</span>
+          </div>
+
+          <h2
+            className={cn(
+              "mb-6 transition-all duration-500 delay-100",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: 'clamp(40px, 8vw, 72px)',
+              lineHeight: 0.95,
+              fontStyle: 'italic',
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+              color: '#1E2D2D',
+            }}
+          >
+            THE AGENTIC <span style={{ color: '#F87171' }}>GAP</span>
           </h2>
+
           <p className={cn(
-            "text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto transition-all duration-500 delay-200",
+            "text-xl md:text-2xl max-w-3xl mx-auto transition-all duration-500 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}>
-            We solved <span className="text-foreground font-medium">Capability</span> — the ability to act.
+          )} style={{ color: '#6B6B67' }}>
+            We solved <span style={{ color: '#1E2D2D', fontWeight: 500 }}>Capability</span> — the ability to act.
             <br />
-            We haven't solved <span className="text-escalate font-medium">Liability</span> — the safety of the action.
+            We haven't solved <span style={{ color: '#F87171', fontWeight: 500 }}>Liability</span> — the safety of the action.
           </p>
         </div>
 
@@ -87,21 +97,25 @@ export function ProblemSection() {
           "mb-12 transition-all duration-500 delay-250",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <p className="text-center text-muted-foreground mb-6 text-lg">
-            Capability without constraint is <span className="text-block">dangerous</span>:
+          <p className="text-center mb-6 text-lg" style={{ color: '#6B6B67' }}>
+            Capability without constraint is <span style={{ color: '#F87171', fontWeight: 500 }}>dangerous</span>:
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             {dangers.map(({ icon: Icon, text }, index) => (
               <div
                 key={text}
                 className={cn(
-                  "p-4 rounded-xl border border-block/20 bg-block/5 flex items-start gap-3 transition-all duration-500",
+                  "p-5 rounded-xl flex items-start gap-3 transition-all duration-500",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
-                style={{ transitionDelay: `${300 + index * 100}ms` }}
+                style={{
+                  transitionDelay: `${300 + index * 100}ms`,
+                  background: 'rgba(248, 113, 113, 0.08)',
+                  border: '1px solid rgba(248, 113, 113, 0.2)',
+                }}
               >
-                <Icon className="h-5 w-5 text-block shrink-0 mt-0.5" />
-                <p className="text-sm text-muted-foreground">{text}</p>
+                <Icon className="h-5 w-5 shrink-0 mt-0.5" style={{ color: '#F87171' }} />
+                <p className="text-sm" style={{ color: '#6B6B67' }}>{text}</p>
               </div>
             ))}
           </div>
@@ -112,33 +126,34 @@ export function ProblemSection() {
           "mb-12 transition-all duration-500 delay-300",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <p className="text-center text-muted-foreground mb-6 text-lg">
-            Currently, there are only <span className="text-foreground">two ways</span> to control an agent:
+          <p className="text-center mb-6 text-lg" style={{ color: '#6B6B67' }}>
+            Currently, there are only <span style={{ color: '#1E2D2D', fontWeight: 500 }}>two ways</span> to control an agent:
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {controlMethods.map(({ icon: Icon, label, example, problems }, index) => (
               <div
                 key={label}
                 className={cn(
-                  "relative p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-500",
+                  "ferron-card transition-all duration-500",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ transitionDelay: `${400 + index * 150}ms` }}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center">
-                    <Icon className="h-5 w-5 text-muted-foreground" />
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(30, 45, 45, 0.05)' }}>
+                    <Icon className="h-5 w-5" style={{ color: '#6B6B67' }} />
                   </div>
-                  <h3 className="text-lg font-medium">{label}</h3>
+                  <h3 className="text-lg font-medium" style={{ color: '#1E2D2D' }}>{label}</h3>
                 </div>
-                <div className="mb-4 p-3 rounded-lg bg-muted/30 border border-border/30">
-                  <code className="text-sm font-mono text-muted-foreground">{example}</code>
+                <div className="mb-4 p-3 rounded-lg" style={{ background: '#F5F5F3', border: '1px solid #E2E2DE' }}>
+                  <code className="text-sm font-mono" style={{ color: '#6B6B67' }}>{example}</code>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {problems.map((problem) => (
-                    <span 
+                    <span
                       key={problem}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-block/10 text-block border border-block/20"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium"
+                      style={{ background: 'rgba(248, 113, 113, 0.1)', color: '#F87171', border: '1px solid rgba(248, 113, 113, 0.2)' }}
                     >
                       <AlertTriangle className="h-3 w-3" />
                       {problem}
@@ -155,14 +170,14 @@ export function ProblemSection() {
           "mb-12 transition-all duration-500 delay-400",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <p className="text-center text-muted-foreground mb-4 text-lg">
+          <p className="text-center mb-4 text-lg" style={{ color: '#6B6B67' }}>
             Traditional solutions don't work:
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {traditionalProblems.map(({ label, problem }) => (
-              <div key={label} className="px-4 py-2 rounded-lg bg-muted/30 border border-border/50">
-                <span className="text-foreground font-medium">{label}</span>
-                <span className="text-muted-foreground"> {problem}</span>
+              <div key={label} className="px-4 py-2 rounded-lg" style={{ background: 'white', border: '1px solid #E2E2DE' }}>
+                <span style={{ color: '#1E2D2D', fontWeight: 500 }}>{label}</span>
+                <span style={{ color: '#6B6B67' }}> {problem}</span>
               </div>
             ))}
           </div>
@@ -173,13 +188,13 @@ export function ProblemSection() {
           "text-center mb-16 transition-all duration-700",
           showResult ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <div className="inline-block p-8 rounded-2xl border border-escalate/30 bg-escalate/5 backdrop-blur-sm">
-            <p className="text-lg text-muted-foreground mb-2">This creates</p>
-            <p className="text-2xl md:text-3xl font-medium text-foreground">
-              The <span className="text-escalate">Agentic Gap</span>
+          <div className="inline-block p-8 rounded-2xl corner-card">
+            <p className="text-lg mb-2" style={{ color: '#6B6B67' }}>This creates</p>
+            <p className="text-2xl md:text-3xl font-medium" style={{ color: '#1E2D2D' }}>
+              The <span style={{ color: '#F87171' }}>Agentic Gap</span>
             </p>
-            <p className="text-lg text-muted-foreground mt-3 max-w-xl">
-              The massive divide between what agents <span className="text-foreground">can do</span> and what businesses <span className="text-foreground">dare let them do</span>.
+            <p className="text-lg mt-3 max-w-xl" style={{ color: '#6B6B67' }}>
+              The massive divide between what agents <span style={{ color: '#1E2D2D', fontWeight: 500 }}>can do</span> and what businesses <span style={{ color: '#1E2D2D', fontWeight: 500 }}>dare let them do</span>.
             </p>
           </div>
         </div>
@@ -189,17 +204,17 @@ export function ProblemSection() {
           "transition-all duration-700 delay-200",
           showResult ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 p-8 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm">
-            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-muted/50 border border-border/50">
-              <Laptop className="h-8 w-8 text-muted-foreground" />
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 p-8 rounded-2xl ferron-card">
+            <div className="flex items-center justify-center w-16 h-16 rounded-full" style={{ background: 'rgba(30, 45, 45, 0.05)', border: '1px solid #E2E2DE' }}>
+              <Laptop className="h-8 w-8" style={{ color: '#6B6B67' }} />
             </div>
             <div className="text-center md:text-left">
-              <p className="text-sm font-mono tracking-widest text-muted-foreground uppercase mb-2">The Result</p>
-              <h3 className="text-2xl font-medium mb-2">
-                <span className="text-escalate">"Pilot Purgatory"</span>
+              <p className="text-sm font-mono tracking-widest uppercase mb-2" style={{ color: '#9E9E98' }}>The Result</p>
+              <h3 className="text-2xl font-medium mb-2" style={{ color: '#1E2D2D' }}>
+                <span style={{ color: '#FACC15' }}>"Pilot Purgatory"</span>
               </h3>
-              <p className="text-muted-foreground max-w-lg">
-                Thousands of high-capability agents sitting on local laptops, <span className="text-foreground">forbidden from touching real money</span> because the liability risk is infinite.
+              <p className="max-w-lg" style={{ color: '#6B6B67' }}>
+                Thousands of high-capability agents sitting on local laptops, <span style={{ color: '#1E2D2D', fontWeight: 500 }}>forbidden from touching real money</span> because the liability risk is infinite.
               </p>
             </div>
           </div>

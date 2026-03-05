@@ -26,36 +26,50 @@ export function InsightSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="flex flex-col items-center justify-center px-6 py-20 md:py-28 relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative overflow-hidden" style={{ background: '#EDEDEA' }}>
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(62, 207, 165, 0.08) 0%, transparent 70%)', filter: 'blur(60px)' }}
+        />
       </div>
-      
-      <div className="max-w-4xl mx-auto relative z-10">
+
+      <div className="max-w-5xl mx-auto relative z-10">
         {/* Main Insight */}
         <div className="text-center mb-20">
-          <p className={cn(
-            "text-sm font-mono tracking-widest text-primary uppercase mb-6 transition-all duration-500",
+          <div className={cn(
+            "section-label justify-center mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            The Insight
-          </p>
-          
-          <h2 className={cn(
-            "text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight transition-all duration-700 delay-100",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}>
-            <span className="text-muted-foreground">Behavior</span> isn't a bug to fix.
+            THE INSIGHT
+          </div>
+
+          <h2
+            className={cn(
+              "mb-8 transition-all duration-700 delay-100",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: 'clamp(36px, 7vw, 64px)',
+              lineHeight: 0.95,
+              fontStyle: 'italic',
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+            }}
+          >
+            <span style={{ color: '#6B6B67' }}>Behavior</span> isn't a bug to fix.
             <br />
-            <span className="text-foreground">It's a policy to declare.</span>
+            <span style={{ color: '#1E2D2D' }}>It's a policy to </span>
+            <span style={{ color: '#3ECFA5' }}>declare.</span>
           </h2>
-          
+
           <p className={cn(
-            "text-xl md:text-2xl text-muted-foreground mt-8 max-w-2xl mx-auto transition-all duration-700 delay-200",
+            "text-xl md:text-2xl max-w-2xl mx-auto transition-all duration-700 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}>
-            xBPP introduces a <span className="text-foreground font-medium">Programmable Super-Ego</span> — an external layer that governs behavior without touching the agent's code.
+          )} style={{ color: '#6B6B67' }}>
+            xBPP introduces a <span style={{ color: '#3ECFA5', fontWeight: 500 }}>Programmable Super-Ego</span> — an external layer that governs behavior without touching the agent's code.
           </p>
         </div>
 
@@ -66,13 +80,16 @@ export function InsightSection() {
         )}>
           <div className="grid md:grid-cols-3 gap-4 items-center max-w-3xl mx-auto">
             {/* x402 - The Engine */}
-            <div className="flex flex-col items-center p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm">
-              <div className="w-14 h-14 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center mb-4">
-                <Zap className="h-7 w-7 text-primary" />
+            <div className="flex flex-col items-center p-6 rounded-xl ferron-card text-center">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
+                style={{ background: 'rgba(62, 207, 165, 0.1)', border: '1px solid rgba(62, 207, 165, 0.3)' }}
+              >
+                <Zap className="h-7 w-7" style={{ color: '#3ECFA5' }} />
               </div>
-              <p className="text-sm font-mono text-primary mb-1">x402</p>
-              <p className="text-lg font-medium text-foreground">The Engine</p>
-              <p className="text-sm text-muted-foreground text-center mt-2">
+              <p className="text-sm font-mono mb-1" style={{ color: '#3ECFA5' }}>x402</p>
+              <p className="text-lg font-medium" style={{ color: '#1E2D2D' }}>The Engine</p>
+              <p className="text-sm mt-2" style={{ color: '#6B6B67' }}>
                 Lets an agent spend
               </p>
             </div>
@@ -80,20 +97,23 @@ export function InsightSection() {
             {/* Arrow/Connection */}
             <div className="flex items-center justify-center py-4">
               <div className="flex items-center gap-2">
-                <div className="w-12 h-px bg-gradient-to-r from-primary/50 to-allow/50" />
-                <div className="w-3 h-3 rounded-full bg-allow/50 animate-pulse" />
-                <div className="w-12 h-px bg-gradient-to-r from-allow/50 to-allow" />
+                <div className="w-12 h-px" style={{ background: 'linear-gradient(to right, rgba(62,207,165,0.3), rgba(74,222,128,0.5))' }} />
+                <div className="w-3 h-3 rounded-full animate-pulse" style={{ background: '#4ADE80' }} />
+                <div className="w-12 h-px" style={{ background: 'linear-gradient(to right, rgba(74,222,128,0.5), #4ADE80)' }} />
               </div>
             </div>
 
             {/* xBPP - The Transmission */}
-            <div className="flex flex-col items-center p-6 rounded-xl border border-allow/30 bg-allow/5 backdrop-blur-sm">
-              <div className="w-14 h-14 rounded-full bg-allow/10 border border-allow/30 flex items-center justify-center mb-4">
-                <Shield className="h-7 w-7 text-allow" />
+            <div className="flex flex-col items-center p-6 rounded-xl text-center" style={{ background: 'rgba(74, 222, 128, 0.08)', border: '1px solid rgba(74, 222, 128, 0.3)' }}>
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
+                style={{ background: 'rgba(74, 222, 128, 0.1)', border: '1px solid rgba(74, 222, 128, 0.3)' }}
+              >
+                <Shield className="h-7 w-7" style={{ color: '#4ADE80' }} />
               </div>
-              <p className="text-sm font-mono text-allow mb-1">xBPP</p>
-              <p className="text-lg font-medium text-foreground">The Transmission</p>
-              <p className="text-sm text-muted-foreground text-center mt-2">
+              <p className="text-sm font-mono mb-1" style={{ color: '#4ADE80' }}>xBPP</p>
+              <p className="text-lg font-medium" style={{ color: '#1E2D2D' }}>The Transmission</p>
+              <p className="text-sm mt-2" style={{ color: '#6B6B67' }}>
                 Ensures it doesn't drive off a cliff
               </p>
             </div>
@@ -104,9 +124,9 @@ export function InsightSection() {
             "text-center mt-12 transition-all duration-700 delay-300",
             showMetaphor ? "opacity-100" : "opacity-0"
           )}>
-            <p className="text-lg text-muted-foreground">
-              xBPP separates the <span className="text-foreground font-medium">Business Logic</span> (the policy) 
-              from the <span className="text-foreground font-medium">Agent Logic</span> (the code).
+            <p className="text-lg" style={{ color: '#6B6B67' }}>
+              xBPP separates the <span style={{ color: '#1E2D2D', fontWeight: 500 }}>Business Logic</span> (the policy)
+              from the <span style={{ color: '#1E2D2D', fontWeight: 500 }}>Agent Logic</span> (the code).
             </p>
           </div>
         </div>

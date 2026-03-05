@@ -7,25 +7,25 @@ const ecosystemPlayers = [
     name: 'Crossmint',
     icon: Building2,
     action: 'Building wallets for agents',
-    color: 'text-blue-400',
+    color: '#3B82F6',
   },
   {
     name: 'Kite AI',
     icon: Cpu,
     action: 'Building the Agentic Internet layer',
-    color: 'text-emerald-400',
+    color: '#10B981',
   },
   {
     name: 'Visa',
     icon: CreditCard,
     action: 'Researching Trusted Agent Registries',
-    color: 'text-violet-400',
+    color: '#8B5CF6',
   },
   {
     name: 'Coinbase',
     icon: Landmark,
     action: 'Exploring agent authentication standards',
-    color: 'text-amber-400',
+    color: '#F59E0B',
   },
 ];
 
@@ -53,21 +53,35 @@ export function WhyNowSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 px-6 relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative overflow-hidden" style={{ background: '#EDEDEA' }}>
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px]" />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(62, 207, 165, 0.08) 0%, transparent 70%)', filter: 'blur(80px)' }}
+        />
       </div>
-      
+
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="text-center mb-12">
-          <p className="text-sm font-mono tracking-widest text-primary uppercase mb-4">The Vision</p>
-          <h2 className={cn(
-            "text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          )}>
-            In the near future, no autonomous agent
+          <div className="section-label justify-center mb-6">THE VISION</div>
+          <h2
+            className={cn(
+              "transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            )}
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: 'clamp(32px, 6vw, 56px)',
+              lineHeight: 0.95,
+              fontStyle: 'italic',
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+              color: '#1E2D2D',
+            }}
+          >
+            IN THE NEAR FUTURE, NO AUTONOMOUS AGENT
             <br />
-            will execute without a <span className="text-primary">signed Verdict</span>.
+            WILL EXECUTE WITHOUT A <span style={{ color: '#3ECFA5' }}>SIGNED VERDICT</span>.
           </h2>
         </div>
 
@@ -76,29 +90,26 @@ export function WhyNowSection() {
           "mb-12 transition-all duration-700 delay-200",
           showPlayers ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <p className="text-center text-sm font-mono text-muted-foreground mb-6 uppercase tracking-wider">
+          <p className="text-center text-sm font-mono uppercase tracking-wider mb-6" style={{ color: '#9E9E98' }}>
             The industry is already building toward this future
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {ecosystemPlayers.map((player, index) => (
               <div
                 key={player.name}
-                className={cn(
-                  "p-4 rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm",
-                  "hover:border-border hover:bg-card/50 transition-all duration-300"
-                )}
+                className="p-4 rounded-xl ferron-card hover:shadow-md transition-all duration-300"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <player.icon className={cn("w-4 h-4", player.color)} />
-                  <span className="font-medium text-foreground text-sm">{player.name}</span>
+                  <player.icon className="w-4 h-4" style={{ color: player.color }} />
+                  <span className="font-medium text-sm" style={{ color: '#1E2D2D' }}>{player.name}</span>
                 </div>
-                <p className="text-xs text-muted-foreground">{player.action}</p>
+                <p className="text-xs" style={{ color: '#6B6B67' }}>{player.action}</p>
               </div>
             ))}
           </div>
-          <p className="text-center text-sm text-muted-foreground mt-4 italic">
-            They're all waiting for the same thing: <span className="text-foreground not-italic font-medium">a standard for safe spending.</span>
+          <p className="text-center text-sm mt-4 italic" style={{ color: '#6B6B67' }}>
+            They're all waiting for the same thing: <span style={{ color: '#1E2D2D', fontStyle: 'normal', fontWeight: 500 }}>a standard for safe spending.</span>
           </p>
         </div>
 
@@ -106,18 +117,18 @@ export function WhyNowSection() {
           "flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 mb-12 transition-all duration-700 delay-300",
           isVisible ? "opacity-100" : "opacity-0"
         )}>
-          <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-border/50 bg-card/30">
-            <Lock className="h-6 w-6 text-muted-foreground" />
+          <div className="flex items-center gap-3 px-6 py-4 rounded-xl ferron-card">
+            <Lock className="h-6 w-6" style={{ color: '#6B6B67' }} />
             <div>
-              <p className="text-sm text-muted-foreground">SSL</p>
-              <p className="font-medium">Standard for moving data</p>
+              <p className="text-sm" style={{ color: '#9E9E98' }}>SSL</p>
+              <p className="font-medium" style={{ color: '#1E2D2D' }}>Standard for moving data</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 px-6 py-4 rounded-xl border border-primary/30 bg-primary/5">
-            <Globe className="h-6 w-6 text-primary" />
+          <div className="flex items-center gap-3 px-6 py-4 rounded-xl" style={{ background: 'rgba(62, 207, 165, 0.1)', border: '1px solid rgba(62, 207, 165, 0.3)' }}>
+            <Globe className="h-6 w-6" style={{ color: '#3ECFA5' }} />
             <div>
-              <p className="text-sm text-primary">xBPP</p>
-              <p className="font-medium">Standard for moving value</p>
+              <p className="text-sm" style={{ color: '#3ECFA5' }}>xBPP</p>
+              <p className="font-medium" style={{ color: '#1E2D2D' }}>Standard for moving value</p>
             </div>
           </div>
         </div>
@@ -126,11 +137,11 @@ export function WhyNowSection() {
           "text-center transition-all duration-700 delay-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <p className="text-xl text-muted-foreground mb-4">
+          <p className="text-xl mb-4" style={{ color: '#6B6B67' }}>
             xBPP transforms the "Wild West" of on-chain agents into a
           </p>
-          <p className="text-2xl md:text-3xl font-medium">
-            reliable, <span className="text-allow">insurable</span>, and <span className="text-primary">scalable</span> economy.
+          <p className="text-2xl md:text-3xl font-medium" style={{ color: '#1E2D2D' }}>
+            reliable, <span style={{ color: '#4ADE80' }}>insurable</span>, and <span style={{ color: '#3ECFA5' }}>scalable</span> economy.
           </p>
         </div>
       </div>

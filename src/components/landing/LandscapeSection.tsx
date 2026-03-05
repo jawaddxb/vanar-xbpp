@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { DollarSign, Blocks, ShoppingCart, TrendingUp, Zap, Shield, ExternalLink } from 'lucide-react';
+import { DollarSign, Blocks, ShoppingCart, TrendingUp, Zap, Shield } from 'lucide-react';
 
 const categories = [
   {
@@ -8,9 +8,7 @@ const categories = [
     title: 'The Earners',
     subtitle: 'Service Agents',
     icon: DollarSign,
-    color: 'text-emerald-400',
-    bgColor: 'bg-emerald-500/10',
-    borderColor: 'border-emerald-500/20',
+    color: '#10B981',
     description: 'Agents that sell digital resources. Low-risk — they receive money, not spend it.',
     examples: [
       { name: 'AInalyst', stat: '~$350k volume', desc: 'Crypto intelligence on Virtuals' },
@@ -24,9 +22,7 @@ const categories = [
     title: 'The Enablers',
     subtitle: 'Infrastructure',
     icon: Blocks,
-    color: 'text-blue-400',
-    bgColor: 'bg-blue-500/10',
-    borderColor: 'border-blue-500/20',
+    color: '#3B82F6',
     description: 'The Visa/Stripe layer for agents. Handles complex crypto signing.',
     examples: [
       { name: 'Crossmint', stat: 'Enterprise', desc: 'Wallets for Agents' },
@@ -40,9 +36,7 @@ const categories = [
     title: 'The Spenders',
     subtitle: 'Autonomous Buyers',
     icon: ShoppingCart,
-    color: 'text-amber-400',
-    bgColor: 'bg-amber-500/10',
-    borderColor: 'border-amber-500/20',
+    color: '#F59E0B',
     description: 'The smallest group. Why? Because xBPP doesn\'t exist yet.',
     examples: [
       { name: 'Virtuals', stat: 'Walled Gardens', desc: 'Gaming economies only' },
@@ -68,6 +62,7 @@ const trends = [
     icon: Shield,
     title: 'The Trust Wall',
     description: '"Agents can pay, but should they?" — The hype hits reality.',
+    highlight: true,
   },
 ];
 
@@ -99,24 +94,43 @@ export function LandscapeSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-32 px-6 overflow-hidden"
+      className="relative py-24 md:py-32 px-6 lg:px-12 overflow-hidden"
+      style={{ background: '#EDEDEA' }}
     >
       {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-      
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(62, 207, 165, 0.06) 0%, transparent 70%)', filter: 'blur(60px)' }}
+        />
+      </div>
+
       <div className="relative max-w-6xl mx-auto">
         {/* Header */}
         <div className={cn(
           "text-center mb-16 transition-all duration-700",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <span className="inline-block px-3 py-1 text-xs font-mono text-primary/80 bg-primary/10 rounded-full mb-4">
+          <span
+            className="inline-block px-3 py-1 text-xs font-mono rounded-full mb-4"
+            style={{ background: 'rgba(62, 207, 165, 0.1)', color: '#3ECFA5' }}
+          >
             The x402 Ecosystem — January 2026
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            High Growth. <span className="text-primary">Low Governance.</span>
+          <h2
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: 'clamp(36px, 7vw, 60px)',
+              lineHeight: 0.95,
+              fontStyle: 'italic',
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+              color: '#1E2D2D',
+            }}
+          >
+            HIGH GROWTH. <span style={{ color: '#3ECFA5' }}>LOW GOVERNANCE.</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto mt-4" style={{ color: '#6B6B67' }}>
             x402 has moved from "experimental" to "early adoption." But the market is lopsided.
           </p>
         </div>
@@ -126,34 +140,34 @@ export function LandscapeSection() {
           "mb-16 transition-all duration-700 delay-200",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <div className="relative h-16 rounded-xl overflow-hidden bg-muted/30 border border-border/50">
+          <div className="relative h-16 rounded-xl overflow-hidden" style={{ background: 'white', border: '1px solid #E2E2DE' }}>
             {/* 90% Bar */}
-            <div 
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500/30 to-emerald-500/10 flex items-center justify-start pl-6 transition-all duration-1000 ease-out"
-              style={{ width: isVisible ? '90%' : '0%' }}
+            <div
+              className="absolute inset-y-0 left-0 flex items-center justify-start pl-6 transition-all duration-1000 ease-out"
+              style={{ width: isVisible ? '90%' : '0%', background: 'linear-gradient(to right, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05))' }}
             >
-              <span className="text-emerald-400 font-mono font-bold text-lg">90%</span>
-              <span className="text-emerald-400/70 ml-2 text-sm hidden sm:inline">Agents Selling (Safe)</span>
+              <span className="font-mono font-bold text-lg" style={{ color: '#10B981' }}>90%</span>
+              <span className="ml-2 text-sm hidden sm:inline" style={{ color: '#10B981' }}>Agents Selling (Safe)</span>
             </div>
-            
+
             {/* 10% Bar with pulse */}
-            <div 
-              className="absolute inset-y-0 right-0 bg-gradient-to-l from-amber-500/30 to-amber-500/10 flex items-center justify-end pr-6 transition-all duration-1000 ease-out delay-300"
-              style={{ width: isVisible ? '10%' : '0%' }}
+            <div
+              className="absolute inset-y-0 right-0 flex items-center justify-end pr-6 transition-all duration-1000 ease-out delay-300"
+              style={{ width: isVisible ? '10%' : '0%', background: 'linear-gradient(to left, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05))' }}
             >
-              <span className="text-amber-400 font-mono font-bold text-lg animate-pulse">10%</span>
+              <span className="font-mono font-bold text-lg animate-pulse" style={{ color: '#F59E0B' }}>10%</span>
             </div>
-            
+
             {/* Divider */}
-            <div 
-              className="absolute inset-y-0 bg-border/50 w-px transition-all duration-1000 ease-out"
-              style={{ left: isVisible ? '90%' : '0%' }}
+            <div
+              className="absolute inset-y-0 w-px transition-all duration-1000 ease-out"
+              style={{ left: isVisible ? '90%' : '0%', background: '#E2E2DE' }}
             />
           </div>
-          
-          <div className="flex justify-between mt-3 text-xs text-muted-foreground font-mono">
+
+          <div className="flex justify-between mt-3 text-xs font-mono" style={{ color: '#9E9E98' }}>
             <span>← Earners (Low Risk)</span>
-            <span className="text-amber-400">Spenders (High Risk) →</span>
+            <span style={{ color: '#F59E0B' }}>Spenders (High Risk) →</span>
           </div>
         </div>
 
@@ -166,50 +180,56 @@ export function LandscapeSection() {
             <div
               key={category.id}
               className={cn(
-                "relative p-6 rounded-2xl border backdrop-blur-sm transition-all duration-500",
-                category.bgColor,
-                category.borderColor,
-                category.blocked && "ring-1 ring-amber-500/30"
+                "relative p-6 rounded-2xl transition-all duration-500"
               )}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{
+                transitionDelay: `${index * 100}ms`,
+                background: `${category.color}10`,
+                border: `1px solid ${category.color}30`,
+                boxShadow: category.blocked ? `0 0 0 1px ${category.color}40` : 'none',
+              }}
             >
               {/* Blocked indicator */}
               {category.blocked && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full">
-                  <span className="text-xs font-mono text-amber-400">BLOCKED BY TRUST GAP</span>
+                <div
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full"
+                  style={{ background: `${category.color}20`, border: `1px solid ${category.color}40` }}
+                >
+                  <span className="text-xs font-mono" style={{ color: category.color }}>BLOCKED BY TRUST GAP</span>
                 </div>
               )}
-              
+
               <div className="flex items-center gap-3 mb-4">
-                <div className={cn("p-2 rounded-lg", category.bgColor)}>
-                  <category.icon className={cn("w-5 h-5", category.color)} />
+                <div className="p-2 rounded-lg" style={{ background: `${category.color}15` }}>
+                  <category.icon className="w-5 h-5" style={{ color: category.color }} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground">{category.title}</h3>
-                  <span className="text-xs text-muted-foreground">{category.subtitle}</span>
+                  <h3 className="font-bold" style={{ color: '#1E2D2D' }}>{category.title}</h3>
+                  <span className="text-xs" style={{ color: '#6B6B67' }}>{category.subtitle}</span>
                 </div>
                 {category.percentage && (
-                  <span className={cn("ml-auto font-mono font-bold", category.color)}>
+                  <span className="ml-auto font-mono font-bold" style={{ color: category.color }}>
                     {category.percentage}%
                   </span>
                 )}
               </div>
-              
-              <p className="text-sm text-muted-foreground mb-4">
+
+              <p className="text-sm mb-4" style={{ color: '#6B6B67' }}>
                 {category.description}
               </p>
-              
+
               <div className="space-y-2">
                 {category.examples.map((example) => (
-                  <div 
+                  <div
                     key={example.name}
-                    className="flex items-center justify-between py-2 px-3 rounded-lg bg-background/50 border border-border/30"
+                    className="flex items-center justify-between py-2 px-3 rounded-lg"
+                    style={{ background: 'white', border: '1px solid #E2E2DE' }}
                   >
                     <div>
-                      <span className="text-sm font-medium text-foreground">{example.name}</span>
-                      <span className="text-xs text-muted-foreground ml-2">{example.desc}</span>
+                      <span className="text-sm font-medium" style={{ color: '#1E2D2D' }}>{example.name}</span>
+                      <span className="text-xs ml-2" style={{ color: '#6B6B67' }}>{example.desc}</span>
                     </div>
-                    <span className={cn("text-xs font-mono", category.color)}>{example.stat}</span>
+                    <span className="text-xs font-mono" style={{ color: category.color }}>{example.stat}</span>
                   </div>
                 ))}
               </div>
@@ -222,27 +242,23 @@ export function LandscapeSection() {
           "mb-12 transition-all duration-700",
           showTrends ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <h3 className="text-center text-sm font-mono text-muted-foreground mb-6">
+          <h3 className="text-center text-sm font-mono mb-6" style={{ color: '#9E9E98' }}>
             CURRENT TRENDS
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
             {trends.map((trend, index) => (
               <div
                 key={trend.title}
-                className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-xl bg-muted/30 border border-border/50",
-                  "hover:bg-muted/50 hover:border-border transition-all duration-300",
-                  trend.title === 'The Trust Wall' && "border-amber-500/30 bg-amber-500/5"
-                )}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl ferron-card"
+                style={{
+                  transitionDelay: `${index * 100}ms`,
+                  ...(trend.highlight && { background: 'rgba(245, 158, 11, 0.08)', border: '1px solid rgba(245, 158, 11, 0.3)' }),
+                }}
               >
-                <trend.icon className={cn(
-                  "w-4 h-4",
-                  trend.title === 'The Trust Wall' ? "text-amber-400" : "text-primary"
-                )} />
+                <trend.icon className="w-4 h-4" style={{ color: trend.highlight ? '#F59E0B' : '#3ECFA5' }} />
                 <div>
-                  <span className="font-medium text-foreground text-sm">{trend.title}</span>
-                  <p className="text-xs text-muted-foreground">{trend.description}</p>
+                  <span className="font-medium text-sm" style={{ color: '#1E2D2D' }}>{trend.title}</span>
+                  <p className="text-xs" style={{ color: '#6B6B67' }}>{trend.description}</p>
                 </div>
               </div>
             ))}
@@ -254,15 +270,15 @@ export function LandscapeSection() {
           "text-center max-w-3xl mx-auto transition-all duration-700",
           showTrends ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <blockquote className="text-lg md:text-xl text-muted-foreground italic mb-6">
+          <blockquote className="text-lg md:text-xl italic mb-6" style={{ color: '#6B6B67' }}>
             "The market is desperate for the 'Buyer Side' to grow — but it won't happen until a CFO can say:{' '}
-            <span className="text-foreground font-medium not-italic">
+            <span style={{ color: '#1E2D2D', fontWeight: 500, fontStyle: 'normal' }}>
               'I know for a fact this agent won't drain our wallet.'"
             </span>
           </blockquote>
-          
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-            <span className="text-primary font-medium">xBPP is the safety catch that unlocks the Spenders.</span>
+
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: 'rgba(62, 207, 165, 0.1)', border: '1px solid rgba(62, 207, 165, 0.3)' }}>
+            <span className="font-medium" style={{ color: '#3ECFA5' }}>xBPP is the safety catch that unlocks the Spenders.</span>
           </div>
         </div>
       </div>

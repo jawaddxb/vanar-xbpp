@@ -35,7 +35,6 @@ export function ParadigmShiftSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Animate rows one by one
           comparisons.forEach((_, index) => {
             setTimeout(() => {
               setActiveRow(index);
@@ -54,21 +53,32 @@ export function ParadigmShiftSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="flex flex-col items-center justify-center px-6 py-20 md:py-28 relative">
+    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
       <div className="max-w-5xl mx-auto relative z-10 w-full">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className={cn(
-            "text-sm font-mono tracking-widest text-muted-foreground uppercase mb-4 transition-all duration-500",
+          <div className={cn(
+            "section-label justify-center mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            The Paradigm Shift
-          </p>
-          <h2 className={cn(
-            "text-4xl md:text-5xl font-medium tracking-tight transition-all duration-500 delay-100",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}>
-            How xBPP Changes Everything
+            THE PARADIGM SHIFT
+          </div>
+          <h2
+            className={cn(
+              "transition-all duration-500 delay-100",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: 'clamp(36px, 7vw, 60px)',
+              lineHeight: 0.95,
+              fontStyle: 'italic',
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+              color: '#1E2D2D',
+            }}
+          >
+            HOW XBPP CHANGES <span style={{ color: '#3ECFA5' }}>EVERYTHING</span>
           </h2>
         </div>
 
@@ -79,10 +89,10 @@ export function ParadigmShiftSection() {
         )}>
           {/* Header Row */}
           <div className="grid grid-cols-[120px_1fr_40px_1fr] md:grid-cols-[140px_1fr_60px_1fr] gap-2 md:gap-4 mb-4 px-4">
-            <div className="text-sm font-mono text-muted-foreground uppercase" />
-            <div className="text-sm font-mono text-block uppercase tracking-wider">Current State</div>
+            <div className="text-sm font-mono uppercase" style={{ color: '#9E9E98' }} />
+            <div className="text-sm font-mono uppercase tracking-wider" style={{ color: '#F87171' }}>Current State</div>
             <div />
-            <div className="text-sm font-mono text-allow uppercase tracking-wider">With xBPP</div>
+            <div className="text-sm font-mono uppercase tracking-wider" style={{ color: '#4ADE80' }}>With xBPP</div>
           </div>
 
           {/* Comparison Rows */}
@@ -91,39 +101,49 @@ export function ParadigmShiftSection() {
               <div
                 key={aspect}
                 className={cn(
-                  "grid grid-cols-[120px_1fr_40px_1fr] md:grid-cols-[140px_1fr_60px_1fr] gap-2 md:gap-4 items-center p-4 rounded-xl border transition-all duration-500",
-                  index <= activeRow 
-                    ? "border-border/50 bg-card/50 opacity-100 translate-y-0" 
-                    : "border-transparent bg-transparent opacity-0 translate-y-4"
+                  "grid grid-cols-[120px_1fr_40px_1fr] md:grid-cols-[140px_1fr_60px_1fr] gap-2 md:gap-4 items-center p-4 rounded-xl transition-all duration-500",
+                  index <= activeRow
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
                 )}
+                style={{ background: 'white', border: '1px solid #E2E2DE' }}
               >
                 {/* Aspect Label */}
-                <div className="text-sm font-medium text-foreground">{aspect}</div>
-                
+                <div className="text-sm font-medium" style={{ color: '#1E2D2D' }}>{aspect}</div>
+
                 {/* Before */}
-                <div className={cn(
-                  "p-3 rounded-lg bg-block/5 border border-block/20 transition-all duration-300",
-                  index <= activeRow ? "opacity-100" : "opacity-0"
-                )}>
-                  <p className="text-sm text-muted-foreground font-mono">{before}</p>
+                <div
+                  className={cn(
+                    "p-3 rounded-lg transition-all duration-300",
+                    index <= activeRow ? "opacity-100" : "opacity-0"
+                  )}
+                  style={{ background: 'rgba(248, 113, 113, 0.08)', border: '1px solid rgba(248, 113, 113, 0.2)' }}
+                >
+                  <p className="text-sm font-mono" style={{ color: '#6B6B67' }}>{before}</p>
                 </div>
-                
+
                 {/* Arrow */}
                 <div className="flex items-center justify-center">
-                  <ArrowRight className={cn(
-                    "h-5 w-5 text-primary transition-all duration-500",
-                    index <= activeRow ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
-                  )} />
+                  <ArrowRight
+                    className={cn(
+                      "h-5 w-5 transition-all duration-500",
+                      index <= activeRow ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
+                    )}
+                    style={{ color: '#3ECFA5' }}
+                  />
                 </div>
-                
+
                 {/* After */}
-                <div className={cn(
-                  "p-3 rounded-lg bg-allow/5 border border-allow/20 transition-all duration-300 delay-200",
-                  index <= activeRow ? "opacity-100" : "opacity-0"
-                )}>
+                <div
+                  className={cn(
+                    "p-3 rounded-lg transition-all duration-300 delay-200",
+                    index <= activeRow ? "opacity-100" : "opacity-0"
+                  )}
+                  style={{ background: 'rgba(74, 222, 128, 0.08)', border: '1px solid rgba(74, 222, 128, 0.2)' }}
+                >
                   <div className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-allow mt-0.5 shrink-0" />
-                    <p className="text-sm text-foreground font-mono">{after}</p>
+                    <Check className="h-4 w-4 mt-0.5 shrink-0" style={{ color: '#4ADE80' }} />
+                    <p className="text-sm font-mono" style={{ color: '#1E2D2D' }}>{after}</p>
                   </div>
                 </div>
               </div>

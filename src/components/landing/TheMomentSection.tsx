@@ -9,7 +9,6 @@ export function TheMomentSection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Dramatic reveal sequence
           setTimeout(() => setPhase(1), 300);
           setTimeout(() => setPhase(2), 1500);
           setTimeout(() => setPhase(3), 2500);
@@ -26,64 +25,69 @@ export function TheMomentSection() {
   }, []);
 
   return (
-    <section 
-      ref={sectionRef} 
-      className={cn(
-        "flex flex-col items-center justify-center px-6 py-20 md:py-28 relative transition-colors duration-1000",
-        phase >= 1 ? "bg-background" : "bg-card/50"
-      )}
+    <section
+      ref={sectionRef}
+      className="py-24 md:py-32 px-6 lg:px-12 relative"
+      style={{ background: '#EDEDEA' }}
     >
-      {/* Dim overlay */}
-      <div className={cn(
-        "absolute inset-0 bg-background/60 transition-opacity duration-1000 pointer-events-none",
-        phase >= 1 ? "opacity-100" : "opacity-0"
-      )} />
-
       {/* Particle burst effect */}
       <div className={cn(
         "absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-500",
         phase >= 2 ? "opacity-100" : "opacity-0"
       )}>
-        <div className="w-[800px] h-[800px] rounded-full bg-primary/5 blur-3xl animate-pulse-subtle" />
+        <div
+          className="w-[800px] h-[800px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(62, 207, 165, 0.1) 0%, transparent 70%)', filter: 'blur(60px)' }}
+        />
       </div>
-      
+
       {/* Left panel hint */}
       <div className={cn(
-        "absolute left-8 top-1/2 -translate-y-1/2 w-32 h-64 rounded-lg border border-allow/30 bg-allow/5 transition-all duration-700",
+        "absolute left-8 top-1/2 -translate-y-1/2 w-32 h-64 rounded-lg hidden lg:block transition-all duration-700",
         phase >= 2 ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-      )}>
-        <div className="absolute top-4 left-4 right-4 h-2 rounded-full bg-allow/30" />
-        <div className="absolute bottom-4 left-4 text-xs font-mono text-allow/60">ALLOW</div>
+      )} style={{ background: 'rgba(74, 222, 128, 0.05)', border: '1px solid rgba(74, 222, 128, 0.3)' }}>
+        <div className="absolute top-4 left-4 right-4 h-2 rounded-full" style={{ background: 'rgba(74, 222, 128, 0.3)' }} />
+        <div className="absolute bottom-4 left-4 text-xs font-mono" style={{ color: 'rgba(74, 222, 128, 0.6)' }}>ALLOW</div>
       </div>
-      
+
       {/* Right panel hint */}
       <div className={cn(
-        "absolute right-8 top-1/2 -translate-y-1/2 w-32 h-64 rounded-lg border border-block/30 bg-block/5 transition-all duration-700 delay-100",
+        "absolute right-8 top-1/2 -translate-y-1/2 w-32 h-64 rounded-lg hidden lg:block transition-all duration-700 delay-100",
         phase >= 2 ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-      )}>
-        <div className="absolute top-4 left-4 right-4 h-2 rounded-full bg-block/30" />
-        <div className="absolute bottom-4 right-4 text-xs font-mono text-block/60">BLOCK</div>
+      )} style={{ background: 'rgba(248, 113, 113, 0.05)', border: '1px solid rgba(248, 113, 113, 0.3)' }}>
+        <div className="absolute top-4 left-4 right-4 h-2 rounded-full" style={{ background: 'rgba(248, 113, 113, 0.3)' }} />
+        <div className="absolute bottom-4 right-4 text-xs font-mono" style={{ color: 'rgba(248, 113, 113, 0.6)' }}>BLOCK</div>
       </div>
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
         {/* Main line */}
-        <h2 
+        <h2
           className={cn(
-            "text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-tight transition-all duration-1000",
+            "transition-all duration-1000",
             phase >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
+          style={{
+            fontFamily: "'Bebas Neue', Impact, sans-serif",
+            fontSize: 'clamp(40px, 8vw, 80px)',
+            lineHeight: 0.95,
+            fontStyle: 'italic',
+            letterSpacing: '-1px',
+            textTransform: 'uppercase',
+            color: '#1E2D2D',
+          }}
         >
           Nothing changed —
           <br />
-          <span className="text-primary">except the rule.</span>
+          <span style={{ color: '#3ECFA5' }}>except the rule.</span>
         </h2>
-        
+
         {/* Follow-up */}
-        <p 
+        <p
           className={cn(
-            "text-2xl md:text-3xl text-muted-foreground mt-8 transition-all duration-700",
+            "text-2xl md:text-3xl mt-8 transition-all duration-700",
             phase >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
+          style={{ color: '#6B6B67' }}
         >
           That's when it clicks.
         </p>
@@ -94,9 +98,9 @@ export function TheMomentSection() {
         "absolute bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-4 transition-opacity duration-500",
         phase >= 3 ? "opacity-100" : "opacity-0"
       )}>
-        <div className="w-16 h-px bg-gradient-to-r from-transparent to-border" />
-        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-        <div className="w-16 h-px bg-gradient-to-l from-transparent to-border" />
+        <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, #E2E2DE)' }} />
+        <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#3ECFA5' }} />
+        <div className="w-16 h-px" style={{ background: 'linear-gradient(to left, transparent, #E2E2DE)' }} />
       </div>
     </section>
   );

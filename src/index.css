@@ -1,46 +1,44 @@
-@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Vanar xBPP Design System — VanarChain
-   Cold logic. Warm presentation.
-   All colors MUST be HSL.
+/* Vanar xBPP Design System — Ferron/VanarChain v4 Style
+   LIGHT theme: warm off-white background, Bebas Neue display font, teal accents
 */
 
 @layer base {
   :root {
-    /* Vanar xBPP is dark-first, but we define light for completeness */
-    --background: 220 14% 4%;
-    --foreground: 0 0% 96%;
+    /* Ferron/Vanar Light Theme */
+    --background: 48 15% 92%;        /* #EDEDEA warm off-white */
+    --foreground: 180 22% 15%;       /* #1E2D2D dark teal-charcoal */
 
-    --card: 220 14% 7%;
-    --card-foreground: 0 0% 96%;
+    --card: 0 0% 100%;               /* #FFFFFF */
+    --card-foreground: 180 22% 15%;
 
-    --popover: 220 9% 10%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 22% 15%;
 
-    --primary: 168 97% 43%;
-    --primary-foreground: 220 9% 5%;
+    --primary: 159 56% 48%;          /* #3ECFA5 Vanar teal */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 20%;
-    --secondary-foreground: 0 0% 96%;
+    --secondary: 48 12% 96%;
+    --secondary-foreground: 180 22% 15%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 48 8% 88%;
+    --muted-foreground: 0 0% 42%;    /* #6B6B67 */
 
-    --accent: 168 97% 43%;
-    --accent-foreground: 220 9% 5%;
+    --accent: 159 56% 48%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 63%;
-    --destructive-foreground: 0 0% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 168 97% 43%;
+    --border: 48 12% 88%;            /* #E2E2DE */
+    --input: 48 12% 94%;
+    --ring: 159 56% 48%;
 
-    --radius: 0.5rem;
+    --radius: 0.875rem;
 
     /* Decision Colors */
     --decision-allow: 142 69% 58%;
@@ -52,55 +50,46 @@
     --risk-medium: 43 96% 56%;
     --risk-high: 0 91% 71%;
 
-    /* Sidebar */
+    /* Sidebar (for app pages, stays dark) */
     --sidebar-background: 220 9% 6%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 168 97% 43%;
+    --sidebar-primary: 159 56% 48%;
     --sidebar-primary-foreground: 220 9% 5%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 96%;
     --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 217 91% 68%;
+    --sidebar-ring: 159 56% 48%;
 
     /* Charts */
-    --chart-1: 168 97% 43%;
+    --chart-1: 159 56% 48%;
     --chart-2: 142 69% 58%;
     --chart-3: 0 91% 71%;
     --chart-4: 43 96% 56%;
     --chart-5: 0 0% 60%;
 
     /* Typography */
-    --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Bebas Neue', 'Impact', sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
-    --shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.4), 0 1px 2px -1px hsl(0 0% 0% / 0.4);
-    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4), 0 2px 4px -2px hsl(0 0% 0% / 0.4);
-    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.4), 0 4px 6px -4px hsl(0 0% 0% / 0.4);
+    /* Shadows - lighter for light theme */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.04);
+    --shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.08), 0 1px 2px -1px hsl(0 0% 0% / 0.08);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.08), 0 2px 4px -2px hsl(0 0% 0% / 0.08);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.08), 0 4px 6px -4px hsl(0 0% 0% / 0.08);
   }
 
-  .dark {
-    /* Same as root - Vanar xBPP is dark-first */
-    --background: 220 9% 5%;
-    --foreground: 0 0% 96%;
-    --card: 220 9% 8%;
+  /* Dark mode for dark sections only */
+  .dark-section {
+    --background: 0 0% 10%;          /* #1A1A1A */
+    --foreground: 0 0% 100%;
+    --card: 0 0% 13%;
     --card-foreground: 0 0% 96%;
-    --popover: 220 9% 10%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 168 97% 43%;
-    --primary-foreground: 220 9% 5%;
-    --secondary: 0 0% 20%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 0 0% 15%;
+    --muted: 0 0% 20%;
     --muted-foreground: 0 0% 60%;
-    --accent: 168 97% 43%;
-    --accent-foreground: 220 9% 5%;
-    --destructive: 0 72% 63%;
-    --destructive-foreground: 0 0% 96%;
     --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 168 97% 43%;
+    background: #1A1A1A;
+    color: white;
   }
 }
 
@@ -110,11 +99,202 @@
   }
 
   html {
-    @apply dark;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+  }
+
+  /* Grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+  }
+}
+
+@layer components {
+  /* Section label with teal dot */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #3ECFA5;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3ECFA5;
+    flex-shrink: 0;
+  }
+
+  /* Display/headline typography - Bebas Neue */
+  .display-heading {
+    font-family: var(--font-display);
+    font-style: italic;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: #1E2D2D;
+  }
+
+  .display-heading-white {
+    font-family: var(--font-display);
+    font-style: italic;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: white;
+  }
+
+  /* Teal text accent */
+  .teal-text {
+    color: #3ECFA5;
+  }
+
+  /* Card with corner bracket decorations (VanarChain style) */
+  .corner-card {
+    position: relative;
+    background: white;
+    padding: 32px;
+  }
+
+  .corner-card::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 22px;
+    height: 22px;
+    border-top: 2px solid #3ECFA5;
+    border-right: 2px solid #3ECFA5;
+  }
+
+  .corner-card::after {
+    content: '';
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    width: 22px;
+    height: 22px;
+    border-bottom: 2px solid #3ECFA5;
+    border-left: 2px solid #3ECFA5;
+  }
+
+  /* Ferron-style white card with light border */
+  .ferron-card {
+    background: white;
+    border: 1px solid #E2E2DE;
+    border-radius: 14px;
+    padding: 32px;
+  }
+
+  /* Teal gradient button */
+  .btn-teal {
+    background: linear-gradient(135deg, #3ECFA5, #2AAF8E);
+    color: white;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-teal:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(62, 207, 165, 0.3);
+  }
+
+  /* Ghost/outline button */
+  .btn-ghost {
+    background: transparent;
+    color: #1E2D2D;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border-radius: 12px;
+    border: 1px solid #B8B8B4;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-ghost:hover {
+    background: #1E2D2D;
+    color: white;
+    border-color: #1E2D2D;
+  }
+
+  /* Pill badge for dark sections */
+  .pill-badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 100px;
+    padding: 8px 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Tag badge (inline protocol tags) */
+  .tag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(62, 207, 165, 0.08);
+    border: 1px solid rgba(62, 207, 165, 0.3);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #3ECFA5;
+  }
+
+  /* Feature dot row */
+  .feature-dot {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #6B6B67;
+  }
+
+  .feature-dot::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3ECFA5;
   }
 }
 
@@ -166,5 +346,10 @@
   }
   .bg-risk-high {
     background-color: hsl(var(--risk-high) / 0.15);
+  }
+
+  /* Font utilities */
+  .font-display {
+    font-family: var(--font-display);
   }
 }

@@ -1,17 +1,15 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, FileText, Terminal, BookOpen, Library, PlayCircle, FlaskConical, Menu, X, MessageSquare, Cpu, Check, XIcon, HelpCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ArrowRight, FileText, BookOpen, Library, PlayCircle, FlaskConical, Menu, X, Github } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export function HeroSection() {
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -24,47 +22,75 @@ export function HeroSection() {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { to: '/learn', label: 'Learn', icon: BookOpen, description: 'Getting started guides' },
-    { to: '/library', label: 'Library', icon: Library, description: 'Policies, scenarios & more' },
-    { to: '/playground', label: 'Playground', icon: PlayCircle, description: 'Interactive demo' },
-    { to: '/spec', label: 'Spec', icon: FileText, description: 'Technical specification' },
-    { to: '/test-suite', label: 'Test Suite', icon: FlaskConical, description: 'Verification dashboard' },
+    { to: '/learn', label: 'Learn', icon: BookOpen },
+    { to: '/library', label: 'Library', icon: Library },
+    { to: '/playground', label: 'Playground', icon: PlayCircle },
+    { to: '/spec', label: 'Spec', icon: FileText },
+    { to: '/test-suite', label: 'Test Suite', icon: FlaskConical },
   ];
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-6 relative">
-      {/* Top Navigation Bar */}
-      <nav 
+    <section className="min-h-screen relative overflow-hidden" style={{ background: '#EDEDEA' }}>
+      {/* Ambient teal glow blob */}
+      <div
+        className="absolute top-0 right-0 w-[500px] h-[500px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(62, 207, 165, 0.12) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+      />
+
+      {/* Navigation */}
+      <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+        style={{ background: '#EDEDEA' }}
       >
-        <div className="max-w-6xl mx-auto px-6 py-5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2.5 group">
-              <div className="w-2.5 h-2.5 rounded-full bg-primary group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-mono font-medium tracking-[0.15em] uppercase text-foreground">
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3ECFA5, #2AAF8E)' }}>
+                <span className="text-white font-display text-xl">V</span>
+              </div>
+              <span className="text-sm font-semibold tracking-[0.15em] uppercase" style={{ color: '#1E2D2D' }}>
                 VANAR xBPP
               </span>
             </Link>
 
-            {/* Nav Links - Desktop */}
-            <div className="hidden md:flex items-center gap-1 px-4 py-2 rounded-full border border-border/40 bg-background/80 backdrop-blur-md">
-              {navLinks.map(({ to, label, icon: Icon }) => (
+            {/* Center Nav Links - Desktop */}
+            <div className="hidden lg:flex items-center gap-1">
+              {navLinks.map(({ to, label }) => (
                 <Link
                   key={to}
                   to={to}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+                  className="px-4 py-2 text-sm font-medium transition-colors"
+                  style={{ color: '#6B6B67' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#1E2D2D'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#6B6B67'}
                 >
-                  <Icon className="h-4 w-4" />
                   {label}
                 </Link>
               ))}
             </div>
 
-            {/* Mobile - Hamburger Menu Button */}
+            {/* Right CTA - Desktop */}
+            <a
+              href="https://github.com/vanarchain/xbpp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold tracking-wider uppercase text-white transition-all hover:-translate-y-0.5"
+              style={{ background: 'linear-gradient(135deg, #3ECFA5, #2AAF8E)' }}
+            >
+              <Github className="h-4 w-4" />
+              GitHub
+              <ArrowRight className="h-4 w-4" />
+            </a>
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full border border-border/40 bg-background/80 backdrop-blur-md text-foreground hover:bg-muted/50 transition-colors"
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg border transition-colors"
+              style={{ borderColor: '#E2E2DE', color: '#1E2D2D' }}
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -74,192 +100,139 @@ export function HeroSection() {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div 
-        className={`fixed inset-0 z-[100] md:hidden transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      <div
+        className={`fixed inset-0 z-[100] lg:hidden transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
-        {/* Backdrop */}
-        <div 
-          className="absolute inset-0 bg-background/90 backdrop-blur-md"
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(237, 237, 234, 0.95)', backdropFilter: 'blur(8px)' }}
           onClick={() => setMobileMenuOpen(false)}
         />
-        
-        {/* Menu Panel */}
-        <div 
-          className={`absolute top-0 right-0 h-full w-full max-w-sm bg-card border-l border-border/50 transition-transform duration-300 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+
+        <div
+          className={`absolute top-0 right-0 h-full w-full max-w-sm border-l transition-transform duration-300 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          style={{ background: 'white', borderColor: '#E2E2DE' }}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-border/30">
-            <span className="text-sm font-mono font-medium tracking-[0.15em] uppercase text-foreground">
+          <div className="flex items-center justify-between p-6 border-b" style={{ borderColor: '#E2E2DE' }}>
+            <span className="text-sm font-semibold tracking-[0.15em] uppercase" style={{ color: '#1E2D2D' }}>
               Menu
             </span>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center w-10 h-10 rounded-full border border-border/40 bg-muted/30 text-foreground hover:bg-muted/50 transition-colors"
+              className="flex items-center justify-center w-10 h-10 rounded-lg border transition-colors"
+              style={{ borderColor: '#E2E2DE', color: '#1E2D2D' }}
               aria-label="Close menu"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
-          
-          {/* Nav Links */}
+
           <div className="p-6 space-y-2">
-            {navLinks.map(({ to, label, icon: Icon, description }) => (
+            {navLinks.map(({ to, label, icon: Icon }) => (
               <Link
                 key={to}
                 to={to}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-start gap-4 p-4 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors"
+                className="flex items-center gap-4 p-4 rounded-xl transition-colors"
+                style={{ color: '#6B6B67' }}
               >
-                <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
-                  <Icon className="h-5 w-5 text-primary" />
+                <div className="p-2 rounded-lg" style={{ background: 'rgba(62, 207, 165, 0.1)' }}>
+                  <Icon className="h-5 w-5" style={{ color: '#3ECFA5' }} />
                 </div>
-                <div>
-                  <p className="font-medium text-foreground">{label}</p>
-                  <p className="text-sm text-muted-foreground">{description}</p>
-                </div>
+                <span className="font-medium" style={{ color: '#1E2D2D' }}>{label}</span>
               </Link>
             ))}
           </div>
-          
-          {/* Bottom CTA */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border/30">
-            <Button asChild size="lg" className="w-full">
-              <Link to="/playground" onClick={() => setMobileMenuOpen(false)}>
-                <PlayCircle className="mr-2 h-5 w-5" />
-                Try the Playground
-              </Link>
-            </Button>
+
+          <div className="absolute bottom-0 left-0 right-0 p-6 border-t" style={{ borderColor: '#E2E2DE' }}>
+            <Link
+              to="/playground"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-white font-semibold tracking-wider uppercase"
+              style={{ background: 'linear-gradient(135deg, #3ECFA5, #2AAF8E)' }}
+            >
+              <PlayCircle className="h-5 w-5" />
+              Try the Playground
+            </Link>
           </div>
         </div>
       </div>
 
-      <main className="max-w-4xl mx-auto text-center space-y-10 relative z-10 pt-16">
-        {/* Tagline Badge */}
-        <div 
-          className={`transition-all duration-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-        >
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-sm font-mono tracking-wider text-muted-foreground">
-              The policy standard for agent transactions on VanarChain
-            </span>
+      {/* Hero Content */}
+      <main className="max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-20 lg:pt-40 lg:pb-32">
+        <div className="max-w-4xl">
+          {/* Section Label */}
+          <div
+            className={`mb-8 transition-all duration-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          >
+            <div className="section-label">
+              VANAR × XBPP OPEN STANDARD · BASE NATIVE
+            </div>
           </div>
-        </div>
-        
-        {/* Main Headline */}
-        <h1 
-          className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] transition-all duration-500 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-        >
-          <span className="block text-muted-foreground">Agents can spend money.</span>
-          <span className="block mt-2">They just can't prove</span>
-          <span className="block mt-2 text-primary">they should.</span>
-        </h1>
-        
-        {/* Subhead */}
-        <div 
-          className={`max-w-xl mx-auto space-y-3 transition-all duration-500 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-        >
-          <p className="text-xl md:text-2xl text-foreground font-medium">
-            xBPP changes that.
+
+          {/* Main Headline - Bebas Neue Italic */}
+          <h1
+            className={`mb-8 transition-all duration-500 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: 'clamp(48px, 10vw, 100px)',
+              lineHeight: 0.95,
+              fontStyle: 'italic',
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+              color: '#1E2D2D',
+            }}
+          >
+            <span>Agents can spend money.</span>
+            <br />
+            <span>They just can't prove </span>
+            <span style={{ color: '#3ECFA5' }}>they should.</span>
+          </h1>
+
+          {/* Body Text */}
+          <p
+            className={`mb-8 max-w-xl transition-all duration-500 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            style={{ fontSize: '17px', lineHeight: 1.7, color: '#6B6B67' }}
+          >
+            xBPP is the open standard for agentic governance. Define your rules once —
+            budgets, approved vendors, risk tolerance — and every transaction follows them.
+            A programmable CFO that says yes, no, or "ask me first."
           </p>
-        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Define your rules once. Every transaction follows them.
-            <span className="block text-foreground/80 mt-2">A programmable CFO that says yes, no, or "ask me first."</span>
-          </p>
-        </div>
-        
-        {/* Architecture Flow Diagram */}
-        <div 
-          className={`transition-all duration-500 delay-250 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-        >
-          <div className="inline-flex items-center gap-3 md:gap-4 px-5 py-4 rounded-xl border border-border/30 bg-card/30 backdrop-blur-sm">
-            {/* Intent */}
-            <div className="flex flex-col items-center gap-1.5">
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-muted/50 border border-border/50 flex items-center justify-center">
-                <MessageSquare className="h-5 w-5 md:h-6 md:w-6 text-muted-foreground" />
-              </div>
-              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wide">Intent</span>
-            </div>
-            
-            {/* Arrow 1 - Animated */}
-            <div className="flex items-center text-primary/60 relative">
-              <div className="w-6 md:w-10 h-px bg-gradient-to-r from-primary/20 to-primary/50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent animate-[flow_2s_ease-in-out_infinite]" />
-              </div>
-              <ArrowRight className="h-4 w-4 -ml-1 animate-pulse" />
-            </div>
-            
-            {/* Interpret */}
-            <div className="flex flex-col items-center gap-1.5">
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
-                <Cpu className="h-5 w-5 md:h-6 md:w-6 text-primary" />
-              </div>
-              <span className="text-xs font-mono text-primary uppercase tracking-wide">xBPP</span>
-            </div>
-            
-            {/* Arrow 2 - Animated */}
-            <div className="flex items-center text-primary/60 relative">
-              <div className="w-6 md:w-10 h-px bg-gradient-to-r from-primary/50 to-primary/20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent animate-[flow_2s_ease-in-out_infinite_0.5s]" />
-              </div>
-              <ArrowRight className="h-4 w-4 -ml-1 animate-pulse" />
-            </div>
-            
-            {/* Verdict */}
-            <div className="flex flex-col items-center gap-1.5">
-              <div className="flex gap-1">
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded bg-[hsl(var(--decision-allow))]/20 border border-[hsl(var(--decision-allow))]/40 flex items-center justify-center">
-                  <Check className="h-3 w-3 md:h-3.5 md:w-3.5 text-[hsl(var(--decision-allow))]" />
-                </div>
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded bg-[hsl(var(--decision-block))]/20 border border-[hsl(var(--decision-block))]/40 flex items-center justify-center">
-                  <XIcon className="h-3 w-3 md:h-3.5 md:w-3.5 text-[hsl(var(--decision-block))]" />
-                </div>
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded bg-[hsl(var(--decision-escalate))]/20 border border-[hsl(var(--decision-escalate))]/40 flex items-center justify-center">
-                  <HelpCircle className="h-3 w-3 md:h-3.5 md:w-3.5 text-[hsl(var(--decision-escalate))]" />
-                </div>
-              </div>
-              <span className="text-xs font-mono text-muted-foreground uppercase tracking-wide">Verdict</span>
-            </div>
+
+          {/* Feature Dot Row */}
+          <div
+            className={`flex flex-wrap gap-6 mb-10 transition-all duration-500 delay-250 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          >
+            <div className="feature-dot">ZeroClaw fork</div>
+            <div className="feature-dot">Base native</div>
+            <div className="feature-dot">x402 compatible</div>
           </div>
-        </div>
-        
-        {/* SDK Install Preview */}
-        <div 
-          className={`transition-all duration-500 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-        >
-          <div className="inline-flex items-center gap-3 px-5 py-3 rounded-lg border border-border/50 bg-card/50 backdrop-blur-sm">
-            <Terminal className="h-4 w-4 text-primary" />
-            <code className="text-sm font-mono text-muted-foreground">
-              npm install <span className="text-primary">@vanarchain/xbpp</span>
-            </code>
-          </div>
-        </div>
-        
-        {/* CTAs */}
-        <div 
-          className={`flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 transition-all duration-500 delay-400 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-        >
-          <Button asChild size="lg" className="group text-base px-8 py-6">
-            <Link to="/playground">
-              <PlayCircle className="mr-2 h-5 w-5" />
+
+          {/* CTA Buttons */}
+          <div
+            className={`flex flex-col sm:flex-row gap-4 transition-all duration-500 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+          >
+            <Link to="/playground" className="btn-teal flex items-center justify-center gap-2">
+              <PlayCircle className="h-5 w-5" />
               Try the Playground
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-5 w-5" />
             </Link>
-          </Button>
-          
-          <Button asChild variant="outline" size="lg" className="text-base px-8 py-6">
-            <Link to="/spec">
-              <FileText className="mr-2 h-5 w-5" />
+
+            <Link to="/spec" className="btn-ghost flex items-center justify-center gap-2">
+              <FileText className="h-5 w-5" />
               Read the Spec
             </Link>
-          </Button>
+          </div>
         </div>
       </main>
-      
+
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/40">
+      <div
+        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-500 delay-400 ${mounted ? 'opacity-100' : 'opacity-0'}`}
+        style={{ color: '#9E9E98' }}
+      >
         <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
-        <div className="w-px h-6 bg-gradient-to-b from-muted-foreground/40 to-transparent animate-pulse" />
+        <div className="w-px h-6 animate-pulse" style={{ background: 'linear-gradient(to bottom, #9E9E98, transparent)' }} />
       </div>
     </section>
   );

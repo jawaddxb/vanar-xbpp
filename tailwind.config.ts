@@ -70,6 +70,7 @@ export default {
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+        display: ["Bebas Neue", "Impact", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

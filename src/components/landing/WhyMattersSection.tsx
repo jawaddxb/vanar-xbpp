@@ -55,21 +55,34 @@ export function WhyMattersSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="flex flex-col items-center justify-center px-6 py-20 md:py-28 relative">
+    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
       <div className="max-w-6xl mx-auto relative z-10 w-full">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className={cn(
-            "text-sm font-mono tracking-widest text-muted-foreground uppercase mb-4 transition-all duration-500",
+          <div className={cn(
+            "section-label justify-center mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            Why This Matters Now
-          </p>
-          <h2 className={cn(
-            "text-4xl md:text-5xl font-medium tracking-tight transition-all duration-500 delay-100",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}>
-            Built for Builders. Trusted by Enterprises.
+            WHY THIS MATTERS NOW
+          </div>
+          <h2
+            className={cn(
+              "transition-all duration-500 delay-100",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+            style={{
+              fontFamily: "'Bebas Neue', Impact, sans-serif",
+              fontSize: 'clamp(36px, 7vw, 60px)',
+              lineHeight: 0.95,
+              fontStyle: 'italic',
+              letterSpacing: '-1px',
+              textTransform: 'uppercase',
+              color: '#1E2D2D',
+            }}
+          >
+            BUILT FOR <span style={{ color: '#3ECFA5' }}>BUILDERS.</span>
+            <br />
+            TRUSTED BY <span style={{ color: '#3ECFA5' }}>ENTERPRISES.</span>
           </h2>
         </div>
 
@@ -80,34 +93,34 @@ export function WhyMattersSection() {
             "transition-all duration-700 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <div className="p-8 rounded-2xl border border-primary/30 bg-primary/5 h-full">
+            <div className="p-8 rounded-2xl h-full" style={{ background: 'rgba(62, 207, 165, 0.08)', border: '1px solid rgba(62, 207, 165, 0.3)' }}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                  <Code className="h-5 w-5 text-primary" />
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(62, 207, 165, 0.2)' }}>
+                  <Code className="h-5 w-5" style={{ color: '#3ECFA5' }} />
                 </div>
-                <h3 className="text-2xl font-medium">For Base Developers</h3>
+                <h3 className="text-2xl font-medium" style={{ color: '#1E2D2D' }}>For Base Developers</h3>
               </div>
-              
+
               <div className="space-y-6">
                 {developerBenefits.map(({ icon: Icon, title, description }) => (
                   <div key={title} className="flex gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-card/50 border border-border/50 flex items-center justify-center shrink-0">
-                      <Icon className="h-5 w-5 text-primary" />
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'white', border: '1px solid #E2E2DE' }}>
+                      <Icon className="h-5 w-5" style={{ color: '#3ECFA5' }} />
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">{title}</h4>
-                      <p className="text-sm text-muted-foreground">{description}</p>
+                      <h4 className="font-medium mb-1" style={{ color: '#1E2D2D' }}>{title}</h4>
+                      <p className="text-sm" style={{ color: '#6B6B67' }}>{description}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Code snippet */}
-              <div className="mt-6 p-4 rounded-lg bg-card/80 border border-border/50">
-                <code className="text-xs font-mono text-muted-foreground">
-                  <span className="text-primary">import</span> {"{ wrap }"} <span className="text-primary">from</span> <span className="text-allow">'@vanar/xbpp'</span>;
+              <div className="mt-6 p-4 rounded-lg" style={{ background: 'white', border: '1px solid #E2E2DE' }}>
+                <code className="text-xs font-mono">
+                  <span style={{ color: '#3ECFA5' }}>import</span> <span style={{ color: '#1E2D2D' }}>{"{ wrap }"}</span> <span style={{ color: '#3ECFA5' }}>from</span> <span style={{ color: '#4ADE80' }}>'@vanar/xbpp'</span>;
                   <br />
-                  <span className="text-muted-foreground/60">// That's it. You're compliant.</span>
+                  <span style={{ color: '#9E9E98' }}>// That's it. You're compliant.</span>
                 </code>
               </div>
             </div>
@@ -118,23 +131,23 @@ export function WhyMattersSection() {
             "transition-all duration-700 delay-300",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
-            <div className="p-8 rounded-2xl border border-allow/30 bg-allow/5 h-full">
+            <div className="p-8 rounded-2xl h-full" style={{ background: 'rgba(74, 222, 128, 0.08)', border: '1px solid rgba(74, 222, 128, 0.3)' }}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-allow/20 flex items-center justify-center">
-                  <Shield className="h-5 w-5 text-allow" />
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(74, 222, 128, 0.2)' }}>
+                  <Shield className="h-5 w-5" style={{ color: '#4ADE80' }} />
                 </div>
-                <h3 className="text-2xl font-medium">For Enterprise CTOs</h3>
+                <h3 className="text-2xl font-medium" style={{ color: '#1E2D2D' }}>For Enterprise CTOs</h3>
               </div>
-              
+
               <div className="space-y-6">
                 {ctoBenefits.map(({ icon: Icon, title, description }) => (
                   <div key={title} className="flex gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-card/50 border border-border/50 flex items-center justify-center shrink-0">
-                      <Icon className="h-5 w-5 text-allow" />
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'white', border: '1px solid #E2E2DE' }}>
+                      <Icon className="h-5 w-5" style={{ color: '#4ADE80' }} />
                     </div>
                     <div>
-                      <h4 className="font-medium mb-1">{title}</h4>
-                      <p className="text-sm text-muted-foreground">{description}</p>
+                      <h4 className="font-medium mb-1" style={{ color: '#1E2D2D' }}>{title}</h4>
+                      <p className="text-sm" style={{ color: '#6B6B67' }}>{description}</p>
                     </div>
                   </div>
                 ))}
