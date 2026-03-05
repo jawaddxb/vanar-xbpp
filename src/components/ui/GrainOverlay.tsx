@@ -34,7 +34,7 @@ export function GrainOverlay() {
         height: '100vh',
         pointerEvents: 'none',
         zIndex: 9999,
-        opacity: 0.045,
+        opacity: 0.035,
         mixBlendMode: 'multiply',
       }}
     />

@@ -1,44 +1,69 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Vanar xBPP Design System — Ferron/VanarChain v4 Style
-   LIGHT theme: warm off-white background, Bebas Neue display font, teal accents
+@font-face {
+  font-family: 'Akira Expanded';
+  src: url('/src/assets/fonts/AkiraExpanded-SuperBold.woff2') format('woff2'),
+       url('/src/assets/fonts/AkiraExpanded-SuperBold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Vanar xBPP Design System — Authentic VanarChain Style
+   Background: #e8e9e9, Teal: #03D9AF, Dark: #282B35
+   Akira Expanded for display, Figtree for body
+   Signature: clip-path diagonal corner cut cards
 */
+
+:root {
+  --bg: #e8e9e9;
+  --teal: #03D9AF;
+  --teal-dark: #029a7d;
+  --dark: #282B35;
+  --dark-section: #1B2129;
+  --border: #CAD0DA;
+  --muted: #6B6F7D;
+  --font-display: 'Akira Expanded', 'Arial Black', sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
 
 @layer base {
   :root {
-    /* Ferron/Vanar Light Theme */
-    --background: 48 15% 92%;        /* #EDEDEA warm off-white */
-    --foreground: 180 22% 15%;       /* #1E2D2D dark teal-charcoal */
+    /* Vanar Theme */
+    --background: 180 3% 91%;        /* #e8e9e9 */
+    --foreground: 224 13% 18%;       /* #282B35 */
 
-    --card: 0 0% 100%;               /* #FFFFFF */
-    --card-foreground: 180 22% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 13% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 180 22% 15%;
+    --popover-foreground: 224 13% 18%;
 
-    --primary: 159 56% 48%;          /* #3ECFA5 Vanar teal */
+    --primary: 163 97% 43%;          /* #03D9AF */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 48 12% 96%;
-    --secondary-foreground: 180 22% 15%;
+    --secondary: 180 3% 96%;
+    --secondary-foreground: 224 13% 18%;
 
-    --muted: 48 8% 88%;
-    --muted-foreground: 0 0% 42%;    /* #6B6B67 */
+    --muted: 220 12% 83%;            /* #CAD0DA */
+    --muted-foreground: 224 10% 46%; /* #6B6F7D */
 
-    --accent: 159 56% 48%;
+    --accent: 163 97% 43%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 48 12% 88%;            /* #E2E2DE */
-    --input: 48 12% 94%;
-    --ring: 159 56% 48%;
+    --border: 220 12% 83%;           /* #CAD0DA */
+    --input: 180 3% 94%;
+    --ring: 163 97% 43%;
 
-    --radius: 0.875rem;
+    --radius: 0px;
 
     /* Decision Colors */
     --decision-allow: 142 69% 58%;
@@ -51,28 +76,28 @@
     --risk-high: 0 91% 71%;
 
     /* Sidebar (for app pages, stays dark) */
-    --sidebar-background: 220 9% 6%;
+    --sidebar-background: 220 17% 13%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 159 56% 48%;
+    --sidebar-primary: 163 97% 43%;
     --sidebar-primary-foreground: 220 9% 5%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 96%;
     --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 159 56% 48%;
+    --sidebar-ring: 163 97% 43%;
 
     /* Charts */
-    --chart-1: 159 56% 48%;
+    --chart-1: 163 97% 43%;
     --chart-2: 142 69% 58%;
     --chart-3: 0 91% 71%;
     --chart-4: 43 96% 56%;
     --chart-5: 0 0% 60%;
 
     /* Typography */
-    --font-display: 'Bebas Neue', 'Impact', sans-serif;
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Akira Expanded', 'Arial Black', sans-serif;
+    --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-    /* Shadows - lighter for light theme */
+    /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.04);
     --shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.08), 0 1px 2px -1px hsl(0 0% 0% / 0.08);
     --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.08), 0 2px 4px -2px hsl(0 0% 0% / 0.08);
@@ -81,14 +106,14 @@
 
   /* Dark mode for dark sections only */
   .dark-section {
-    --background: 0 0% 10%;          /* #1A1A1A */
+    --background: 220 17% 13%;       /* #1B2129 */
     --foreground: 0 0% 100%;
-    --card: 0 0% 13%;
+    --card: 220 15% 16%;
     --card-foreground: 0 0% 96%;
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 60%;
     --border: 0 0% 20%;
-    background: #1A1A1A;
+    background: #1B2129;
     color: white;
   }
 }
@@ -105,136 +130,182 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
-    background: #EDEDEA;
+    background: #e8e9e9;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
-  /* Section label with teal dot */
+  /* Section label with teal square */
   .section-label {
     display: flex;
     align-items: center;
     gap: 8px;
     font-family: var(--font-sans);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 2.5px;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: #3ECFA5;
+    color: #03D9AF;
   }
 
   .section-label::before {
     content: '';
     width: 8px;
     height: 8px;
-    border-radius: 50%;
-    background: #3ECFA5;
+    background: #03D9AF;
     flex-shrink: 0;
   }
 
-  /* Display/headline typography - Bebas Neue */
-  .display-heading {
-    font-family: var(--font-display);
-    font-style: italic;
-    line-height: 0.95;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    color: #1E2D2D;
-  }
-
-  .display-heading-white {
-    font-family: var(--font-display);
-    font-style: italic;
-    line-height: 0.95;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    color: white;
-  }
-
-  /* Teal text accent */
-  .teal-text {
-    color: #3ECFA5;
-  }
-
-  /* Card with corner bracket decorations (VanarChain style) */
-  .corner-card {
-    position: relative;
-    background: white;
-    padding: 32px;
-    overflow: visible;
-  }
-
-  .corner-card::before {
-    content: '';
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 18px;
-    height: 18px;
-    border-top: 2px solid #3ECFA5;
-    border-right: 2px solid #3ECFA5;
-  }
-
-  .corner-card::after {
-    content: '';
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    width: 18px;
-    height: 18px;
-    border-bottom: 2px solid #3ECFA5;
-    border-left: 2px solid #3ECFA5;
-  }
-
-  /* Ferron-style white card with light border */
-  .ferron-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E2DE;
-    border-radius: 14px;
+  /* Diagonal cut corner cards — the VanarChain signature */
+  .vanar-card {
+    background: linear-gradient(75.85deg, #ffffff 14.68%, #e9eff0 184.03%);
+    clip-path: polygon(32px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 32px);
     padding: 28px 32px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .vanar-card:hover {
+    background-color: #1b2129;
+    color: white;
+  }
+  .vanar-card:hover h3,
+  .vanar-card:hover h4,
+  .vanar-card:hover p,
+  .vanar-card:hover span {
+    color: white;
   }
 
-  /* Teal gradient button */
-  .btn-teal {
-    background: linear-gradient(135deg, #3ECFA5, #2AAF8E);
+  .card-l-top {
+    clip-path: polygon(40px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 40px);
+  }
+  .card-l-bottom {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 40px 100%, 0% 96%);
+  }
+  .card-r-bottom {
+    clip-path: polygon(0% 0%, 100% 0, 100% 96%, 96% 100%, 0% 100%);
+  }
+  .card-sm {
+    clip-path: polygon(25px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 25px);
+  }
+
+  /* Gradient cards */
+  .gradCards {
+    background: linear-gradient(75.85deg, #ffffff 14.68%, #e9eff0 184.03%);
+    transition: all 0.3s ease;
+  }
+  .gradCards:hover {
+    background-color: #1b2129;
+  }
+
+  /* Hover-btn — expanding border animation */
+  .hover-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 35px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #282B35;
+    text-decoration: none;
+    background: transparent;
+  }
+  .hover-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5.5px;
+    height: 100%;
+    border-top: 1px solid #414141;
+    border-left: 1px solid #414141;
+    border-bottom: 1px solid #414141;
+    transition: width 0.5s;
+  }
+  .hover-btn:hover::before {
+    width: 100%;
+    border-bottom: 0;
+  }
+  .hover-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 5.5px;
+    height: 100%;
+    border-top: 1px solid #414141;
+    border-right: 1px solid #414141;
+    border-bottom: 1px solid #414141;
+    transition: width 0.5s;
+  }
+  .hover-btn:hover::after {
+    width: 100%;
+    border-top: 0;
+  }
+
+  /* Primary CTA button with clip-path */
+  .btn-primary {
+    background: linear-gradient(135deg, #03D9AF, #029a7d);
+    clip-path: polygon(14px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 14px);
     color: white;
-    font-family: var(--font-sans);
+    padding: 16px 36px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  /* Secondary teal button (no clip-path) */
+  .btn-teal {
+    background: linear-gradient(135deg, #03D9AF, #029a7d);
+    color: white;
+    font-family: var(--font-body);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     padding: 16px 36px;
-    border-radius: 12px;
+    border-radius: 0;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
   }
-
   .btn-teal:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(62, 207, 165, 0.3);
+    box-shadow: 0 8px 20px rgba(3, 217, 175, 0.3);
   }
 
   /* Ghost/outline button */
   .btn-ghost {
     background: transparent;
-    color: #1E2D2D;
-    font-family: var(--font-sans);
+    color: #282B35;
+    font-family: var(--font-body);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     padding: 16px 36px;
-    border-radius: 12px;
-    border: 1px solid #B8B8B4;
+    border: 1px solid #CAD0DA;
     cursor: pointer;
     transition: all 0.2s ease;
   }
-
   .btn-ghost:hover {
-    background: #1E2D2D;
+    background: #282B35;
     color: white;
-    border-color: #1E2D2D;
+    border-color: #282B35;
   }
 
   /* Pill badge for dark sections */
@@ -256,15 +327,15 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(62, 207, 165, 0.08);
-    border: 1px solid rgba(62, 207, 165, 0.3);
+    background: rgba(3, 217, 175, 0.08);
+    border: 1px solid rgba(3, 217, 175, 0.3);
     border-radius: 100px;
     padding: 4px 12px;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #3ECFA5;
+    color: #03D9AF;
   }
 
   /* Feature dot row */
@@ -273,15 +344,77 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #6B6B67;
+    color: #6B6F7D;
   }
-
   .feature-dot::before {
     content: '';
     width: 6px;
     height: 6px;
-    border-radius: 50%;
-    background: #3ECFA5;
+    background: #03D9AF;
+  }
+
+  /* Legacy ferron-card — now uses vanar-card style internally */
+  .ferron-card {
+    background: #FFFFFF;
+    border: 1px solid #CAD0DA;
+    padding: 28px 32px;
+  }
+
+  /* Corner card with bracket decorations */
+  .corner-card {
+    position: relative;
+    background: white;
+    padding: 32px;
+    overflow: visible;
+  }
+  .corner-card::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 18px;
+    height: 18px;
+    border-top: 2px solid #03D9AF;
+    border-right: 2px solid #03D9AF;
+  }
+  .corner-card::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    width: 18px;
+    height: 18px;
+    border-bottom: 2px solid #03D9AF;
+    border-left: 2px solid #03D9AF;
+  }
+
+  /* Gradient text utility */
+  .gradient-text {
+    background: linear-gradient(135deg, #03D9AF, #4a7a6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Display heading - Akira Expanded */
+  .display-heading {
+    font-family: var(--font-display);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: #282B35;
+  }
+  .display-heading-white {
+    font-family: var(--font-display);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: white;
+  }
+
+  /* Teal text accent */
+  .teal-text {
+    color: #03D9AF;
   }
 }
 

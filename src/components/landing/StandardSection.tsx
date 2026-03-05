@@ -56,10 +56,10 @@ export function StandardSection() {
   };
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
+    <section ref={sectionRef} className="py-20 md:py-28 px-6 lg:px-12 relative" style={{ background: '#e8e9e9' }}>
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="mb-12" style={{ textAlign: 'left' }}>
+        {/* Header - Left aligned */}
+        <div className="mb-12">
           <div className="section-label mb-6">THE STANDARD</div>
           <h2
             className={cn(
@@ -67,21 +67,20 @@ export function StandardSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
             style={{
-              fontFamily: "'Bebas Neue', Impact, sans-serif",
-              fontSize: 'clamp(36px, 7vw, 56px)',
-              lineHeight: 0.88,
-              fontStyle: 'italic',
-              letterSpacing: '-2px',
+              fontFamily: "'Akira Expanded', 'Arial Black', sans-serif",
+              fontSize: 'clamp(32px, 5vw, 56px)',
+              lineHeight: 0.95,
+              letterSpacing: '-1px',
               textTransform: 'uppercase',
-              color: '#1E2D2D',
+              color: '#282B35',
             }}
           >
-            30-SECOND <span style={{ color: '#3ECFA5' }}>INTEGRATION</span>
+            30-SECOND <span style={{ color: '#03D9AF' }}>INTEGRATION</span>
           </h2>
           <p className={cn(
             "text-lg mt-4 transition-all duration-700 delay-100",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          )} style={{ color: '#6B6B67' }}>
+          )} style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
             Built on an open execution boundary standard. Works with x402. Ships today.
           </p>
         </div>
@@ -95,26 +94,26 @@ export function StandardSection() {
         >
           <div className="relative group">
             <div
-              className="absolute -top-3 left-4 px-2 py-1 rounded text-xs font-mono"
-              style={{ background: '#1E2D2D', color: '#9E9E98' }}
+              className="absolute -top-3 left-4 px-2 py-1 text-xs font-mono"
+              style={{ background: '#282B35', color: '#6B6F7D' }}
             >
               TypeScript
             </div>
             <pre
-              className="p-6 pt-8 rounded-lg overflow-x-auto text-sm font-mono"
-              style={{ background: '#1E2D2D', border: '1px solid #333' }}
+              className="p-6 pt-8 overflow-x-auto text-sm font-mono"
+              style={{ background: '#282B35', border: '1px solid #333' }}
             >
-              <code style={{ color: '#E2E2DE' }}>{sdkCode}</code>
+              <code style={{ color: '#e8e9e9' }}>{sdkCode}</code>
             </pre>
             <button
-              className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 flex items-center justify-center rounded"
+              className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 flex items-center justify-center"
               style={{ background: 'rgba(255,255,255,0.1)' }}
               onClick={handleCopy}
             >
-              {copied ? <Check className="h-4 w-4" style={{ color: '#4ADE80' }} /> : <Copy className="h-4 w-4" style={{ color: '#9E9E98' }} />}
+              {copied ? <Check className="h-4 w-4" style={{ color: '#4ADE80' }} /> : <Copy className="h-4 w-4" style={{ color: '#6B6F7D' }} />}
             </button>
           </div>
-          <p className="text-center text-sm mt-4" style={{ color: '#6B6B67' }}>
+          <p className="text-sm mt-4" style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
             That's it. Every payment is now evaluated against your policy.
           </p>
         </div>
@@ -126,20 +125,26 @@ export function StandardSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
         >
-          <h3 className="text-lg font-medium mb-4 text-center" style={{ color: '#1E2D2D' }}>Simple Options → Full Policy</h3>
+          <h3 className="text-lg font-medium mb-4" style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>Simple Options → Full Policy</h3>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm max-w-2xl mx-auto ferron-card">
+            <table
+              className="w-full text-sm max-w-2xl"
+              style={{
+                background: 'linear-gradient(75.85deg, #ffffff 14.68%, #e9eff0 184.03%)',
+                clipPath: 'polygon(24px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 24px)',
+              }}
+            >
               <thead>
-                <tr style={{ borderBottom: '1px solid #E2E2DE' }}>
-                  <th className="text-left py-3 px-4 font-mono text-xs uppercase tracking-wider" style={{ color: '#9E9E98' }}>Simple Option</th>
-                  <th className="text-left py-3 px-4 font-mono text-xs uppercase tracking-wider" style={{ color: '#9E9E98' }}>Policy Field</th>
+                <tr style={{ borderBottom: '1px solid #CAD0DA' }}>
+                  <th className="text-left py-3 px-6 font-mono text-xs uppercase tracking-wider" style={{ color: '#6B6F7D' }}>Simple Option</th>
+                  <th className="text-left py-3 px-6 font-mono text-xs uppercase tracking-wider" style={{ color: '#6B6F7D' }}>Policy Field</th>
                 </tr>
               </thead>
               <tbody>
                 {optionMapping.map(({ simple, policy }) => (
                   <tr key={simple} style={{ borderBottom: '1px solid #F5F5F3' }}>
-                    <td className="py-2 px-4 font-mono" style={{ color: '#3ECFA5' }}>{simple}</td>
-                    <td className="py-2 px-4 font-mono" style={{ color: '#6B6B67' }}>{policy}</td>
+                    <td className="py-2 px-6 font-mono" style={{ color: '#03D9AF' }}>{simple}</td>
+                    <td className="py-2 px-6 font-mono" style={{ color: '#6B6F7D' }}>{policy}</td>
                   </tr>
                 ))}
               </tbody>
@@ -150,14 +155,14 @@ export function StandardSection() {
         {/* Kicker and CTAs */}
         <div
           className={cn(
-            "text-center transition-all duration-700 delay-500",
+            "transition-all duration-700 delay-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
         >
-          <p className="text-lg mb-2" style={{ color: '#6B6B67' }}>The rules are boring.</p>
-          <p className="text-xl font-medium mb-8" style={{ color: '#1E2D2D' }}>The results are not.</p>
+          <p className="text-lg mb-2" style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>The rules are boring.</p>
+          <p className="text-xl font-medium mb-8" style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>The results are not.</p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/spec" className="btn-ghost flex items-center gap-2 group">
               <FileText className="h-4 w-4" />
               View the standard

@@ -111,10 +111,10 @@ export function UseCaseCarousel() {
   const Icon = activeCase.icon;
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
+    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#e8e9e9' }}>
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-12" style={{ textAlign: 'left' }}>
+        {/* Header - Left aligned */}
+        <div className="mb-12">
           <div className={cn(
             "section-label mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -127,21 +127,20 @@ export function UseCaseCarousel() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{
-              fontFamily: "'Bebas Neue', Impact, sans-serif",
-              fontSize: 'clamp(36px, 7vw, 60px)',
-              lineHeight: 0.88,
-              fontStyle: 'italic',
-              letterSpacing: '-2px',
+              fontFamily: "'Akira Expanded', 'Arial Black', sans-serif",
+              fontSize: 'clamp(32px, 5vw, 56px)',
+              lineHeight: 0.95,
+              letterSpacing: '-1px',
               textTransform: 'uppercase',
-              color: '#1E2D2D',
+              color: '#282B35',
             }}
           >
-            SEE XBPP IN <span style={{ color: '#3ECFA5' }}>ACTION</span>
+            SEE XBPP IN <span style={{ color: '#03D9AF' }}>ACTION</span>
           </h2>
           <p className={cn(
             "text-lg max-w-2xl transition-all duration-500 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )} style={{ color: '#6B6B67' }}>
+          )} style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
             Real scenarios. Real risks. Real protection.
           </p>
         </div>
@@ -152,71 +151,83 @@ export function UseCaseCarousel() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
           {/* Icon Selector */}
-          <div className="flex justify-center gap-2 mb-8 flex-wrap">
+          <div className="flex gap-2 mb-8 flex-wrap">
             {useCases.map((useCase, index) => {
               const CaseIcon = useCase.icon;
               return (
                 <button
                   key={useCase.id}
                   onClick={() => setActiveIndex(index)}
-                  className="p-3 rounded-lg transition-all duration-300"
+                  className="p-3 transition-all duration-300"
                   style={{
-                    background: index === activeIndex ? 'rgba(62, 207, 165, 0.1)' : 'white',
-                    border: `1px solid ${index === activeIndex ? 'rgba(62, 207, 165, 0.5)' : '#E2E2DE'}`,
+                    background: index === activeIndex ? 'rgba(3, 217, 175, 0.1)' : 'white',
+                    border: `1px solid ${index === activeIndex ? 'rgba(3, 217, 175, 0.5)' : '#CAD0DA'}`,
                     transform: index === activeIndex ? 'scale(1.1)' : 'scale(1)',
                   }}
                 >
-                  <CaseIcon className="h-5 w-5" style={{ color: index === activeIndex ? useCase.color : '#9E9E98' }} />
+                  <CaseIcon className="h-5 w-5" style={{ color: index === activeIndex ? useCase.color : '#6B6F7D' }} />
                 </button>
               );
             })}
           </div>
 
           {/* Active Case Display */}
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
             {/* Before Card */}
-            <div className="p-6 rounded-xl relative overflow-hidden" style={{ background: 'rgba(248, 113, 113, 0.08)', border: '1px solid rgba(248, 113, 113, 0.3)' }}>
+            <div
+              className="p-6 relative overflow-hidden"
+              style={{
+                background: 'rgba(248, 113, 113, 0.08)',
+                clipPath: 'polygon(24px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 24px)',
+              }}
+            >
               <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(to right, #F87171, rgba(248, 113, 113, 0.5))' }} />
               <div className="flex items-center gap-2 mb-4">
-                <div className="px-2 py-1 rounded text-xs font-mono uppercase" style={{ background: 'rgba(248, 113, 113, 0.15)', color: '#F87171' }}>
+                <div className="px-2 py-1 text-xs font-mono uppercase" style={{ background: 'rgba(248, 113, 113, 0.15)', color: '#F87171' }}>
                   Without xBPP
                 </div>
               </div>
               <div className="flex items-center gap-3 mb-3">
                 <Icon className="h-6 w-6" style={{ color: activeCase.color }} />
-                <h3 className="font-medium text-lg" style={{ color: '#1E2D2D' }}>{activeCase.title}</h3>
+                <h3 className="font-medium text-lg" style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>{activeCase.title}</h3>
               </div>
-              <p className="text-sm mb-3" style={{ color: '#6B6B67' }}>
+              <p className="text-sm mb-3" style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
                 <span className="font-medium" style={{ color: '#F87171' }}>Risk:</span> {activeCase.risk}
               </p>
-              <p style={{ color: '#1E2D2D' }}>{activeCase.before}</p>
+              <p style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>{activeCase.before}</p>
             </div>
 
             {/* After Card */}
-            <div className="p-6 rounded-xl relative overflow-hidden" style={{ background: 'rgba(74, 222, 128, 0.08)', border: '1px solid rgba(74, 222, 128, 0.3)' }}>
+            <div
+              className="p-6 relative overflow-hidden"
+              style={{
+                background: 'rgba(74, 222, 128, 0.08)',
+                clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 24px 100%, 0% calc(100% - 24px))',
+              }}
+            >
               <div className="absolute top-0 left-0 w-full h-1" style={{ background: 'linear-gradient(to right, #4ADE80, rgba(74, 222, 128, 0.5))' }} />
               <div className="flex items-center gap-2 mb-4">
-                <div className="px-2 py-1 rounded text-xs font-mono uppercase" style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ADE80' }}>
+                <div className="px-2 py-1 text-xs font-mono uppercase" style={{ background: 'rgba(74, 222, 128, 0.15)', color: '#4ADE80' }}>
                   With xBPP
                 </div>
               </div>
               <div className="flex items-center gap-3 mb-3">
                 <Icon className="h-6 w-6" style={{ color: activeCase.color }} />
-                <h3 className="font-medium text-lg" style={{ color: '#1E2D2D' }}>{activeCase.title}</h3>
+                <h3 className="font-medium text-lg" style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>{activeCase.title}</h3>
               </div>
-              <p className="text-sm mb-3" style={{ color: '#6B6B67' }}>
+              <p className="text-sm mb-3" style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
                 <span className="font-medium" style={{ color: '#4ADE80' }}>Protection:</span> Policy-enforced limits
               </p>
-              <p style={{ color: '#1E2D2D' }}>{activeCase.after}</p>
+              <p style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>{activeCase.after}</p>
             </div>
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-center items-center gap-4 mt-8">
+          <div className="flex items-center gap-4 mt-8">
             <button
               onClick={() => setActiveIndex((prev) => (prev - 1 + useCases.length) % useCases.length)}
-              className="p-2 rounded-lg transition-colors"
-              style={{ background: 'white', border: '1px solid #E2E2DE', color: '#6B6B67' }}
+              className="p-2 transition-colors"
+              style={{ background: 'white', border: '1px solid #CAD0DA', color: '#6B6F7D' }}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -225,25 +236,25 @@ export function UseCaseCarousel() {
                 <button
                   key={index}
                   onClick={() => setActiveIndex(index)}
-                  className="h-2 rounded-full transition-all duration-300"
+                  className="h-2 transition-all duration-300"
                   style={{
                     width: index === activeIndex ? '24px' : '8px',
-                    background: index === activeIndex ? '#3ECFA5' : '#E2E2DE',
+                    background: index === activeIndex ? '#03D9AF' : '#CAD0DA',
                   }}
                 />
               ))}
             </div>
             <button
               onClick={() => setActiveIndex((prev) => (prev + 1) % useCases.length)}
-              className="p-2 rounded-lg transition-colors"
-              style={{ background: 'white', border: '1px solid #E2E2DE', color: '#6B6B67' }}
+              className="p-2 transition-colors"
+              style={{ background: 'white', border: '1px solid #CAD0DA', color: '#6B6F7D' }}
             >
               <ChevronRight className="h-5 w-5" />
             </button>
           </div>
 
           {/* CTA */}
-          <div className="text-center mt-8">
+          <div className="mt-8">
             <Link
               to="/learn/by-example"
               className="btn-ghost inline-flex items-center gap-2 group"

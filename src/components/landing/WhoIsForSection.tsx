@@ -32,9 +32,10 @@ export function WhoIsForSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
+    <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#e8e9e9' }}>
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="mb-16" style={{ textAlign: 'left' }}>
+        {/* Header - Left aligned */}
+        <div className="mb-16">
           <div className="section-label mb-6">WHO THIS IS FOR</div>
           <h2
             className={cn(
@@ -42,18 +43,17 @@ export function WhoIsForSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
             style={{
-              fontFamily: "'Bebas Neue', Impact, sans-serif",
-              fontSize: 'clamp(32px, 6vw, 52px)',
-              lineHeight: 0.88,
-              fontStyle: 'italic',
-              letterSpacing: '-2px',
+              fontFamily: "'Akira Expanded', 'Arial Black', sans-serif",
+              fontSize: 'clamp(28px, 4vw, 48px)',
+              lineHeight: 0.95,
+              letterSpacing: '-1px',
               textTransform: 'uppercase',
-              color: '#1E2D2D',
+              color: '#282B35',
             }}
           >
             BUILT FOR PEOPLE WHO DECIDE
             <br />
-            HOW SYSTEMS <span style={{ color: '#3ECFA5' }}>BEHAVE.</span>
+            HOW SYSTEMS <span style={{ color: '#03D9AF' }}>BEHAVE.</span>
           </h2>
         </div>
 
@@ -64,27 +64,32 @@ export function WhoIsForSection() {
               <div
                 key={persona.title}
                 className={cn(
-                  "group p-6 rounded-xl ferron-card hover:shadow-md transition-all duration-500",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  "group p-6 transition-all duration-500"
                 )}
-                style={{ transitionDelay: `${300 + index * 100}ms` }}
+                style={{
+                  transitionDelay: `${300 + index * 100}ms`,
+                  background: 'linear-gradient(75.85deg, #ffffff 14.68%, #e9eff0 184.03%)',
+                  clipPath: 'polygon(20px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20px)',
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(32px)',
+                }}
               >
-                <Icon className="h-8 w-8 mb-4 transition-transform group-hover:scale-110" style={{ color: '#3ECFA5' }} />
-                <h3 className="font-medium mb-2 text-sm" style={{ color: '#1E2D2D' }}>{persona.title}</h3>
-                <p className="text-xs" style={{ color: '#6B6B67' }}>{persona.description}</p>
+                <Icon className="h-8 w-8 mb-4 transition-transform group-hover:scale-110" style={{ color: '#03D9AF' }} />
+                <h3 className="font-medium mb-2 text-sm" style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>{persona.title}</h3>
+                <p className="text-xs" style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>{persona.description}</p>
               </div>
             );
           })}
         </div>
 
         <div className={cn(
-          "text-center transition-all duration-700 delay-700",
+          "transition-all duration-700 delay-700",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <p className="text-xl md:text-2xl" style={{ color: '#6B6B67' }}>
+          <p className="text-xl md:text-2xl" style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
             If you are responsible for outcomes —
           </p>
-          <p className="text-xl md:text-2xl font-medium mt-2" style={{ color: '#1E2D2D' }}>
+          <p className="text-xl md:text-2xl font-medium mt-2" style={{ color: '#282B35', fontFamily: "'Figtree', sans-serif" }}>
             this is where you test assumptions before reality does.
           </p>
         </div>
