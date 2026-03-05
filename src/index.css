@@ -105,21 +105,7 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
-  }
-
-  /* Grain texture overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size: 256px 256px;
+    background: #EDEDEA;
   }
 }
 
@@ -175,15 +161,16 @@
     position: relative;
     background: white;
     padding: 32px;
+    overflow: visible;
   }
 
   .corner-card::before {
     content: '';
     position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 22px;
-    height: 22px;
+    top: 12px;
+    right: 12px;
+    width: 18px;
+    height: 18px;
     border-top: 2px solid #3ECFA5;
     border-right: 2px solid #3ECFA5;
   }
@@ -191,20 +178,20 @@
   .corner-card::after {
     content: '';
     position: absolute;
-    bottom: 14px;
-    left: 14px;
-    width: 22px;
-    height: 22px;
+    bottom: 12px;
+    left: 12px;
+    width: 18px;
+    height: 18px;
     border-bottom: 2px solid #3ECFA5;
     border-left: 2px solid #3ECFA5;
   }
 
   /* Ferron-style white card with light border */
   .ferron-card {
-    background: white;
+    background: #FFFFFF;
     border: 1px solid #E2E2DE;
     border-radius: 14px;
-    padding: 32px;
+    padding: 28px 32px;
   }
 
   /* Teal gradient button */

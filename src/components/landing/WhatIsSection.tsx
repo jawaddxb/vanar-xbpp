@@ -52,9 +52,9 @@ export function WhatIsSection() {
     <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="mb-16" style={{ textAlign: 'left' }}>
           <div className={cn(
-            "section-label justify-center mb-6 transition-all duration-500",
+            "section-label mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
             THE SOLUTION
@@ -68,9 +68,9 @@ export function WhatIsSection() {
             style={{
               fontFamily: "'Bebas Neue', Impact, sans-serif",
               fontSize: 'clamp(40px, 8vw, 72px)',
-              lineHeight: 0.95,
+              lineHeight: 0.88,
               fontStyle: 'italic',
-              letterSpacing: '-1px',
+              letterSpacing: '-2px',
               textTransform: 'uppercase',
               color: '#1E2D2D',
             }}
@@ -80,7 +80,7 @@ export function WhatIsSection() {
           </h2>
 
           <p className={cn(
-            "text-xl md:text-2xl max-w-2xl mx-auto transition-all duration-500 delay-200",
+            "text-xl md:text-2xl max-w-2xl transition-all duration-500 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )} style={{ color: '#6B6B67' }}>
             The open standard for <span style={{ color: '#1E2D2D', fontWeight: 500 }}>Agentic Governance</span>.

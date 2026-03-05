@@ -48,13 +48,15 @@ export function HeroSection() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #3ECFA5, #2AAF8E)' }}>
-                <span className="text-white font-display text-xl">V</span>
+            <Link to="/" className="flex items-center gap-2 group">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ width: '30px', height: '30px', borderRadius: '8px', background: 'linear-gradient(135deg, #3ECFA5, #2AAF8E)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <span style={{ color: 'white', fontFamily: "'Bebas Neue', sans-serif", fontSize: '18px', fontStyle: 'italic' }}>V</span>
+                </div>
+                <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#1E2D2D' }}>VANAR</span>
+                <span style={{ width: '1px', height: '16px', background: '#B8B8B4' }} />
+                <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 400, letterSpacing: '2px', textTransform: 'uppercase', color: '#6B6B67' }}>xBPP</span>
               </div>
-              <span className="text-sm font-semibold tracking-[0.15em] uppercase" style={{ color: '#1E2D2D' }}>
-                VANAR xBPP
-              </span>
             </Link>
 
             {/* Center Nav Links - Desktop */}
@@ -174,11 +176,11 @@ export function HeroSection() {
           <h1
             className={`mb-8 transition-all duration-500 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             style={{
-              fontFamily: "'Bebas Neue', Impact, sans-serif",
-              fontSize: 'clamp(48px, 10vw, 100px)',
-              lineHeight: 0.95,
+              fontFamily: "'Bebas Neue', Impact, 'Arial Narrow', sans-serif",
+              fontSize: 'clamp(64px, 10vw, 112px)',
+              lineHeight: 0.88,
               fontStyle: 'italic',
-              letterSpacing: '-1px',
+              letterSpacing: '-2px',
               textTransform: 'uppercase',
               color: '#1E2D2D',
             }}
@@ -212,15 +214,42 @@ export function HeroSection() {
           <div
             className={`flex flex-col sm:flex-row gap-4 transition-all duration-500 delay-300 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
-            <Link to="/playground" className="btn-teal flex items-center justify-center gap-2">
-              <PlayCircle className="h-5 w-5" />
-              Try the Playground
-              <ArrowRight className="h-5 w-5" />
+            <Link to="/playground" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'linear-gradient(135deg, #3ECFA5, #2AAF8E)',
+              color: 'white',
+              borderRadius: '10px',
+              padding: '16px 40px',
+              fontSize: '13px',
+              fontWeight: 700,
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
+              border: 'none',
+              textDecoration: 'none',
+            }}>
+              TRY THE PLAYGROUND
             </Link>
 
-            <Link to="/spec" className="btn-ghost flex items-center justify-center gap-2">
-              <FileText className="h-5 w-5" />
-              Read the Spec
+            <Link to="/spec" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              position: 'relative',
+              background: 'transparent',
+              color: '#1E2D2D',
+              borderRadius: '10px',
+              padding: '16px 40px',
+              fontSize: '13px',
+              fontWeight: 700,
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
+              border: '1.5px solid #B8B8B4',
+              textDecoration: 'none',
+            }}>
+              READ THE SPEC
+              <span style={{ position: 'absolute', top: '6px', right: '6px', width: '10px', height: '10px', borderTop: '1.5px solid #3ECFA5', borderRight: '1.5px solid #3ECFA5' }} />
+              <span style={{ position: 'absolute', bottom: '6px', left: '6px', width: '10px', height: '10px', borderBottom: '1.5px solid #3ECFA5', borderLeft: '1.5px solid #3ECFA5' }} />
             </Link>
           </div>
         </div>

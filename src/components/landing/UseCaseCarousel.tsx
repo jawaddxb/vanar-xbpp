@@ -114,9 +114,9 @@ export function UseCaseCarousel() {
     <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="mb-12" style={{ textAlign: 'left' }}>
           <div className={cn(
-            "section-label justify-center mb-6 transition-all duration-500",
+            "section-label mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}>
             USE CASES
@@ -129,9 +129,9 @@ export function UseCaseCarousel() {
             style={{
               fontFamily: "'Bebas Neue', Impact, sans-serif",
               fontSize: 'clamp(36px, 7vw, 60px)',
-              lineHeight: 0.95,
+              lineHeight: 0.88,
               fontStyle: 'italic',
-              letterSpacing: '-1px',
+              letterSpacing: '-2px',
               textTransform: 'uppercase',
               color: '#1E2D2D',
             }}
@@ -139,7 +139,7 @@ export function UseCaseCarousel() {
             SEE XBPP IN <span style={{ color: '#3ECFA5' }}>ACTION</span>
           </h2>
           <p className={cn(
-            "text-lg max-w-2xl mx-auto transition-all duration-500 delay-200",
+            "text-lg max-w-2xl transition-all duration-500 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )} style={{ color: '#6B6B67' }}>
             Real scenarios. Real risks. Real protection.

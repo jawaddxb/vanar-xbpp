@@ -56,9 +56,9 @@ export function ProblemSection() {
     <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="mb-16" style={{ textAlign: 'left' }}>
           <div className={cn(
-            "section-label justify-center mb-6 transition-all duration-500",
+            "section-label mb-6 transition-all duration-500",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )} style={{ color: '#F87171' }}>
             <span style={{ color: '#F87171' }}>THE PROBLEM</span>
@@ -72,9 +72,9 @@ export function ProblemSection() {
             style={{
               fontFamily: "'Bebas Neue', Impact, sans-serif",
               fontSize: 'clamp(40px, 8vw, 72px)',
-              lineHeight: 0.95,
+              lineHeight: 0.88,
               fontStyle: 'italic',
-              letterSpacing: '-1px',
+              letterSpacing: '-2px',
               textTransform: 'uppercase',
               color: '#1E2D2D',
             }}
@@ -83,7 +83,7 @@ export function ProblemSection() {
           </h2>
 
           <p className={cn(
-            "text-xl md:text-2xl max-w-3xl mx-auto transition-all duration-500 delay-200",
+            "text-xl md:text-2xl max-w-3xl transition-all duration-500 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )} style={{ color: '#6B6B67' }}>
             We solved <span style={{ color: '#1E2D2D', fontWeight: 500 }}>Capability</span> — the ability to act.

@@ -53,9 +53,9 @@ export function FinalCTASection() {
           style={{
             fontFamily: "'Bebas Neue', Impact, sans-serif",
             fontSize: 'clamp(40px, 8vw, 72px)',
-            lineHeight: 0.95,
+            lineHeight: 0.88,
             fontStyle: 'italic',
-            letterSpacing: '-1px',
+            letterSpacing: '-2px',
             textTransform: 'uppercase',
             color: '#3ECFA5',
           }}

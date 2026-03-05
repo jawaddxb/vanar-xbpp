@@ -59,8 +59,8 @@ export function StandardSection() {
     <section ref={sectionRef} className="py-20 md:py-28 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="section-label justify-center mb-6">THE STANDARD</div>
+        <div className="mb-12" style={{ textAlign: 'left' }}>
+          <div className="section-label mb-6">THE STANDARD</div>
           <h2
             className={cn(
               "transition-all duration-700",
@@ -69,9 +69,9 @@ export function StandardSection() {
             style={{
               fontFamily: "'Bebas Neue', Impact, sans-serif",
               fontSize: 'clamp(36px, 7vw, 56px)',
-              lineHeight: 0.95,
+              lineHeight: 0.88,
               fontStyle: 'italic',
-              letterSpacing: '-1px',
+              letterSpacing: '-2px',
               textTransform: 'uppercase',
               color: '#1E2D2D',
             }}

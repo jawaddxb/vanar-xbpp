@@ -34,8 +34,8 @@ export function WhoIsForSection() {
   return (
     <section ref={sectionRef} className="py-24 md:py-32 px-6 lg:px-12 relative" style={{ background: '#EDEDEA' }}>
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="text-center mb-16">
-          <div className="section-label justify-center mb-6">WHO THIS IS FOR</div>
+        <div className="mb-16" style={{ textAlign: 'left' }}>
+          <div className="section-label mb-6">WHO THIS IS FOR</div>
           <h2
             className={cn(
               "transition-all duration-700",
@@ -44,9 +44,9 @@ export function WhoIsForSection() {
             style={{
               fontFamily: "'Bebas Neue', Impact, sans-serif",
               fontSize: 'clamp(32px, 6vw, 52px)',
-              lineHeight: 0.95,
+              lineHeight: 0.88,
               fontStyle: 'italic',
-              letterSpacing: '-1px',
+              letterSpacing: '-2px',
               textTransform: 'uppercase',
               color: '#1E2D2D',
             }}
