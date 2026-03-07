@@ -28,8 +28,8 @@ const faqs = [
     answer: 'x402 answers \u201chow do I pay?\u201d \u2014 it is a payment execution protocol. xBPP answers \u201cshould I be allowed to pay?\u201d \u2014 it is a governance protocol. They work together: xBPP evaluates the policy, and if approved, x402 executes the payment.',
   },
   {
-    question: 'Is xBPP Base native?',
-    answer: 'xBPP is built on VanarChain and designed to be Base native \u2014 low fees, fast finality, and deep integration with the Base ecosystem and x402 reference implementation. It also supports other EVM-compatible chains.',
+    question: 'What chains does xBPP support?',
+    answer: 'xBPP is chain-agnostic by design. The reference implementation is built by VanarChain and optimised for Base, but the protocol works across any EVM-compatible chain and is designed to be extended to any payment rail.',
   },
   {
     question: 'Is xBPP open source?',

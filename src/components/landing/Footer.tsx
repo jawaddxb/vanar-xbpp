@@ -29,23 +29,15 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-8 h-8 flex items-center justify-center"
-                style={{
-                  background: 'linear-gradient(135deg, #03D9AF, #02B892)',
-                  clipPath: 'polygon(6px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 6px)',
-                }}
-              >
-                <span className="text-white text-lg font-bold" style={{ fontFamily: "'Akira Expanded', 'Arial Black', sans-serif" }}>V</span>
-              </div>
               <span
-                className="text-sm tracking-[0.15em] uppercase"
                 style={{
-                  color: '#e8e9e9',
+                  color: '#03D9AF',
                   fontFamily: "'Akira Expanded', 'Arial Black', sans-serif",
+                  fontSize: '16px',
+                  letterSpacing: '1px',
                 }}
               >
-                VANAR | xBPP
+                XBPP.ORG
               </span>
             </div>
             <p className="text-sm" style={{ color: '#6B6F7D', fontFamily: "'Figtree', system-ui, sans-serif" }}>
@@ -145,12 +137,14 @@ export function Footer() {
           </p>
           <a
             href="https://vanarchain.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs font-mono transition-colors"
             style={{ color: '#6B6F7D' }}
             onMouseEnter={(e) => (e.currentTarget.style.color = '#03D9AF')}
             onMouseLeave={(e) => (e.currentTarget.style.color = '#6B6F7D')}
           >
-            vanarchain.com
+            An open standard by VanarChain
           </a>
         </div>
       </div>

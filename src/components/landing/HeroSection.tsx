@@ -49,21 +49,12 @@ export function HeroSection() {
           <div className="flex items-center justify-between">
             {/* Logo - Akira Expanded */}
             <Link to="/" className="flex items-center gap-2 group">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{
-                  fontFamily: "'Akira Expanded', 'Arial Black', sans-serif",
-                  fontSize: '14px',
-                  letterSpacing: '1px',
-                  color: '#282B35',
-                }}>VANAR</span>
-                <span style={{ color: '#CAD0DA', fontSize: '14px' }}>|</span>
-                <span style={{
-                  fontFamily: "'Akira Expanded', 'Arial Black', sans-serif",
-                  fontSize: '14px',
-                  letterSpacing: '1px',
-                  color: '#03D9AF',
-                }}>xBPP</span>
-              </div>
+              <span style={{
+                fontFamily: "'Akira Expanded', 'Arial Black', sans-serif",
+                fontSize: '16px',
+                letterSpacing: '1px',
+                color: '#03D9AF',
+              }}>XBPP.ORG</span>
             </Link>
 
             {/* Center Nav Links - Desktop */}
@@ -181,7 +172,7 @@ export function HeroSection() {
             className={`mb-8 transition-all duration-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             <div className="section-label">
-              VANAR xBPP OPEN STANDARD
+              THE OPEN STANDARD
             </div>
           </div>
 
@@ -217,9 +208,9 @@ export function HeroSection() {
           <div
             className={`flex flex-wrap gap-6 mb-10 transition-all duration-500 delay-250 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
-            <div className="feature-dot">ZeroClaw fork</div>
-            <div className="feature-dot">Base native</div>
+            <div className="feature-dot">Open standard</div>
             <div className="feature-dot">x402 compatible</div>
+            <div className="feature-dot">Chain agnostic</div>
           </div>
 
           {/* CTA Buttons */}

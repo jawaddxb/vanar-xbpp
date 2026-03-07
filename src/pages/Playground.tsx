@@ -78,6 +78,7 @@ export default function Playground() {
     reasons: [],
   });
   const [isEvaluating, setIsEvaluating] = useState(false);
+  const [dailySpent, setDailySpent] = useState(0);
 
   // Update config when template changes
   useEffect(() => {
@@ -91,39 +92,50 @@ export default function Playground() {
     }
   }, [selectedTemplate]);
 
+  const resetDaily = () => setDailySpent(0);
+
   const runEvaluation = async (tx: Transaction) => {
     setSelectedTx(tx);
     setIsEvaluating(true);
-    setEvaluationState({
-      currentPhase: 0,
-      results: {},
-      verdict: null,
-      reasons: [],
-    });
+    setEvaluationState({ currentPhase: 0, results: {}, verdict: null, reasons: [] });
 
-    // Simulate 9-phase evaluation
     const results: Record<string, 'pass' | 'fail' | 'pending' | 'skip'> = {};
     const reasons: string[] = [];
     let blocked = false;
     let escalated = false;
 
     for (let i = 0; i < evaluationPhases.length; i++) {
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
+      await new Promise(resolve => setTimeout(resolve, 280));
       const phase = evaluationPhases[i];
       setEvaluationState(prev => ({ ...prev, currentPhase: i }));
 
-      // Simulate checks based on transaction and config
+      // Skip remaining phases if already blocked
+      if (blocked && phase.id !== 'final') {
+        results[phase.id] = 'skip';
+        setEvaluationState(prev => ({ ...prev, results: { ...results } }));
+        continue;
+      }
+
       if (phase.id === 'validation') {
         results[phase.id] = 'pass';
       } else if (phase.id === 'emergency') {
         results[phase.id] = 'pass';
       } else if (phase.id === 'input') {
-        results[phase.id] = 'pass';
+        if (tx.amount <= 0) {
+          results[phase.id] = 'fail';
+          reasons.push('INVALID_VALUE');
+          blocked = true;
+        } else {
+          results[phase.id] = 'pass';
+        }
       } else if (phase.id === 'core-limits') {
         if (tx.amount > config.maxSingle) {
           results[phase.id] = 'fail';
           reasons.push('EXCEEDS_SINGLE_LIMIT');
+          blocked = true;
+        } else if (dailySpent + tx.amount > config.maxDaily) {
+          results[phase.id] = 'fail';
+          reasons.push('EXCEEDS_DAILY_LIMIT');
           blocked = true;
         } else {
           results[phase.id] = 'pass';
@@ -137,7 +149,11 @@ export default function Playground() {
           blocked = true;
         } else if (tx.isNew && config.newCounterpartyAction === 'ESCALATE') {
           results[phase.id] = 'pass';
-          reasons.push('NEW_COUNTERPARTY');
+          reasons.push('NEW_COUNTERPARTY_REVIEW');
+          escalated = true;
+        } else if (config.requireVerified && tx.confidence < 0.8) {
+          results[phase.id] = 'pass';
+          reasons.push('VERIFICATION_REQUIRED');
           escalated = true;
         } else {
           results[phase.id] = 'pass';
@@ -147,35 +163,33 @@ export default function Playground() {
           results[phase.id] = 'pass';
           reasons.push('LOW_CONFIDENCE');
           escalated = true;
+        } else if (config.burstDetection && tx.amount > config.maxDaily * 0.8) {
+          results[phase.id] = 'pass';
+          reasons.push('BURST_DETECTED');
+          escalated = true;
         } else {
           results[phase.id] = 'pass';
         }
       } else if (phase.id === 'escalation') {
-        if (tx.amount > config.requireHumanAbove && !blocked) {
+        if (tx.amount > config.requireHumanAbove && !blocked && !escalated) {
           results[phase.id] = 'pass';
           reasons.push('HIGH_VALUE');
           escalated = true;
         } else {
-          results[phase.id] = blocked ? 'skip' : 'pass';
+          results[phase.id] = 'pass';
         }
       } else if (phase.id === 'final') {
         results[phase.id] = 'pass';
       }
 
-      setEvaluationState(prev => ({
-        ...prev,
-        results: { ...results },
-        reasons: [...reasons],
-      }));
+      setEvaluationState(prev => ({ ...prev, results: { ...results }, reasons: [...reasons] }));
     }
 
-    // Final verdict
-    const verdict = blocked ? 'BLOCK' : escalated ? 'ESCALATE' : 'ALLOW';
-    setEvaluationState(prev => ({
-      ...prev,
-      currentPhase: evaluationPhases.length,
-      verdict,
-    }));
+    const verdict: 'ALLOW' | 'BLOCK' | 'ESCALATE' = blocked ? 'BLOCK' : escalated ? 'ESCALATE' : 'ALLOW';
+    if (verdict === 'ALLOW') {
+      setDailySpent(prev => prev + tx.amount);
+    }
+    setEvaluationState(prev => ({ ...prev, currentPhase: evaluationPhases.length, verdict }));
     setIsEvaluating(false);
   };
 
@@ -391,6 +405,29 @@ export default function Playground() {
                   Click a transaction to run the 9-phase evaluation
                 </p>
               </div>
+            </div>
+
+            {/* Daily Budget */}
+            <div className="p-4 rounded-lg border border-border bg-card/50 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium">Daily Budget</span>
+                <Button size="sm" variant="ghost" className="h-6 px-2 text-xs" onClick={resetDaily}>
+                  <RotateCcw className="h-3 w-3 mr-1" />
+                  Reset
+                </Button>
+              </div>
+              <div className="w-full h-2 rounded-full bg-muted overflow-hidden mb-1">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${Math.min((dailySpent / config.maxDaily) * 100, 100)}%`,
+                    background: dailySpent > config.maxDaily ? '#ef4444' : '#03D9AF',
+                  }}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground font-mono">
+                ${dailySpent.toLocaleString()} spent / ${config.maxDaily.toLocaleString()} limit
+              </p>
             </div>
 
             {/* Quick JSON Preview */}
