@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { Code, Shield, Building2, Blocks, Brain } from 'lucide-react';
 
 const personas = [
-  { icon: Code, title: 'Base Developers', description: 'Building autonomous agents on-chain', href: '/learn/quick-start' },
+  { icon: Code, title: 'Agent Developers', description: 'Building AI agents that take autonomous actions', href: '/learn/quick-start' },
   { icon: Shield, title: 'Enterprise CTOs', description: 'Governing agent fleets at scale', href: '/library/policies' },
   { icon: Blocks, title: 'Protocol Builders', description: 'Designing the rules of interaction', href: '/spec' },
   { icon: Building2, title: 'Security Architects', description: 'Protecting systems from misuse', href: '/library/scenarios' },

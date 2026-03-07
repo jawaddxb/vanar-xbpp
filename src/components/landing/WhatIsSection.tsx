@@ -82,7 +82,7 @@ export function WhatIsSection() {
             "text-xl md:text-2xl max-w-2xl transition-all duration-500 delay-200",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )} style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
-            The open standard for <span style={{ color: '#282B35', fontWeight: 500 }}>Agentic Governance</span>.
+            One question, answered before every agent action:
           </p>
         </div>
 
@@ -106,15 +106,13 @@ export function WhatIsSection() {
           </div>
         </div>
 
-        {/* Programmable CFO */}
+        {/* Policy Engine */}
         <div className={cn(
           "mb-12 transition-all duration-500 delay-300",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
           <p className="text-lg" style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
-            Think of xBPP as a <span style={{ color: '#03D9AF', fontWeight: 500 }}>programmable CFO</span> for your AI agents.
-            <br />
-            You set the rules once (budgets, approved vendors, risk tolerance), and xBPP enforces them on every transaction.
+            xBPP is a <span style={{ color: '#03D9AF', fontWeight: 500 }}>policy engine</span> for autonomous agents. You define the boundaries. The protocol enforces them.
           </p>
         </div>
 

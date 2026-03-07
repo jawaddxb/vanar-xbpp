@@ -87,7 +87,7 @@ export function ProblemSection() {
           )} style={{ color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}>
             We solved <span style={{ color: '#282B35', fontWeight: 500 }}>Capability</span> — the ability to act.
             <br />
-            We haven't solved <span style={{ color: '#F87171', fontWeight: 500 }}>Liability</span> — the safety of the action.
+            We haven't solved <span style={{ color: '#F87171', fontWeight: 500 }}>Accountability</span> — proving the action was safe.
           </p>
         </div>
 

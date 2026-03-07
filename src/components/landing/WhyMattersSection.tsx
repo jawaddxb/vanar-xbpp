@@ -10,8 +10,8 @@ const developerBenefits = [
   },
   {
     icon: Star,
-    title: 'Monetize Trust',
-    description: 'An agent with a verifiable, public xBPP Policy is 10x more likely to be hired than a "black box" agent.',
+    title: 'Verifiable Trust',
+    description: 'Agents that can prove their constraints get adopted. xBPP gives every agent a verifiable policy profile — what it can do, what it cannot, and what requires human approval. Transparent agents win.',
   },
 ];
 

@@ -20,8 +20,8 @@ const comparisons = [
   },
   {
     aspect: 'Liability',
-    before: 'Developer is blamed for bugs',
-    after: 'Protocol enforces the Policy, capping loss',
+    before: 'Blame the developer',
+    after: 'Audit the verdict — the Protocol enforced the Policy',
   },
 ];
 

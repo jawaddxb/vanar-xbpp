@@ -59,7 +59,7 @@ export function FinalCTASection() {
             color: '#03D9AF',
           }}
         >
-          TRUST IS THE PRODUCT.
+          BUILD AGENTS WORTH TRUSTING.
         </h2>
 
         <div className={cn(

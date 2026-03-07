@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     question: 'Is xBPP open source?',
-    answer: 'Yes. xBPP is an open standard with an open-source reference implementation. The specification, SDK, policy templates, and test suite are all freely available at github.com/Big-Immersive/rule-observer.',
+    answer: 'Yes. xBPP is an open standard with an open-source reference implementation. The specification, SDK, policy templates, and test suite are all freely available and open to contribution.',
   },
 ];
 

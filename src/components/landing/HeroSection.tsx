@@ -199,9 +199,7 @@ export function HeroSection() {
             className={`mb-8 max-w-xl transition-all duration-500 delay-200 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
             style={{ fontSize: '17px', lineHeight: 1.7, color: '#6B6F7D', fontFamily: "'Figtree', sans-serif" }}
           >
-            xBPP is the open standard for agentic governance. Define your rules once —
-            budgets, approved vendors, risk tolerance — and every transaction follows them.
-            A programmable CFO that says yes, no, or "ask me first."
+            xBPP is the open standard that answers one question before every agent action: should this be allowed? Define policies once — spending limits, approved vendors, escalation rules — and every agent follows them. No custom code. No prayer. Just policy.
           </p>
 
           {/* Feature Dot Row */}
@@ -209,7 +207,7 @@ export function HeroSection() {
             className={`flex flex-wrap gap-6 mb-10 transition-all duration-500 delay-250 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             <div className="feature-dot">Open standard</div>
-            <div className="feature-dot">x402 compatible</div>
+            <div className="feature-dot">Payment-rail agnostic</div>
             <div className="feature-dot">Chain agnostic</div>
           </div>
 

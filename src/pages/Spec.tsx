@@ -391,8 +391,7 @@ export default function Spec() {
                 </div>
                 
                 <p className="text-lg text-muted-foreground">
-                  Think of xBPP as a <span className="text-foreground font-medium">programmable CFO for your AI agents</span>. 
-                  You set the rules once (budgets, approved vendors, risk tolerance), and xBPP enforces them on every transaction.
+                  xBPP is a <span className="text-foreground font-medium">policy engine for autonomous agents</span>. You define the boundaries. The protocol enforces them.
                 </p>
               </div>
             </section>
