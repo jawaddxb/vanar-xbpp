@@ -74,20 +74,17 @@ export function HeroSection() {
             </div>
 
             {/* Right CTA - Desktop */}
-            <a
-              href="https://github.com/vanarchain/xbpp"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold tracking-wider uppercase text-white transition-all hover:-translate-y-0.5"
+            <span
+              className="hidden lg:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold tracking-wider uppercase text-white opacity-40 cursor-not-allowed select-none"
               style={{
-                background: 'linear-gradient(135deg, #03D9AF, #029a7d)',
+                background: 'linear-gradient(135deg, #9ca3af, #6b7280)',
                 clipPath: 'polygon(10px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 10px)',
               }}
+              title="Reference implementation coming soon"
             >
               <Github className="h-4 w-4" />
-              GitHub
-              <ArrowRight className="h-4 w-4" />
-            </a>
+              SDK Coming Soon
+            </span>
 
             {/* Mobile Menu Button */}
             <button

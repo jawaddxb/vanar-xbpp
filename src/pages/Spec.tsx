@@ -350,11 +350,11 @@ export default function Spec() {
                     SDK Guide (810 lines)
                   </a>
                 </Button>
-                <Button variant="ghost" size="sm" asChild>
-                  <a href="https://github.com/anthropic/xbpp" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" disabled className="opacity-40 cursor-not-allowed">
+                  <span className="flex items-center gap-2">
                     <ExternalLink className="h-4 w-4" />
-                    GitHub
-                  </a>
+                    GitHub (coming soon)
+                  </span>
                 </Button>
               </div>
             </header>
@@ -767,9 +767,17 @@ export default function Spec() {
                 SDK Integration
               </h2>
               
+              {/* Reference Implementation Notice */}
+              <div className="mb-6 flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+                <span className="mt-0.5 text-base">⚠️</span>
+                <div>
+                  <span className="font-semibold">Reference implementation in development.</span> The API shown below represents the planned SDK surface. The <code className="rounded bg-amber-100 px-1 font-mono text-xs">@vanarchain/xbpp</code> package will be published to npm once the reference implementation is complete. Code samples are illustrative of the intended API design.
+                </div>
+              </div>
+
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">Installation</h3>
+                  <h3 className="text-lg font-medium mb-3">Installation <span className="ml-2 text-xs font-normal text-muted-foreground">(coming soon)</span></h3>
                   <CodeBlock code="npm install @vanarchain/xbpp" language="bash" />
                 </div>
                 
